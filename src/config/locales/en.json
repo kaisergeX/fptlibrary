@@ -1,0 +1,89 @@
+{
+  "common": {
+    "appName": "F3 Library",
+    "hello": "Hello world!",
+    "changeLang": "Change language",
+    "loading": "Loading",
+    "theme": {
+      "dark": "Dark mode",
+      "light": "Light mode",
+      "switch": "Toggle color scheme"
+    },
+    "afk": {
+      "title": "Standby mode",
+      "description": "Switched to standby mode to reduce unnecessary data transmission.\nAre you there? It's been more than {{afkTime}} minutes with no action detected!",
+      "hint": "Hover over this site to reconnect.",
+      "comeback": "Hey, welcome back! Reconnecting"
+    },
+
+    "search": "Search",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "close": "Close",
+    "actions": "Actions",
+
+    "numericalOrder": "No.",
+    "name": "Name",
+    "label": "Label",
+    "description": "Description",
+    "content": "Content",
+    "noData": "No Data",
+    "datePicker": {
+      "placeholder": "Pick dates range"
+    },
+    "communication": {
+      "fetching": {
+        "title": "Fetching...",
+        "message": "The system is synthesizing and retrieving data."
+      },
+      "cancelRequest": "Operation canceled due to new request."
+    },
+    "pagination": {
+      "info": "{{from}} - {{to}} / {{totalRecords}} records",
+      "pageSize": "{{size}}/page"
+    },
+
+    "success": "Data was loaded.",
+    "info": {
+      "pagingOutRange": "Your page number request has no data, showing the first page."
+    },
+    "error": {
+      "network": {
+        "title": "Network Issue",
+        "message": "Please check your internet connection!"
+      },
+      "sthWrong": {
+        "normal": "Something is not right...",
+        "action": "Something went wrong. Please try again later!"
+      }
+    },
+    "notFound": {
+      "description": "Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support."
+    }
+  },
+
+  "auth": {
+    "unknown": "Unknown user",
+    "validation": {
+      "password": "Password must contain at least 8 characters"
+    }
+  },
+  "home": {
+    "pageTitle": "Homepage",
+    "title": {
+      "label": "Title",
+      "placeholder": "Title"
+    },
+    "content": {
+      "label": "Content",
+      "placeholder": "Content"
+    }
+  },
+  "dashboard": {
+    "pageTitle": "Dashboard"
+  },
+  "setting": {
+    "pageTitle": "Settings"
+  }
+}

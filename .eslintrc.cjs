@@ -1,6 +1,11 @@
 module.exports = {
   root: true,
   env: {browser: true, es2020: true},
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
@@ -10,7 +15,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:tailwindcss/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', '*.config.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',

@@ -1,4 +1,6 @@
-# Library
+[![CI](https://github.com/kaisergeX/fptlibrary/actions/workflows/ci.yml/badge.svg)](https://github.com/kaisergeX/fptlibrary/actions/workflows/ci.yml)
+
+# F3 Library
 
 [![React](https://img.shields.io/badge/React-000?style=for-the-badge&logo=react&logoColor=fff)](https://react.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-fff?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)

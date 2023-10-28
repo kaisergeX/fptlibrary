@@ -21,7 +21,9 @@ module.exports = {
   plugins: ['react-refresh', 'tailwindcss', '@tanstack/query'],
   rules: {
     'prettier/prettier': ['warn', {}, {usePrettierrc: true}],
+    quotes: ['warn', 'single', {avoidEscape: true, allowTemplateLiterals: true}],
     'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
+    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', {argsIgnorePattern: '^_'}],
     '@typescript-eslint/consistent-type-imports': [
       'warn',

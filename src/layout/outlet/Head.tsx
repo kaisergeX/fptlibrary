@@ -8,7 +8,8 @@ export const Head = ({
   children,
 }: PropsWithChildren<{title?: string; description?: string}>) => {
   const headTitle = title ? `${title} | ${SERVICE_NAME}` : `${SERVICE_NAME}`;
-  const headDesc = description ?? `This is ${SERVICE_NAME}`;
+  const headDesc = description ?? `This is ${SERVICE_NAME}, a library web application.`;
+
   return (
     <Helmet>
       <title>{headTitle}</title>

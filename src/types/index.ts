@@ -3,6 +3,11 @@ export enum SupportedLanguage {
   VI = 'vi',
 }
 
+export type UserData = {
+  email: string;
+  name?: string;
+};
+
 export type Book = {
   id: string;
   name: string;

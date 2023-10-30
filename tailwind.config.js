@@ -4,6 +4,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 export default {
   corePlugins: {preflight: false},
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  darkMode: ['class', '[data-mantine-color-scheme="dark"]'],
   theme: {
     extend: {
       fontFamily: {

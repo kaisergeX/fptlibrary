@@ -1,49 +1,37 @@
-import {ActionIcon, MantineProvider} from '@mantine/core';
+import {Suspense} from 'react';
+import {LoadingOverlay, MantineProvider, createTheme} from '@mantine/core';
+import {DatesProvider} from '@mantine/dates';
+import {Notifications} from '@mantine/notifications';
 import {useTranslation} from 'react-i18next';
-import {mantineThemeOverride} from './config/system';
-import {SupportedLanguage} from './types';
-import CarouselCustom from './components/CarouselCustom';
 import {Head} from './layout/outlet/Head';
-
-const images = [
-  'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
-  'https://source.unsplash.com/user/erondu',
-  'https://source.unsplash.com/user/thedanrogers',
-  'https://source.unsplash.com/user/tianshu',
-  'https://source.unsplash.com/user/petervanosdall',
-];
-
-const countryFlag = {
-  [SupportedLanguage.EN]: 'https://flagsapi.com/US/flat/32.png',
-  [SupportedLanguage.VI]: 'https://flagsapi.com/VN/flat/32.png',
-} as const;
+import {useRoutes} from 'react-router-dom';
+import routesConfig from './config/routes';
+import {defaultLanguage} from './config/system';
+import {usePersistStore} from './store';
 
 function App() {
-  const {t, i18n} = useTranslation();
-
-  const renderLanguage = Object.values(SupportedLanguage).map((language) => (
-    <ActionIcon
-      key={language}
-      className="[&:disabled]:opacity-20"
-      variant="transparent"
-      onClick={() => void i18n.changeLanguage(language)}
-      disabled={i18n.resolvedLanguage === language}
-      aria-label={language}
-    >
-      <img src={countryFlag[language]} alt={language} />
-    </ActionIcon>
-  ));
+  const {i18n} = useTranslation();
+  const routers = useRoutes(routesConfig);
+  const appTheme = usePersistStore((state) => state.theme);
 
   return (
-    <MantineProvider theme={mantineThemeOverride}>
+    <MantineProvider theme={createTheme({primaryColor: appTheme})} defaultColorScheme="auto">
       <Head />
-      <div className="container mx-auto">
-        <h1 className="font-bold">{t('common.hello')}</h1>
-        <h2 className="mb-2 mt-4">{t('common.changeLang')}</h2>
-        <div className="flex gap-2">{renderLanguage}</div>
+      <Notifications />
 
-        <CarouselCustom images={images} imageProps={{h: '24rem'}} slideSize="50%" autoPlay={5000} />
-      </div>
+      <DatesProvider settings={{locale: i18n.resolvedLanguage || defaultLanguage}}>
+        <Suspense
+          fallback={
+            <LoadingOverlay
+              overlayProps={{opacity: 0.3}}
+              transitionProps={{duration: 500}}
+              visible
+            />
+          }
+        >
+          {routers}
+        </Suspense>
+      </DatesProvider>
     </MantineProvider>
   );
 }

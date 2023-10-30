@@ -7,7 +7,7 @@ type CarouselCustomProps = CarouselProps & {
   contents?: {id: string; content: ReactNode}[];
   className?: string;
   images?: string[];
-  imageProps?: Omit<ImageProps, 'src'>;
+  imageProps?: Omit<ImageProps, 'src'> & {alt?: string};
   autoPlay?: number;
 };
 
@@ -32,9 +32,15 @@ const CarouselCustom = ({
 }: CarouselCustomProps) => {
   const {current: autoplayPlugin} = useRef(autoPlay ? Autoplay({delay: autoPlay}) : undefined);
 
-  const renderImageSlides = images?.map((image) => (
+  const renderImageSlides = images?.map((image, index) => (
     <Carousel.Slide key={image}>
-      <Image src={image} {...imageProps} loading="lazy" />
+      <Image
+        src={image}
+        fallbackSrc="https://placehold.co/600x400?text=\n"
+        alt={`Carousel image ${index}`}
+        {...imageProps}
+        loading="lazy"
+      />
     </Carousel.Slide>
   ));
 
@@ -46,7 +52,7 @@ const CarouselCustom = ({
     <Carousel
       classNames={{
         root: 'group',
-        indicator: 'h-2 w-2 transition-[width] data-[active]:w-5',
+        indicator: 'h-2 w-2 transition-[width] data-[active]:w-5 hidden sm:inline-block',
         controls: 'opacity-0 transition-opacity group-hover:opacity-100',
       }}
       withIndicators

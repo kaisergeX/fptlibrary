@@ -2,6 +2,85 @@
   "common": {
     "appName": "F3 Library",
     "hello": "Xin chào!",
-    "changeLang": "Thay đổi ngôn ngữ"
+    "changeLang": "Thay đổi ngôn ngữ",
+    "loading": "Đang tải",
+    "theme": {
+      "dark": "Chế độ tối",
+      "light": "Chế độ sáng",
+      "switch": "Bật tắt chế độ tối",
+      "mode": "{{theme}} mode"
+    },
+    "afk": {
+      "title": "Chế độ chờ",
+      "description": "Switched to standby mode to reduce unnecessary data transmission.\nAre you there? It's been more than {{afkTime}} minutes with no action detected!",
+      "hint": "Hover over this site to reconnect.",
+      "comeback": "Hey, welcome back! Reconnecting"
+    },
+
+    "search": "Tìm kiếm",
+    "add": "Thêm",
+    "create": "Tạo mới",
+    "update": "Cập nhật",
+    "close": "Đóng",
+    "actions": "Hành động",
+
+    "numericalOrder": "No.",
+    "name": "Tên",
+    "label": "Nhãn",
+    "description": "Mô tả",
+    "title": "Tiêu đề",
+    "content": "Nội dung",
+    "noData": "Không có dữ liệu",
+    "datePicker": {
+      "placeholder": "Chọn một ngày"
+    },
+    "communication": {
+      "fetching": {
+        "title": "Đang nạp dữ liệu...",
+        "message": "Hệ thống đang truy xuất và đồng bộ dữ liệu."
+      },
+      "cancelRequest": "Hành động trước đó đã bị hủy do có yêu cầu mới."
+    },
+    "pagination": {
+      "info": "{{from}} - {{to}} / {{totalRecords}} bản ghi",
+      "pageSize": "{{size}}/trang"
+    },
+
+    "success": "Thành công",
+    "info": {
+      "pagingOutRange": "Số trang bạn yêu cầu không có dữ liệu, hiển thị trang đầu tiên."
+    },
+    "error": {
+      "network": {
+        "title": "Lỗi mạng",
+        "message": "Xin vui lòng kiểm tra kết nối Internet của bạn!"
+      },
+      "sthWrong": {
+        "normal": "Có lỗi xảy ra",
+        "action": "Đã xảy ra lỗi. Vui lòng thử lại sau!"
+      }
+    },
+    "notFound": {
+      "title": "Không tìm thấy trang!",
+      "description": "Trang bạn yêu cầu không tồn tại. Có thể bạn đã nhầm địa chỉ hoặc trang đã được chuyển sang đường dẫn khác.\nNếu bạn tin rằng đây là một lỗi, xin vui lòng liên hệ với chúng tôi."
+    }
+  },
+
+  "auth": {
+    "unknown": "Người dùng không xác định",
+    "validation": {
+      "password": "Mật khẩu phải chứa ít nhất 8 ký tự"
+    }
+  },
+
+  "home": {
+    "pageTitle": "Trang chủ"
+  },
+  "dashboard": {
+    "pageTitle": "Dashboard"
+  },
+  "setting": {
+    "pageTitle": "Cài đặt🔧",
+    "showcase": "Xem trước thay đổi✨"
   }
 }

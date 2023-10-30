@@ -7,7 +7,8 @@
     "theme": {
       "dark": "Dark mode",
       "light": "Light mode",
-      "switch": "Toggle color scheme"
+      "switch": "Toggle color scheme",
+      "mode": "{{theme}} mode"
     },
     "afk": {
       "title": "Standby mode",
@@ -27,10 +28,11 @@
     "name": "Name",
     "label": "Label",
     "description": "Description",
+    "title": "Title",
     "content": "Content",
     "noData": "No Data",
     "datePicker": {
-      "placeholder": "Pick dates range"
+      "placeholder": "Pick a date"
     },
     "communication": {
       "fetching": {
@@ -44,7 +46,7 @@
       "pageSize": "{{size}}/page"
     },
 
-    "success": "Data was loaded.",
+    "success": "Success",
     "info": {
       "pagingOutRange": "Your page number request has no data, showing the first page."
     },
@@ -54,12 +56,13 @@
         "message": "Please check your internet connection!"
       },
       "sthWrong": {
-        "normal": "Something is not right...",
+        "normal": "An error occurred",
         "action": "Something went wrong. Please try again later!"
       }
     },
     "notFound": {
-      "description": "Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support."
+      "title": "Page not found!",
+      "description": "The page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error, please get in touch with us."
     }
   },
 
@@ -69,21 +72,15 @@
       "password": "Password must contain at least 8 characters"
     }
   },
+
   "home": {
-    "pageTitle": "Homepage",
-    "title": {
-      "label": "Title",
-      "placeholder": "Title"
-    },
-    "content": {
-      "label": "Content",
-      "placeholder": "Content"
-    }
+    "pageTitle": "Homepage"
   },
   "dashboard": {
     "pageTitle": "Dashboard"
   },
   "setting": {
-    "pageTitle": "Settings"
+    "pageTitle": "Settings",
+    "showcase": "Showcase"
   }
 }

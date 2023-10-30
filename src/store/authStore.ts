@@ -2,9 +2,9 @@ import {type StateCreator} from 'zustand';
 import type {AuthState, AuthStore, PersistStore} from '~/types/store';
 
 export const defaultAuthState: AuthState = {
-  uid: undefined,
-  accessToken: undefined,
-  refreshToken: undefined,
+  uid: '',
+  accessToken: '',
+  refreshToken: '',
 };
 
 export const createAuthSlice: StateCreator<

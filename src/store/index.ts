@@ -4,7 +4,6 @@ import type {NormalStore, PersistStore} from '~/types/store';
 import {createAuthSlice} from './authStore';
 import {createUserSlice} from './userStore';
 import {createSystemPersistSlice} from './systemStore';
-import {SERVICE_NAME} from '~/config/system';
 
 export const usePersistStore = create<PersistStore>()(
   persist(
@@ -13,9 +12,9 @@ export const usePersistStore = create<PersistStore>()(
       ...createSystemPersistSlice(...store),
     }),
     {
-      name: SERVICE_NAME,
+      name: 'F3 Library',
       partialize: ({uid, accessToken, theme}) => ({uid, accessToken, theme}),
-      getStorage: () => sessionStorage, // create new store if needs to use other storage (eg: localStorage)
+      // storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );

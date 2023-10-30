@@ -1,4 +1,3 @@
-import {createTheme} from '@mantine/core';
 import {SupportedLanguage} from '~/types';
 
 /**
@@ -11,6 +10,4 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 /**
  * Language config
  */
-export const defaultLanguage = SupportedLanguage.EN;
-
-export const mantineThemeOverride = createTheme({});
+export const defaultLanguage = SupportedLanguage.VI;

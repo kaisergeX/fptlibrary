@@ -2,7 +2,7 @@ import type {StateCreator} from 'zustand';
 import type {PersistStore, SystemPersistState, SystemPersistStore} from '~/types/store';
 
 const defaultPersistState: SystemPersistState = {
-  theme: 'teal',
+  theme: 'dark',
 };
 
 export const createSystemPersistSlice: StateCreator<

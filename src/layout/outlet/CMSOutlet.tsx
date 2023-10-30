@@ -2,8 +2,9 @@ import {Navigate, Outlet} from 'react-router-dom';
 import {Path} from '~/config/path';
 
 const PrivateOutlet = () => {
-  const permissionDenied = false;
-  const isAuthenticated = false;
+  const role = 'admin';
+  const permissionDenied = role !== 'admin';
+  const isAuthenticated = true;
 
   if (!isAuthenticated) {
     return <Navigate to={Path.LOGIN} replace />;

@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Noto Sans', ...defaultTheme.fontFamily.sans],
+        sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+        handwriting: ['Pacifico', ...defaultTheme.fontFamily.sans],
       },
     },
   },

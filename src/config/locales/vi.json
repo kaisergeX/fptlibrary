@@ -1,6 +1,7 @@
 {
   "common": {
     "appName": "F3 Library",
+    "introduce": "Thư viện sách xây dựng bởi FSofter, dành riêng cho FSofter",
     "hello": "Xin chào!",
     "changeLang": "Thay đổi ngôn ngữ",
     "loading": "Đang tải",
@@ -23,6 +24,8 @@
     "update": "Cập nhật",
     "close": "Đóng",
     "actions": "Hành động",
+    "viewMore": "Xem thêm",
+    "rent": "Mượn sách",
 
     "numericalOrder": "No.",
     "name": "Tên",
@@ -70,6 +73,13 @@
     "unknown": "Người dùng không xác định",
     "validation": {
       "password": "Mật khẩu phải chứa ít nhất 8 ký tự"
+    }
+  },
+
+  "book": {
+    "genre": {
+      "horror": "Kinh dị",
+      "cookBooks": "Nấu ăn"
     }
   },
 

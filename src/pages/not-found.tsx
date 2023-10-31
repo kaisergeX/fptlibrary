@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
 import {Path} from '~/config/path';
 import {Head} from '~/layout/outlet/Head';
-import Animated404 from '~/assets/icon/404-animated.svg';
+import Animated404 from '~/assets/404-animated.svg';
 import {IconHome} from '@tabler/icons-react';
 
 const NotFoundPage = () => {

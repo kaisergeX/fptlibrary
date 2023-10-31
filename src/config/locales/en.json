@@ -1,6 +1,7 @@
 {
   "common": {
     "appName": "F3 Library",
+    "introduce": "Library built by FSofter, for FSofter",
     "hello": "Hello world!",
     "changeLang": "Change language",
     "loading": "Loading",
@@ -23,6 +24,8 @@
     "update": "Update",
     "close": "Close",
     "actions": "Actions",
+    "viewMore": "View more",
+    "rent": "Rent book",
 
     "numericalOrder": "No.",
     "name": "Name",
@@ -70,6 +73,13 @@
     "unknown": "Unknown user",
     "validation": {
       "password": "Password must contain at least 8 characters"
+    }
+  },
+
+  "book": {
+    "genre": {
+      "horror": "Horror",
+      "cookBooks": "Cook Books"
     }
   },
 

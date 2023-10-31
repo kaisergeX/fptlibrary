@@ -1,11 +1,28 @@
-import {Divider, Blockquote, Alert, Button, ActionIcon} from '@mantine/core';
+import {
+  Divider,
+  Blockquote,
+  Alert,
+  Button,
+  ActionIcon,
+  Tooltip,
+  useMantineColorScheme,
+} from '@mantine/core';
 import {DatePicker} from '@mantine/dates';
 import {showNotification, updateNotification} from '@mantine/notifications';
-import {IconAlertCircle, IconCheck, IconNotification} from '@tabler/icons-react';
+import {
+  IconAlertCircle,
+  IconCheck,
+  IconMoonStars,
+  IconNotification,
+  IconSun,
+} from '@tabler/icons-react';
 
 import {useTranslation} from 'react-i18next';
-import CarouselCustom from '~/components/CarouselCustom';
-import ThemeColors from '~/components/ThemeColors';
+import {Link} from 'react-router-dom';
+import CarouselCustom from '~/components/carousel-custom';
+import ThemeColors from '~/components/theme-colors';
+import {Path} from '~/config/path';
+import {SERVICE_NAME} from '~/config/system';
 import {SupportedLanguage} from '~/types';
 
 const images = [
@@ -23,6 +40,8 @@ const countryFlag = {
 
 const HiddenFeatures = () => {
   const {t, i18n} = useTranslation();
+  const {colorScheme, toggleColorScheme} = useMantineColorScheme();
+  const isDarkMode = colorScheme === 'dark';
 
   const renderLanguage = Object.values(SupportedLanguage).map((language) => (
     <ActionIcon
@@ -39,84 +58,113 @@ const HiddenFeatures = () => {
   ));
 
   return (
-    <div className="container mx-auto p-4">
-      <h1>{t('setting.pageTitle')}</h1>
-      <h2 className="mb-2 mt-6">{t('common.changeLang')}</h2>
-      <div className="flex gap-2">{renderLanguage}</div>
+    <div className="relative">
+      <header className="glass flex-center-between sticky inset-x-0 top-0 z-10 gap-4 p-4">
+        <Link to={Path.HOMEPAGE} className="link-unstyled">
+          <h1 className="font-handwriting font-normal transition-all hover:drop-shadow-md">
+            {SERVICE_NAME}
+          </h1>
+        </Link>
 
-      <Divider my="xl" variant="dashed" />
-      <ThemeColors className="flex-wrap" />
-
-      <Divider my="xl" variant="dashed" />
-      <h2>{t('setting.showcase')}</h2>
-      <Blockquote cite="- Forrest Gump" radius="md" className="my-8">
-        Life is like an npm install - you never know what you are going to get.
-      </Blockquote>
-
-      <Alert
-        className="mb-8"
-        icon={<IconAlertCircle size={16} />}
-        title={t('common.error.sthWrong.normal')}
-        radius="md"
-      >
-        {t('common.error.sthWrong.action')}
-      </Alert>
-
-      <DatePicker className="mx-auto w-fit" defaultValue={new Date()} />
-
-      <Divider my="xl" variant="dashed" />
-      <div className="flex flex-wrap items-center gap-4">
-        <Button
-          variant="outline"
-          leftSection={<IconNotification />}
-          onClick={() =>
-            showNotification({
-              title: 'Default notification',
-              message: 'Hey there! 👋',
-            })
-          }
+        <Tooltip
+          className="capitalize"
+          withArrow
+          label={t(`common.theme.mode`, {theme: colorScheme})}
+          openDelay={500}
         >
-          Show notification
-        </Button>
+          <ActionIcon
+            variant="outline"
+            size="lg"
+            radius="xl"
+            color={isDarkMode ? 'yellow' : ''}
+            onClick={() => toggleColorScheme()}
+          >
+            {isDarkMode ? <IconMoonStars size={18} /> : <IconSun size={18} />}
+          </ActionIcon>
+        </Tooltip>
+      </header>
 
-        <Button
-          variant="gradient"
-          gradient={{from: 'teal', to: 'lime', deg: 105}}
-          onClick={() => {
-            showNotification({
-              id: 'load-data',
-              loading: true,
-              title: 'Loading your data',
-              message: 'Data will be loaded in 5 seconds, you cannot close this yet',
-              autoClose: false,
-              withCloseButton: true,
-            });
+      <main className="container mx-auto p-4">
+        <h1>{t('setting.pageTitle')}</h1>
+        <h2 className="mb-2 mt-6">{t('common.changeLang')}</h2>
+        <div className="flex gap-2">{renderLanguage}</div>
 
-            setTimeout(() => {
-              updateNotification({
+        <Divider my="xl" variant="dashed" />
+        <ThemeColors className="flex-wrap" />
+
+        <Divider my="xl" variant="dashed" />
+        <h2>{t('setting.showcase')}</h2>
+        <Blockquote cite="- Forrest Gump" radius="md" className="my-8">
+          Life is like an npm install - you never know what you are going to get.
+        </Blockquote>
+
+        <Alert
+          className="mb-8"
+          icon={<IconAlertCircle size={16} />}
+          title={t('common.error.sthWrong.normal')}
+          radius="md"
+        >
+          {t('common.error.sthWrong.action')}
+        </Alert>
+
+        <DatePicker className="mx-auto w-fit" defaultValue={new Date()} />
+
+        <Divider my="xl" variant="dashed" />
+        <div className="flex flex-wrap items-center gap-4">
+          <Button
+            variant="outline"
+            leftSection={<IconNotification />}
+            onClick={() =>
+              showNotification({
+                title: 'Default notification',
+                message: 'Hey there! 👋',
+              })
+            }
+          >
+            Show notification
+          </Button>
+
+          <Button
+            variant="gradient"
+            gradient={{from: 'teal', to: 'lime', deg: 105}}
+            onClick={() => {
+              showNotification({
                 id: 'load-data',
-                color: 'teal',
-                title: 'Data was loaded',
-                message:
-                  'Notification will close in 3 seconds, you can close this notification now',
-                icon: <IconCheck size={16} />,
-                autoClose: 3000,
-                loading: false,
+                loading: true,
+                title: 'Loading your data',
+                message: 'Data will be loaded in 5 seconds, you cannot close this yet',
+                autoClose: false,
+                withCloseButton: true,
               });
-            }, 5000);
-          }}
-        >
-          Show update notification
-        </Button>
-      </div>
 
-      <Divider my="xl" variant="dashed" />
-      <CarouselCustom
-        images={images}
-        imageProps={{h: '24rem', alt: 'Carousel images'}}
-        slideSize="50%"
-        autoPlay={5000}
-      />
+              setTimeout(() => {
+                updateNotification({
+                  id: 'load-data',
+                  color: 'teal',
+                  title: 'Data was loaded',
+                  message:
+                    'Notification will close in 3 seconds, you can close this notification now',
+                  icon: <IconCheck size={16} />,
+                  autoClose: 3000,
+                  loading: false,
+                });
+              }, 5000);
+            }}
+          >
+            Show update notification
+          </Button>
+        </div>
+
+        <Divider my="xl" variant="dashed" />
+        <CarouselCustom
+          images={images}
+          imageProps={{h: '24rem', alt: 'Carousel images'}}
+          slideSize="50%"
+          autoPlay={5000}
+          withIndicators
+          loop
+        />
+      </main>
     </div>
   );
 };

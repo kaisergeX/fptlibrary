@@ -27,9 +27,9 @@ const BookCard = ({
 
   return (
     <div className={classNames('flex items-stretch sm:items-center', className)}>
-      <div className="flex-center sm-only:flex-1 sm:h-full">
+      <div className="flex items-center sm-only:flex-1 sm:h-full">
         <Image
-          className="relative max-h-full rounded-l-lg before:absolute before:inset-0 before:drop-shadow-2xl before:content-[''] sm:rounded-lg"
+          className="max-h-full rounded-lg"
           src={cover}
           fallbackSrc={`https://placehold.co/600x400?text=${name}`}
           alt={`Book cover - ${name}`}

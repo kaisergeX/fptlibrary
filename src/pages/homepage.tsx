@@ -152,16 +152,16 @@ const Homepage = () => {
 
       <section
         id="hero-section"
-        className="bg-watermark flex-center h-[40vh] before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)]"
+        className="bg-watermark flex-center h-[40vh] px-4 text-center before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)]"
       >
         <h2>{t('common.introduce')}</h2>
       </section>
 
-      <main className="bg-theme [&>section]:container [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:pb-8 [&_h2]:my-4 [&_h2]:font-bold">
+      <main className="bg-theme pb-4 [&>section]:container [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 sm:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
         <CarouselCustom
           images={images}
           imageProps={{alt: 'Carousel images'}}
-          slideSize={{base: '50%', xl: '30%'}}
+          slideSize={{base: '70%', lg: '40%', xl: '30%'}}
           height="40vh"
           autoPlay={5000}
           withIndicators
@@ -176,7 +176,7 @@ const Homepage = () => {
             </Link>
           </div>
           <div
-            className="text-watermark -top-20 left-14 text-[12rem] font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50"
+            className="text-watermark -top-10 left-14 text-[12rem] font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50"
             aria-hidden="true"
           >
             {t('book.genre.horror')}
@@ -187,7 +187,7 @@ const Homepage = () => {
             slideSize={{base: '70%', sm: '45%'}}
             slideGap={{base: 'sm', sm: 'xl'}}
             align="start"
-            loop={false}
+            loop
           />
         </section>
 
@@ -199,7 +199,7 @@ const Homepage = () => {
             </Link>
           </div>
           <div
-            className="text-watermark -top-24 left-14 -z-10 text-[12rem] font-black text-slate-200 sm-only:hidden dark:text-zinc-800/50"
+            className="text-watermark -top-10 left-14 -z-10 text-[12rem] font-black text-slate-200 sm-only:hidden dark:text-zinc-800/50"
             aria-hidden="true"
           >
             {t('book.genre.cookBooks')}
@@ -210,7 +210,7 @@ const Homepage = () => {
             slideSize={{base: '70%', sm: '45%'}}
             slideGap={{base: 'sm', sm: 'xl'}}
             align="start"
-            loop={false}
+            loop
           />
         </section>
       </main>

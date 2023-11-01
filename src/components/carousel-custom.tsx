@@ -40,7 +40,6 @@ const CarouselCustom = ({
         fallbackSrc="https://placehold.co/600x400?text=\n"
         alt={`Carousel image ${index}`}
         {...imageProps}
-        loading="lazy"
       />
     </Carousel.Slide>
   ));
@@ -53,7 +52,7 @@ const CarouselCustom = ({
     <Carousel
       classNames={{
         root: 'group',
-        slide: 'flex-center',
+        slide: 'flex items-center',
         indicator: 'h-2 w-2 transition-[width] data-[active]:w-5 hidden sm:inline-block',
         controls: 'opacity-0 transition-opacity group-hover:opacity-100 sm-only:hidden',
       }}

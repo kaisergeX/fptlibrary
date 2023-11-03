@@ -12,7 +12,7 @@
 
   body {
     --mantine-font-family: theme(fontFamily.sans);
-    @apply scrollbar bg-zinc-50 text-black antialiased dark:bg-zinc-900 dark:text-zinc-200;
+    @apply scrollbar bg-default antialiased;
   }
 
   h1 {
@@ -28,7 +28,7 @@
   }
 
   a {
-    @apply text-blue-600 no-underline transition-colors hover:text-blue-400 hover:underline;
+    @apply text-blue-600 no-underline transition-colors hover:text-blue-400;
   }
 }
 
@@ -89,6 +89,10 @@
 }
 
 @layer utilities {
+  .bg-default {
+    @apply bg-zinc-50 text-black dark:bg-zinc-900 dark:text-zinc-200;
+  }
+
   .bg-theme {
     @apply bg-[#d6dbdc80] bg-gradient-to-t from-transparent to-white bg-no-repeat dark:bg-inherit dark:bg-none;
   }

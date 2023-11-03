@@ -1,4 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,15 +7,26 @@ export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   darkMode: ['class', '[data-mantine-color-scheme="dark"]'],
   theme: {
+    parallaxSpeed: {10: '10', 20: '20', 30: '30', 50: '50', 100: '100'},
     extend: {
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans],
         handwriting: ['Pacifico', ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        parallax: {to: {transform: 'translateY(calc(var(--parallax-speed)*100px))'}},
+      },
+      animation: {
+        parallax: 'parallax linear',
+      },
     },
   },
   plugins: [
-    ({addComponents, addVariant}) => {
+    plugin(({addVariant, addComponents, matchUtilities, theme}) => {
+      matchUtilities(
+        {'parallax-speed': (value) => ({'--parallax-speed': value})},
+        {values: theme('parallaxSpeed')},
+      );
       addVariant('sm-only', "@media screen and (max-width: theme('screens.sm'))");
       addComponents({
         '.flex-center-between': {
@@ -27,7 +39,20 @@ export default {
           justifyContent: 'center',
           display: 'flex',
         },
+        '.parallax': {
+          position: 'relative',
+          display: 'grid',
+          gridTemplateAreas: "'stack'",
+          zIndex: 0,
+
+          '& > *': {
+            gridArea: 'stack',
+            animation: theme('animation.parallax'),
+            animationTimeline: 'scroll()',
+          },
+        },
       });
-    },
+    }),
   ],
+  safelist: ['animate-parallax'],
 };

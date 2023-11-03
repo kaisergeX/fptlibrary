@@ -157,14 +157,14 @@ const Homepage = () => {
           <>
             <div className="absolute -bottom-32 z-[1] w-1/6 place-self-end overflow-x-hidden pl-8 opacity-20 parallax-speed-[25]">
               <img
-                className="ml-28 w-40 lg:w-96"
-                src="/image/parallax/book_painting1.svg"
+                className="ml-16 w-40 lg:w-96"
+                src="/image/parallax/book_painting1.png"
                 alt="the painting book image at the bottom-right"
               />
             </div>
             <img
-              className="z-[2] mr-96 mt-40 w-1/6 place-self-center opacity-10 parallax-speed-10 dark:opacity-30 dark:!filter-none"
-              src="/image/parallax/book_painting2.svg"
+              className="z-[2] mr-[20%] mt-40 w-1/6 place-self-center opacity-10 parallax-speed-10 dark:opacity-30 dark:!filter-none"
+              src="/image/parallax/book_painting2.png"
               alt="the painting book image in the center"
             />
           </>

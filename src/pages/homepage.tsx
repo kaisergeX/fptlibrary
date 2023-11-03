@@ -7,6 +7,9 @@ import BookCard from '~/components/book-card';
 import ScrollTopButton from '~/components/scroll-top-button';
 import {ActionIcon, Indicator} from '@mantine/core';
 import {IconBooks, IconChevronRight, IconSearch} from '@tabler/icons-react';
+import {classNames} from '~/util';
+
+const parallaxPainting = Math.random() < 0.5; // 50% probability of getting true
 
 const images = [
   'https://source.unsplash.com/user/jswords',
@@ -21,7 +24,6 @@ const horrorGenreBooks: CarouselCustomProps['items'] = [
     id: '1',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="MARIANA"
         author="Bailey Dupont"
         summary="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum ea minus fugit totam."
@@ -33,7 +35,6 @@ const horrorGenreBooks: CarouselCustomProps['items'] = [
     id: '2',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="WALK INTO THE SHADOW"
         author="Estelle Darcy"
         summary={`Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -46,7 +47,6 @@ const horrorGenreBooks: CarouselCustomProps['items'] = [
     id: '3',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="The SPIRIT"
         author="Lorna Alvarado"
         cover="https://marketplace.canva.com/EAFSOdPodiY/1/0/1003w/canva-colorful-dark-modern-photo-the-spirit-novel-book-cover-lZO8zJtHB88.jpg"
@@ -57,7 +57,7 @@ const horrorGenreBooks: CarouselCustomProps['items'] = [
     id: '4',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
+        className="lg:h-[40vh]"
         name="THE WOODS"
         author="Sebastian Bennett"
         summary="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum ea minus fugit totam."
@@ -69,7 +69,6 @@ const horrorGenreBooks: CarouselCustomProps['items'] = [
     id: '5',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="THE SOUND OF SILENCE"
         author="Sebastian Bennett"
         cover="https://marketplace.canva.com/EAFfP1ZZJ0s/1/0/1003w/canva-gray-white-minimalist-thriller-book-cover-4qsGN0bADV4.jpg"
@@ -83,7 +82,6 @@ const cookBooks: CarouselCustomProps['items'] = [
     id: '1',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="Ultimate Book of Recipes - Dishes of every shape for every occasion"
         author="Isabel Mercado"
         summary="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum ea minus fugit totam."
@@ -95,7 +93,6 @@ const cookBooks: CarouselCustomProps['items'] = [
     id: '2',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="Launch Recipe for today"
         cover="https://marketplace.canva.com/EAFnqIURljo/1/0/1003w/canva-green-photo-food-recipe-book-cover-Ao7bLRHIO5Q.jpg"
       />
@@ -105,7 +102,6 @@ const cookBooks: CarouselCustomProps['items'] = [
     id: '3',
     content: (
       <BookCard
-        className="sm:h-[40vh]"
         name="COOKING MADE SIMPLE"
         author="Isabel Mercado & Claudia Alves"
         cover="https://marketplace.canva.com/EAFK_7GQdBQ/1/0/1003w/canva-gray-dark-contemporary-modern-photo-cookbook-recipe-book-cover-rImuYf0Dit4.jpg"
@@ -152,12 +148,63 @@ const Homepage = () => {
 
       <section
         id="hero-section"
-        className="bg-watermark flex-center h-[40vh] px-4 text-center before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)]"
+        className={classNames(
+          'bg-watermark parallax h-[50vh] px-4 before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)] sm-only:[&>img]:hidden',
+          'dark:[&>img]:hue-rotate-180 dark:[&>img]:invert',
+        )}
       >
-        <h2>{t('common.introduce')}</h2>
+        {parallaxPainting ? (
+          <>
+            <div className="absolute -bottom-32 z-[1] w-1/6 place-self-end overflow-x-hidden pl-8 opacity-20 parallax-speed-[25]">
+              <img
+                className="ml-28 w-40 lg:w-96"
+                src="/image/parallax/book_painting1.svg"
+                alt="the painting book image at the bottom-right"
+              />
+            </div>
+            <img
+              className="z-[2] mr-96 mt-40 w-1/6 place-self-center opacity-10 parallax-speed-10 dark:opacity-30 dark:!filter-none"
+              src="/image/parallax/book_painting2.svg"
+              alt="the painting book image in the center"
+            />
+          </>
+        ) : (
+          <>
+            <img
+              className="z-[1] mt-10 w-20 justify-self-end opacity-20 parallax-speed-30 lg:w-40"
+              src="/image/parallax/book3.svg"
+              alt="the book image on the top-right"
+            />
+            <img
+              className="z-[1] w-20 self-end opacity-40 parallax-speed-[18] lg:w-40"
+              src="/image/parallax/book2.svg"
+              alt="the book image at the bottom-left"
+            />
+            <img
+              className="z-[1] ml-40 mt-40 w-20 place-self-center opacity-20 parallax-speed-10 lg:w-40"
+              src="/image/parallax/book1.svg"
+              alt="the book image in the center"
+            />
+            <img
+              className="z-[1] ml-20 w-20 self-center opacity-10 parallax-speed-[40] lg:w-40"
+              src="/image/parallax/book4.svg"
+              alt="the book image on the center-left"
+            />
+
+            <img
+              className="z-[2] -mt-8 mr-[20%] w-20 justify-self-center opacity-20 lg:w-40"
+              src="/image/parallax/book5.svg"
+              alt="the book image at the top-center"
+            />
+          </>
+        )}
+
+        <h2 className="z-10 place-self-center text-center text-xl sm:text-2xl xl:text-6xl">
+          {t('common.introduce')}
+        </h2>
       </section>
 
-      <main className="bg-theme pb-4 [&>section]:container [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 sm:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
+      <main className="bg-theme relative pb-4 [&>section]:container [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
         <CarouselCustom
           images={images}
           imageProps={{alt: 'Carousel images'}}
@@ -176,16 +223,17 @@ const Homepage = () => {
             </Link>
           </div>
           <div
-            className="text-watermark -top-10 left-14 text-[12rem] font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50"
+            className="text-watermark -top-2 left-14 text-9xl font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
             aria-hidden="true"
           >
             {t('book.genre.horror')}
           </div>
 
           <CarouselCustom
+            className="lg:[&_.book-card]:h-[40vh]"
             items={horrorGenreBooks}
-            slideSize={{base: '70%', sm: '45%'}}
-            slideGap={{base: 'sm', sm: 'xl'}}
+            slideSize={{base: '70%', sm: '55%', lg: '45%'}}
+            slideGap={{base: 'sm', lg: 'xl'}}
             align="start"
             loop
           />
@@ -199,16 +247,17 @@ const Homepage = () => {
             </Link>
           </div>
           <div
-            className="text-watermark -top-10 left-14 -z-10 text-[12rem] font-black text-slate-200 sm-only:hidden dark:text-zinc-800/50"
+            className="text-watermark -top-2 left-14 -z-10 text-9xl font-black text-slate-200 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
             aria-hidden="true"
           >
             {t('book.genre.cookBooks')}
           </div>
 
           <CarouselCustom
+            className="lg:[&_.book-card]:h-[40vh]"
             items={cookBooks}
-            slideSize={{base: '70%', sm: '45%'}}
-            slideGap={{base: 'sm', sm: 'xl'}}
+            slideSize={{base: '70%', sm: '55%', lg: '45%'}}
+            slideGap={{base: 'sm', lg: 'xl'}}
             align="start"
             loop
           />
@@ -216,7 +265,7 @@ const Homepage = () => {
       </main>
 
       <ScrollTopButton />
-      <footer className="p-4 sm:h-[40vh]">Footer content</footer>
+      <footer className="bg-[#d6dbdc80] p-4 dark:bg-inherit sm:h-[40vh]">Footer content</footer>
     </div>
   );
 };

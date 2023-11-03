@@ -26,8 +26,13 @@ const BookCard = ({
   const {t} = useTranslation();
 
   return (
-    <div className={classNames('flex items-stretch sm:items-center', className)}>
-      <div className="flex items-center sm-only:flex-1 sm:h-full">
+    <div
+      className={classNames(
+        'book-card relative flex w-full items-stretch transition-shadow lg:items-center',
+        className,
+      )}
+    >
+      <div className="flex basis-2/5 items-center self-center sm:h-full sm:basis-1/2">
         <Image
           className="max-h-full rounded-lg"
           src={cover}
@@ -39,21 +44,21 @@ const BookCard = ({
       </div>
       <article
         className={classNames(
-          'flex w-80 flex-col justify-between gap-4 rounded-r-lg p-4 transition-colors duration-300 sm:h-[calc(100%-4rem)] sm:shadow-md',
-          'hover:bg-slate-100 dark:shadow dark:hover:bg-[#1a1a1a] sm:dark:shadow-slate-100/20',
-          'sm-only:flex-1',
+          'flex w-80 flex-col justify-between gap-4 rounded-lg p-4 transition-colors duration-300',
+          'bg-zinc-50/10 text-black hover:bg-slate-100 dark:bg-zinc-900/10 dark:text-zinc-200 dark:hover:bg-[#1a1a1a] lg:bg-transparent',
+          'basis-3/5 sm:basis-1/2 lg:h-[calc(100%-4rem)]',
         )}
       >
         <div>
           <Link className="text-inherit hover:text-blue-400" to="#">
-            <h3 className="line-clamp-2 font-bold sm:line-clamp-3 sm:text-xl">{name}</h3>
+            <h3 className="line-clamp-2 text-base font-bold lg:line-clamp-3 lg:text-xl">{name}</h3>
           </Link>
           {author && (
             <Link className="italic text-inherit hover:text-blue-400" to="#">
               {author}
             </Link>
           )}
-          {summary && <p className="mt-4 line-clamp-2 text-gray-500 sm:line-clamp-6">{summary}</p>}
+          {summary && <p className="mt-4 line-clamp-2 text-gray-500 lg:line-clamp-6">{summary}</p>}
         </div>
 
         <button className="button-secondary justify-center" type="button" onClick={onActionClick}>

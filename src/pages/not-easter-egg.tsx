@@ -158,8 +158,8 @@ const HiddenFeatures = () => {
         <Divider my="xl" variant="dashed" />
         <CarouselCustom
           images={images}
-          imageProps={{h: '24rem', alt: 'Carousel images'}}
-          slideSize="50%"
+          imageProps={{h: '40vh', alt: 'Carousel images'}}
+          slideSize="auto"
           autoPlay={5000}
           withIndicators
           loop

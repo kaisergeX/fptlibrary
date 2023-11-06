@@ -8,6 +8,7 @@ import {useRoutes} from 'react-router-dom';
 import routesConfig from './config/routes';
 import {defaultLanguage} from './config/system';
 import {usePersistStore} from './store';
+import FetchErrorBoundary from './pages/error-page/fetch-error-boundary';
 
 function App() {
   const {i18n} = useTranslation();
@@ -17,20 +18,22 @@ function App() {
   return (
     <MantineProvider theme={createTheme({primaryColor: appTheme})} defaultColorScheme="auto">
       <Head />
-      <Notifications />
+      <Notifications limit={5} />
 
       <DatesProvider settings={{locale: i18n.resolvedLanguage || defaultLanguage}}>
-        <Suspense
-          fallback={
-            <LoadingOverlay
-              overlayProps={{opacity: 0.3}}
-              transitionProps={{duration: 500}}
-              visible
-            />
-          }
-        >
-          {routers}
-        </Suspense>
+        <FetchErrorBoundary>
+          <Suspense
+            fallback={
+              <LoadingOverlay
+                overlayProps={{opacity: 0.3}}
+                transitionProps={{duration: 500}}
+                visible
+              />
+            }
+          >
+            {routers}
+          </Suspense>
+        </FetchErrorBoundary>
       </DatesProvider>
     </MantineProvider>
   );

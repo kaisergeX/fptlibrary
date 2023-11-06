@@ -2,7 +2,7 @@
   "common": {
     "appName": "F3 Library",
     "introduce": "Library built by FSofter, for FSofter",
-    "hello": "Hello world!",
+    "greeting": "Welcome to $t(common.appName)!",
     "changeLang": "Change language",
     "loading": "Loading",
     "theme": {
@@ -18,14 +18,21 @@
       "comeback": "Hey, welcome back! Reconnecting"
     },
 
+    "back": "Go back",
     "search": "Search",
     "add": "Add",
     "create": "Create",
     "update": "Update",
+    "delete": "Delete",
     "close": "Close",
     "actions": "Actions",
     "viewMore": "View more",
     "rent": "Rent book",
+    "features": "Features",
+    "account": "Account",
+    "management": "Management",
+    "quantity": "Quantity",
+    "tryAgain": "Try again",
 
     "numericalOrder": "No.",
     "name": "Name",
@@ -49,7 +56,10 @@
       "pageSize": "{{size}}/page"
     },
 
-    "success": "Success",
+    "success": {
+      "title": "Success",
+      "action": "{{action}} successfully!"
+    },
     "info": {
       "pagingOutRange": "Your page number request has no data, showing the first page."
     },
@@ -66,21 +76,58 @@
     "notFound": {
       "title": "Page not found!",
       "description": "The page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error, please get in touch with us."
+    },
+
+    "validation": {
+      "required": "This field is required"
     }
   },
 
   "auth": {
+    "login": "Login",
+    "signIn": {
+      "withGoogle": "Sign in with Google"
+    },
+    "toSignUp": "Not a member? Create an account",
+    "signUp": "Sign Up",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
     "unknown": "Unknown user",
     "validation": {
-      "password": "Password must contain at least 8 characters"
+      "email": "Invalid Email",
+      "password": "Password must contain at least 8 characters",
+      "passwordNotMatch": "Passwords did not match"
+    },
+    "signOut": "Sign Out",
+    "denied": {
+      "title": "Permission Denied",
+      "description": "You do not have permission to access this page. \nIf you believe this is an error, please contact us."
+    }
+  },
+
+  "policy": {
+    "sentence": "By clicking Sign Up, you are setting up an account and agree to our <PolicyComponent>{{policy}}</PolicyComponent>.",
+    "privacy": {
+      "title": "Privacy Policy"
     }
   },
 
   "book": {
+    "addedList": "Books list",
     "genre": {
       "horror": "Horror",
       "cookBooks": "Cook Books"
-    }
+    },
+    "exceeded": {
+      "title": "You have already added {{count}} books",
+      "description": "You cannot rent more books"
+    },
+    "existed": {
+      "title": "Books already exist",
+      "rent": "The book has already been selected"
+    },
+    "noData": "Haven't selected any books yet",
+    "memberOnly": "Only members can rent books"
   },
 
   "home": {
@@ -91,6 +138,6 @@
   },
   "setting": {
     "pageTitle": "Settings",
-    "showcase": "Showcase"
+    "showcase": "Showcase✨"
   }
 }

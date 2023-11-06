@@ -13,7 +13,13 @@ export const usePersistStore = create<PersistStore>()(
     }),
     {
       name: 'F3 Library',
-      partialize: ({uid, accessToken, theme}) => ({uid, accessToken, theme}),
+      // partialize: ({uid, accessToken, refreshToken, theme, isAuthenticated}) => ({
+      //   uid,
+      //   isAuthenticated,
+      //   accessToken,
+      //   refreshToken,
+      //   theme,
+      // }),
       // storage: createJSONStorage(() => sessionStorage),
     },
   ),

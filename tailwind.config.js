@@ -39,6 +39,9 @@ export default {
           justifyContent: 'center',
           display: 'flex',
         },
+        '.outline-pale': {
+          '@apply outline outline-slate-500/20 dark:outline-slate-300/50': '',
+        },
         '.parallax': {
           position: 'relative',
           display: 'grid',

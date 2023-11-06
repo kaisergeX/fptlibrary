@@ -1,6 +1,8 @@
 export enum Path {
   HOMEPAGE = '/',
-  LOGIN = '/login',
+  AUTH = '/auth',
+  LOGIN = '/auth/login',
+  SIGNUP = '/auth/signup',
   RENT = '/rent',
 
   CMS = '/cms',
@@ -10,3 +12,7 @@ export enum Path {
   PERMISSION_DENIED = '/permission-denied',
   UNDEFINED = '*',
 }
+
+export const SEARCH_PARAMS = {
+  REDIRECT_URL: 'redirectUrl',
+} as const;

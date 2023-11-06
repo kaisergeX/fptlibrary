@@ -1,0 +1,69 @@
+[
+  {
+    "id": "1",
+    "name": "MARIANA",
+    "author": "Bailey Dupont",
+    "summary": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum ea minus fugit totam.",
+    "cover": "https://marketplace.canva.com/EAFZfrpK8D4/1/0/1003w/canva-dark-minimalist-vintage-portrait-photo-ripped-paper-book-cover-TDLQ377Qb9o.jpg",
+    "genre": "1",
+    "genreName": "Horror"
+  },
+  {
+    "id": "2",
+    "name": "WALK INTO THE SHADOW",
+    "author": "Estelle Darcy",
+    "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus in deserunt nulla esse, omnis veritatis quas rem tempora natus quia dolores, quo inventore minus nesciunt quae tempore quisquam error doloremque!",
+    "cover": "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg",
+    "genre": "1",
+    "genreName": "Horror"
+  },
+  {
+    "id": "3",
+    "name": "The SPIRIT",
+    "author": "Lorna Alvarado",
+    "cover": "https://marketplace.canva.com/EAFSOdPodiY/1/0/1003w/canva-colorful-dark-modern-photo-the-spirit-novel-book-cover-lZO8zJtHB88.jpg",
+    "genre": "1",
+    "genreName": "Horror"
+  },
+  {
+    "id": "4",
+    "name": "THE WOODS",
+    "author": "Sebastian Bennett",
+    "summary": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum ea minus fugit totam.",
+    "cover": "https://marketplace.canva.com/EAFfP_ahICA/1/0/1003w/canva-gray-brown-minimalist-mysterious-thriller-book-cover-ChwIM5U8GOA.jpg",
+    "genre": "1",
+    "genreName": "Horror"
+  },
+  {
+    "id": "5",
+    "name": "THE SOUND OF SILENCE",
+    "author": "Sebastian Bennett",
+    "cover": "https://marketplace.canva.com/EAFfP1ZZJ0s/1/0/1003w/canva-gray-white-minimalist-thriller-book-cover-4qsGN0bADV4.jpg",
+    "genre": "1",
+    "genreName": "Horror"
+  },
+  {
+    "id": "6",
+    "name": "Ultimate Book of Recipes - Dishes of every shape for every occasion",
+    "author": "Isabel Mercado",
+    "summary": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum ea minus fugit totam.",
+    "cover": "https://marketplace.canva.com/EADao-bRSSQ/1/0/1003w/canva-red-and-white-cookbook-book-cover-rrJOs158M0U.jpg",
+    "genre": "2",
+    "genreName": "cookBooks"
+  },
+  {
+    "id": "7",
+    "name": "Launch Recipe for today",
+    "cover": "https://marketplace.canva.com/EAFnqIURljo/1/0/1003w/canva-green-photo-food-recipe-book-cover-Ao7bLRHIO5Q.jpg",
+    "genre": "2",
+    "genreName": "cookBooks"
+  },
+  {
+    "id": "8",
+    "name": "COOKING MADE SIMPLE",
+    "author": "Isabel Mercado & Claudia Alves",
+    "cover": "https://marketplace.canva.com/EAFK_7GQdBQ/1/0/1003w/canva-gray-dark-contemporary-modern-photo-cookbook-recipe-book-cover-rImuYf0Dit4.jpg",
+    "genre": "2",
+    "genreName": "cookBooks"
+  }
+]

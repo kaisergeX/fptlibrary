@@ -1,4 +1,7 @@
+import type {NotificationData} from '@mantine/notifications';
 import dayjs from 'dayjs';
+import notiConfigs from '~/config/notification';
+import type {ErrorCode, NotiCode} from '~/types/notification';
 
 export function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(' ');
@@ -33,3 +36,18 @@ export function isEqualNonNestedObj(
 
   return true;
 }
+
+export const safeAnyToNumber = <T = unknown>(
+  inputVal: Exclude<T, (...args: never) => unknown>,
+  fallbackNum = 0,
+) => {
+  if (inputVal === null || typeof inputVal === 'symbol') {
+    return fallbackNum;
+  }
+
+  const result = Number(inputVal);
+  return isNaN(result) ? fallbackNum : result;
+};
+
+export const findNotiConfig = (target: ErrorCode | NotiCode): NotificationData =>
+  notiConfigs.find(({code}) => code === target) || notiConfigs[0];

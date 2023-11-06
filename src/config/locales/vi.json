@@ -2,7 +2,7 @@
   "common": {
     "appName": "F3 Library",
     "introduce": "Thư viện sách xây dựng bởi FSofter, dành riêng cho FSofter",
-    "hello": "Xin chào!",
+    "greeting": "Chào mừng đến với $t(common.appName)!",
     "changeLang": "Thay đổi ngôn ngữ",
     "loading": "Đang tải",
     "theme": {
@@ -18,14 +18,21 @@
       "comeback": "Hey, welcome back! Reconnecting"
     },
 
+    "back": "Quay lại",
     "search": "Tìm kiếm",
     "add": "Thêm",
     "create": "Tạo mới",
     "update": "Cập nhật",
+    "delete": "Xoá",
     "close": "Đóng",
     "actions": "Hành động",
     "viewMore": "Xem thêm",
     "rent": "Mượn sách",
+    "features": "Tính năng",
+    "account": "Tài khoản",
+    "management": "Quản lý",
+    "quantity": "Số lượng",
+    "tryAgain": "Thử lại",
 
     "numericalOrder": "No.",
     "name": "Tên",
@@ -49,7 +56,10 @@
       "pageSize": "{{size}}/trang"
     },
 
-    "success": "Thành công",
+    "success": {
+      "title": "Thành công",
+      "action": "{{action}} thành công!"
+    },
     "info": {
       "pagingOutRange": "Số trang bạn yêu cầu không có dữ liệu, hiển thị trang đầu tiên."
     },
@@ -66,21 +76,58 @@
     "notFound": {
       "title": "Không tìm thấy trang!",
       "description": "Trang bạn yêu cầu không tồn tại. Có thể bạn đã nhầm địa chỉ hoặc trang đã được chuyển sang đường dẫn khác.\nNếu bạn tin rằng đây là một lỗi, xin vui lòng liên hệ với chúng tôi."
+    },
+
+    "validation": {
+      "required": "Trường bắt buộc"
     }
   },
 
   "auth": {
+    "login": "Đăng nhập",
+    "signIn": {
+      "withGoogle": "Đăng nhập bằng Google"
+    },
+    "toSignUp": "Chưa phải là thành viên? Đăng kí",
+    "signUp": "Đăng kí tài khoản",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
     "unknown": "Người dùng không xác định",
     "validation": {
-      "password": "Mật khẩu phải chứa ít nhất 8 ký tự"
+      "email": "Email không hợp lệ",
+      "password": "Mật khẩu phải chứa ít nhất 8 ký tự",
+      "passwordNotMatch": "Mật khẩu không khớp"
+    },
+    "signOut": "Đăng xuất",
+    "denied": {
+      "title": "Quyền bị từ chối",
+      "description": "Bạn không có quyền truy cập trang này. \nNếu bạn cho rằng đây là lỗi, vui lòng liên hệ với chúng tôi."
+    }
+  },
+
+  "policy": {
+    "sentence": "Với việc Đăng kí tài khoản, bạn đồng ý với <PolicyComponent>{{policy}}</PolicyComponent> của chúng tôi.",
+    "privacy": {
+      "title": "Chính sách bảo mật"
     }
   },
 
   "book": {
+    "addedList": "Sách đã thêm",
     "genre": {
       "horror": "Kinh dị",
       "cookBooks": "Nấu ăn"
-    }
+    },
+    "exceeded": {
+      "title": "Bạn đã thêm đủ {{count}} cuốn sách",
+      "description": "Không thể thêm sách nữa"
+    },
+    "existed": {
+      "title": "Sách đã tồn tại",
+      "rent": "Sách đã được chọn rồi"
+    },
+    "noData": "Bạn chưa chọn cuốn sách nào",
+    "memberOnly": "Chỉ thành viên mới có thể mượn sách"
   },
 
   "home": {
@@ -90,7 +137,7 @@
     "pageTitle": "Dashboard"
   },
   "setting": {
-    "pageTitle": "Cài đặt🔧",
+    "pageTitle": "Cài đặt",
     "showcase": "Xem trước thay đổi✨"
   }
 }

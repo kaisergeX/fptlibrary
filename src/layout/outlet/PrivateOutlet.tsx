@@ -1,9 +1,10 @@
 import {Navigate, Outlet} from 'react-router-dom';
 import {Path} from '~/config/path';
+import {usePersistStore} from '~/store';
 
 const PrivateOutlet = () => {
   const permissionDenied = false;
-  const isAuthenticated = false;
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated);
 
   if (!isAuthenticated) {
     return <Navigate to={Path.LOGIN} replace />;

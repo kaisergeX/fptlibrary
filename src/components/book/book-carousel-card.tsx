@@ -2,28 +2,37 @@ import {Image, type ImageProps} from '@mantine/core';
 import {IconBook2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
+import {usePersistStore} from '~/store';
+import type {Book} from '~/types';
 import {classNames} from '~/util';
 
-type BookCardProps = {
+type BookCarouselCardProps = Book & {
   className?: string;
-  name: string;
-  author?: string;
-  summary?: string;
-  cover: string;
   coverProps?: Omit<ImageProps, 'src'> & {alt?: string};
   onActionClick?: () => void;
 };
 
-const BookCard = ({
+const BookCarouselCard = ({
   className = '',
+  id,
   name,
   author,
   cover,
   summary,
   onActionClick,
   coverProps,
-}: BookCardProps) => {
+}: BookCarouselCardProps) => {
   const {t} = useTranslation();
+  const addBook = usePersistStore((state) => state.addBook);
+
+  const handleAction = () => {
+    if (onActionClick) {
+      onActionClick();
+      return;
+    }
+
+    addBook(id);
+  };
 
   return (
     <div
@@ -36,7 +45,7 @@ const BookCard = ({
         <Image
           className="max-h-full rounded-lg"
           src={cover}
-          fallbackSrc={`https://placehold.co/600x400?text=${name}`}
+          fallbackSrc={`https://placehold.co/200x300?text=${name}`}
           alt={`Book cover - ${name}`}
           loading="lazy"
           {...coverProps}
@@ -50,18 +59,22 @@ const BookCard = ({
         )}
       >
         <div>
-          <Link className="text-inherit hover:text-blue-400" to="#">
+          <Link className="link-secondary" to="#">
             <h3 className="line-clamp-2 text-base font-bold lg:line-clamp-3 lg:text-xl">{name}</h3>
           </Link>
           {author && (
-            <Link className="italic text-inherit hover:text-blue-400" to="#">
+            <Link className="link-secondary italic" to="#">
               {author}
             </Link>
           )}
-          {summary && <p className="mt-4 line-clamp-2 text-gray-500 lg:line-clamp-6">{summary}</p>}
+          {summary && (
+            <p className="mt-4 line-clamp-2 cursor-default text-gray-500 lg:line-clamp-6">
+              {summary}
+            </p>
+          )}
         </div>
 
-        <button className="button-secondary justify-center" type="button" onClick={onActionClick}>
+        <button className="button-secondary justify-center" type="button" onClick={handleAction}>
           <IconBook2 /> {t('common.rent')}
         </button>
       </article>
@@ -69,4 +82,4 @@ const BookCard = ({
   );
 };
 
-export default BookCard;
+export default BookCarouselCard;

@@ -1,16 +1,18 @@
-import {useTranslation} from 'react-i18next';
+import {Trans, useTranslation} from 'react-i18next';
 import CarouselCustom from '~/components/carousel-custom';
 import {Link} from 'react-router-dom';
 import BookCarouselCard from '~/components/book/book-carousel-card';
 import ScrollTopButton from '~/components/scroll-top-button';
-import {IconChevronRight} from '@tabler/icons-react';
+import {IconChevronRight, IconNotebook} from '@tabler/icons-react';
 import {classNames} from '~/util';
 import Navbar from '~/components/navbar';
-import type {Book} from '~/types';
-import {useSuspenseQuery} from '@tanstack/react-query';
+import type {BooksResData, GenresResData} from '~/types';
+import {useQuery, useSuspenseQuery} from '@tanstack/react-query';
 import {API, QueryKey} from '~/constants/service';
 import {http} from '~/util/http';
 import {Head} from '~/layout/outlet/Head';
+import NoData from '~/components/no-data';
+import type {ReactNode} from 'react';
 
 const parallaxBgGroup = Math.floor(Math.random() * 3);
 const heroParallaxGroup = [
@@ -71,7 +73,7 @@ const heroParallaxGroup = [
 
 const images = [
   'https://source.unsplash.com/user/jswords',
-  'https://source.unsplash.com/random/?universe',
+  'https://source.unsplash.com/random/?tree',
   'https://source.unsplash.com/user/erondu',
   'https://source.unsplash.com/user/thedanrogers',
   'https://source.unsplash.com/user/tianshu',
@@ -82,26 +84,69 @@ const images = [
 
 const Homepage = () => {
   const {t} = useTranslation();
+  const {data: sampledGenres} = useSuspenseQuery({
+    queryKey: [QueryKey.GENRES],
+    queryFn: () => http.get<GenresResData>(API.GENRES),
+    select: ({data}) => data.slice(0, 2),
+    // select: ({data}) => arrSamples(data, HOME_GENRE_COUNT),
+  });
 
-  const {
-    data: {horrorGenreBooks, cookBooks},
-  } = useSuspenseQuery({
-    queryKey: [QueryKey.BOOKS],
-    queryFn: () => http.get<Book[]>(API.BOOKS),
-    select: (data) => ({
-      horrorGenreBooks: data
-        .filter(({genre}) => genre === '1')
-        .map((bookData) => ({
-          id: bookData.id,
-          content: <BookCarouselCard {...bookData} />,
-        })),
-      cookBooks: data
-        .filter(({genre}) => genre === '2')
-        .map((bookData) => ({
-          id: bookData.id,
-          content: <BookCarouselCard {...bookData} />,
-        })),
-    }),
+  const {data: genreShowcase} = useQuery({
+    queryKey: [QueryKey.BOOKS, sampledGenres.length],
+    queryFn: () => http.get<BooksResData>(API.BOOKS),
+
+    select: ({data}): ReactNode[] => {
+      if (!Array.isArray(data)) {
+        return [];
+      }
+
+      const genreBooks: ReactNode[] = [];
+      sampledGenres.forEach(({id: genreId, name: genreName}) => {
+        const booksCarouselData = data.flatMap((bookData) =>
+          bookData.genres.includes(genreId)
+            ? {
+                id: bookData.id,
+                content: <BookCarouselCard {...bookData} />,
+              }
+            : [],
+        );
+
+        genreBooks.push(
+          <section key={genreId}>
+            <div className="flex-center-between">
+              <h2>
+                <Trans t={t}>genre.{genreName}</Trans>
+              </h2>
+              <Link className="link-secondary flex-center" to="#">
+                {t('common.viewMore')} <IconChevronRight />
+              </Link>
+            </div>
+            <div
+              className="text-watermark -top-2 left-14 text-9xl font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
+              aria-hidden="true"
+            >
+              <Trans t={t}>genre.{genreName}</Trans>
+            </div>
+
+            <CarouselCustom
+              className="lg:[&_.book-card]:h-[40vh]"
+              items={booksCarouselData}
+              slideSize={{base: '70%', sm: '55%', lg: '45%'}}
+              slideGap={{base: 'sm', lg: 'xl'}}
+              align="start"
+              loop
+              noData={
+                <NoData className="opacity-80" image={<IconNotebook size="4rem" />}>
+                  {t('book.noData.genre')}
+                </NoData>
+              }
+            />
+          </section>,
+        );
+      });
+      return genreBooks;
+    },
+    enabled: !!sampledGenres.length,
   });
 
   return (
@@ -133,53 +178,7 @@ const Homepage = () => {
           loop
         />
 
-        <section>
-          <div className="flex-center-between">
-            <h2>{t('book.genre.horror')}</h2>
-            <Link className="link-secondary flex-center" to="#">
-              {t('common.viewMore')} <IconChevronRight />
-            </Link>
-          </div>
-          <div
-            className="text-watermark -top-2 left-14 text-9xl font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
-            aria-hidden="true"
-          >
-            {t('book.genre.horror')}
-          </div>
-
-          <CarouselCustom
-            className="lg:[&_.book-card]:h-[40vh]"
-            items={horrorGenreBooks}
-            slideSize={{base: '70%', sm: '55%', lg: '45%'}}
-            slideGap={{base: 'sm', lg: 'xl'}}
-            align="start"
-            loop
-          />
-        </section>
-
-        <section>
-          <div className="flex-center-between">
-            <h2>{t('book.genre.cookBooks')}</h2>
-            <Link className="link-secondary flex-center" to="#">
-              {t('common.viewMore')} <IconChevronRight />
-            </Link>
-          </div>
-          <div
-            className="text-watermark -top-2 left-14 -z-10 text-9xl font-black text-slate-200 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
-            aria-hidden="true"
-          >
-            {t('book.genre.cookBooks')}
-          </div>
-
-          <CarouselCustom
-            className="lg:[&_.book-card]:h-[40vh]"
-            items={cookBooks}
-            slideSize={{base: '70%', sm: '55%', lg: '45%'}}
-            slideGap={{base: 'sm', lg: 'xl'}}
-            align="start"
-            loop
-          />
-        </section>
+        {genreShowcase}
       </main>
 
       <ScrollTopButton />

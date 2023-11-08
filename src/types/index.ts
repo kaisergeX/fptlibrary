@@ -8,12 +8,22 @@ export type UserInfo = {
   name?: string;
 };
 
+export type ResponseData<T> = {data: T};
+
+export type Genre = {
+  id: number;
+  name: string;
+};
+
+export type GenresResData = ResponseData<Genre[]>;
+
 export type Book = {
   id: string;
   name: string;
   author?: string;
   summary?: string;
   cover?: string;
-  genre: string;
-  genreName?: string;
+  genres: Genre['id'][];
 };
+
+export type BooksResData = ResponseData<Book[]>;

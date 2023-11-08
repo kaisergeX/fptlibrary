@@ -112,12 +112,19 @@
     }
   },
 
+  "genre": {
+    "horror": "Horror",
+    "cookBooks": "Cook Books",
+    "mystery": "Mystery",
+    "historical": "Historical",
+    "romance": "Romance",
+    "fantasy": "Fantasy"
+  },
+
   "book": {
+    "picked": "Picked",
+    "unPicked": "Remove from list",
     "addedList": "Books list",
-    "genre": {
-      "horror": "Horror",
-      "cookBooks": "Cook Books"
-    },
     "exceeded": {
       "title": "You have already added {{count}} books",
       "description": "You cannot rent more books"
@@ -126,7 +133,10 @@
       "title": "Books already exist",
       "rent": "The book has already been selected"
     },
-    "noData": "Haven't selected any books yet",
+    "noData": {
+      "emptyList": "Haven't selected any books yet",
+      "genre": "There are no books available in this category at the moment"
+    },
     "memberOnly": "Only members can rent books"
   },
 

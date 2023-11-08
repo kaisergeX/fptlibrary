@@ -25,7 +25,6 @@
     font-weight: inherit;
   }
 
-  img,
   svg,
   video,
   canvas,
@@ -39,6 +38,10 @@
   img,
   video {
     @apply h-auto max-w-full;
+  }
+
+  img {
+    @apply bg-cover bg-no-repeat align-middle italic;
   }
 
   ol,

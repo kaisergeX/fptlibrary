@@ -51,3 +51,25 @@ export const safeAnyToNumber = <T = unknown>(
 
 export const findNotiConfig = (target: ErrorCode | NotiCode): NotificationData =>
   notiConfigs.find(({code}) => code === target) || notiConfigs[0];
+
+/**
+ * {@link https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm Durstenfeld shuffle}
+ */
+export const arrShuffle = <T extends unknown[] = unknown[]>(arr: T, mutateSrc = false): T => {
+  const sourceArr = mutateSrc ? arr : structuredClone(arr);
+
+  for (let i = sourceArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // can replace Math.floor with bitwise or (eg: 11.6 | 0 => 11)
+    [sourceArr[i], sourceArr[j]] = [sourceArr[j], sourceArr[i]];
+  }
+
+  return sourceArr;
+};
+
+export const arrSamples = <T extends unknown[] = unknown[]>(arr: T, size = 1): T => {
+  if (!Array.isArray(arr)) {
+    return [] as unknown as T;
+  }
+
+  return arrShuffle(arr).slice(0, size) as T;
+};

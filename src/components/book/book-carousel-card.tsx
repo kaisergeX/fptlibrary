@@ -1,4 +1,5 @@
 import {Image, type ImageProps} from '@mantine/core';
+import {IconCheck} from '@tabler/icons-react';
 import {IconBook2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
@@ -23,7 +24,10 @@ const BookCarouselCard = ({
   coverProps,
 }: BookCarouselCardProps) => {
   const {t} = useTranslation();
-  const addBook = usePersistStore((state) => state.addBook);
+  const [isBookAdded, addBook] = usePersistStore((state) => [
+    state.books.includes(id),
+    state.addBook,
+  ]);
 
   const handleAction = () => {
     if (onActionClick) {
@@ -62,21 +66,22 @@ const BookCarouselCard = ({
           <Link className="link-secondary" to="#">
             <h3 className="line-clamp-2 text-base font-bold lg:line-clamp-3 lg:text-xl">{name}</h3>
           </Link>
-          {author && (
-            <Link className="link-secondary italic" to="#">
-              {author}
-            </Link>
-          )}
+          {author && <div className="italic">{author}</div>}
           {summary && (
             <p className="mt-4 line-clamp-2 cursor-default text-gray-500 lg:line-clamp-6">
               {summary}
             </p>
           )}
         </div>
-
-        <button className="button-secondary justify-center" type="button" onClick={handleAction}>
-          <IconBook2 /> {t('common.rent')}
-        </button>
+        {isBookAdded ? (
+          <button className="button-secondary justify-center" type="button" disabled>
+            <IconCheck className="text-green-500" /> {t('book.picked')}
+          </button>
+        ) : (
+          <button className="button-secondary justify-center" type="button" onClick={handleAction}>
+            <IconBook2 /> {t('common.rent')}
+          </button>
+        )}
       </article>
     </div>
   );

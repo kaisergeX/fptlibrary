@@ -15,3 +15,9 @@ export const MAX_SELECTED_BOOKS = maxSelectableBooks < 0 ? 0 : maxSelectableBook
  * Language config
  */
 export const defaultLanguage = SupportedLanguage.VI;
+
+/**
+ * UI config
+ */
+/** How many genres carousel will be shown */
+export const HOME_GENRE_COUNT: number = 2;

@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "horror"
+    },
+    {
+      "id": 2,
+      "name": "cookBooks"
+    },
+    {
+      "id": 3,
+      "name": "mystery"
+    },
+    {
+      "id": 4,
+      "name": "historical"
+    },
+    {
+      "id": 5,
+      "name": "romance"
+    },
+    {
+      "id": 6,
+      "name": "fantasy"
+    }
+  ]
+}

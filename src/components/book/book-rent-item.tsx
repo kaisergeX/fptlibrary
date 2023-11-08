@@ -34,11 +34,7 @@ const BookRentItem = ({className = '', id, cover, name, author, coverProps}: Boo
             <Link className="link-secondary" to="#">
               <h3 className="line-clamp-2 text-base font-bold">{name}</h3>
             </Link>
-            {author && (
-              <Link className="link-secondary italic" to="#">
-                {author}
-              </Link>
-            )}
+            {author && <div className="italic">{author}</div>}
           </div>
         </article>
         <div className="flex-center-between">

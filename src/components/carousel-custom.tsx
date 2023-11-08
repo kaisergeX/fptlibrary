@@ -3,6 +3,7 @@ import {Image, type ImageProps} from '@mantine/core';
 import {Carousel, type CarouselProps} from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-react';
+import NoData from './no-data';
 
 export type CarouselCustomProps = CarouselProps & {
   items?: {id: string; content: ReactNode}[];
@@ -10,6 +11,7 @@ export type CarouselCustomProps = CarouselProps & {
   images?: string[];
   imageProps?: Omit<ImageProps, 'src'> & {alt?: string};
   autoPlay?: number;
+  noData?: ReactNode;
 };
 
 /**
@@ -29,6 +31,7 @@ const CarouselCustom = ({
   images,
   imageProps,
   autoPlay,
+  noData,
   ...carouselAttributes
 }: CarouselCustomProps) => {
   const {current: autoplayPlugin} = useRef(autoPlay ? Autoplay({delay: autoPlay}) : undefined);
@@ -47,6 +50,10 @@ const CarouselCustom = ({
   const renderCustomSlides = items?.map(({id, content}) => (
     <Carousel.Slide key={id}>{content}</Carousel.Slide>
   ));
+
+  if (!items?.length && !images?.length) {
+    return noData || <NoData />;
+  }
 
   return (
     <Carousel

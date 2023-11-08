@@ -112,12 +112,19 @@
     }
   },
 
+  "genre": {
+    "horror": "Kinh dị",
+    "cookBooks": "Nấu ăn",
+    "mystery": "Kì bí",
+    "historical": "Lịch sử",
+    "romance": "Lãng mạn",
+    "fantasy": "Giả tưởng"
+  },
+
   "book": {
-    "addedList": "Sách đã thêm",
-    "genre": {
-      "horror": "Kinh dị",
-      "cookBooks": "Nấu ăn"
-    },
+    "picked": "Đã chọn",
+    "unPicked": "Bỏ chọn",
+    "addedList": "Sách đã chọn",
     "exceeded": {
       "title": "Bạn đã thêm đủ {{count}} cuốn sách",
       "description": "Không thể thêm sách nữa"
@@ -126,7 +133,10 @@
       "title": "Sách đã tồn tại",
       "rent": "Sách đã được chọn rồi"
     },
-    "noData": "Bạn chưa chọn cuốn sách nào",
+    "noData": {
+      "emptyList": "Bạn chưa chọn cuốn sách nào",
+      "genre": "Hiện tại không có sách thuộc thể loại này"
+    },
     "memberOnly": "Chỉ thành viên mới có thể mượn sách"
   },
 

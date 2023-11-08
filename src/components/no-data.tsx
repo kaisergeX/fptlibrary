@@ -11,9 +11,9 @@ const NoData = ({
   const {t} = useTranslation();
 
   return (
-    <div className={classNames('text-center', className)}>
-      {image || <IconDatabaseSearch className="my-4 inline-block opacity-50" size="4rem" />}
-      <p>{children || t('common.noData')}</p>
+    <div className={classNames('text-center [&>svg]:mx-auto', className)}>
+      {image || <IconDatabaseSearch className="opacity-50" size="4rem" />}
+      <p className="mt-4">{children || t('common.noData')}</p>
     </div>
   );
 };

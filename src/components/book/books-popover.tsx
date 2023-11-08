@@ -1,5 +1,5 @@
 import {Indicator, ActionIcon, Tooltip, Popover} from '@mantine/core';
-import {useSuspenseQuery} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import {IconBooks, IconLogin2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
@@ -9,16 +9,19 @@ import BookRentItem from './book-rent-item';
 import NoData from '../no-data';
 import {API, QueryKey} from '~/constants/service';
 import {http} from '~/util/http';
-import type {Book} from '~/types';
+import type {BooksResData} from '~/types';
+import {useAutoAnimate} from '@formkit/auto-animate/react';
 
 const BooksPopover = () => {
   const {books: selectedBookIds, isAuthenticated} = usePersistStore();
   const navigate = useNavigate();
   const {t} = useTranslation();
+  const [animateDropdown] = useAutoAnimate();
 
-  const {data: bookList} = useSuspenseQuery({
+  const {data: bookList = []} = useQuery({
     queryKey: [QueryKey.BOOKS],
-    queryFn: () => http.get<Book[]>(API.BOOKS),
+    queryFn: () => http.get<BooksResData>(API.BOOKS),
+    select: ({data}) => data,
   });
 
   const renderSelectedBooks = bookList
@@ -49,10 +52,15 @@ const BooksPopover = () => {
           </Indicator>
         </Tooltip>
       </Popover.Target>
-      <Popover.Dropdown className="max-h-[70vh] max-w-sm overflow-y-auto p-0 md:max-w-md 2xl:max-h-[unset] 2xl:max-w-lg">
+      <Popover.Dropdown
+        ref={animateDropdown}
+        className="max-h-[70vh] max-w-sm overflow-y-auto p-0 md:max-w-md 2xl:max-h-[unset] 2xl:max-w-lg"
+      >
         {renderSelectedBooks.length ? (
           <>
-            <div className="flex flex-col gap-4 p-4">{renderSelectedBooks}</div>
+            <div className="flex flex-col gap-4 p-4" ref={animateDropdown}>
+              {renderSelectedBooks}
+            </div>
 
             <div className="shadow-t-theme flex-center-between sticky inset-x-0 bottom-0 gap-2 bg-inherit p-4">
               {isAuthenticated ? (
@@ -82,7 +90,7 @@ const BooksPopover = () => {
             className="py-4 opacity-80"
             image={<IconBooks className="mb-4 inline-block" strokeWidth="1.25" size="4rem" />}
           >
-            {t('book.noData')}
+            {t('book.noData.emptyList')}
           </NoData>
         )}
       </Popover.Dropdown>

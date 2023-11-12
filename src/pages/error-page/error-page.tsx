@@ -21,7 +21,7 @@ const ErrorPage = ({
     <>
       <Head title={t('common.error.sthWrong.normal')} />
       <div className="bg-theme flex-center h-full flex-col gap-3 p-3">
-        <header className="text-center">
+        <header className="text-center [&>*:first-child]:mx-auto">
           {icon || <IconFileAlert size="4rem" />}
           <h2 className="my-0">{message}</h2>
         </header>

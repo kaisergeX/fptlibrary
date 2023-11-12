@@ -4,7 +4,10 @@ import {usePersistStore} from '~/store';
 
 const httpConfig: AxiosRequestConfig = {
   headers: {
-    'Content-Type': 'application/json',
+    // switch to `multipart/form-data` if payload has binary data or large file.
+    // https://stackoverflow.com/a/4073451
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Accept: 'application/json',
   },
 };
 

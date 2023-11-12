@@ -1,3 +1,5 @@
+export type Primitives = string | number | boolean;
+
 export enum SupportedLanguage {
   EN = 'en',
   VI = 'vi',
@@ -8,22 +10,49 @@ export type UserInfo = {
   name?: string;
 };
 
-export type ResponseData<T> = {data: T};
+export type RequestParams<T = Primitives> = Record<string, T>;
+
+export type ResponseData<T> = {
+  success: boolean;
+  body: T;
+  error: Record<string, unknown>;
+};
+
+export type Country = {
+  id: string;
+  name: string;
+};
+
+export type CountryResData = ResponseData<Country[]>;
 
 export type Genre = {
   id: number;
-  name: string;
+  genreName: string;
 };
 
 export type GenresResData = ResponseData<Genre[]>;
 
+export type AgeTag = {
+  id: number;
+  ageTagName: string;
+};
+
+export type AgeTagResData = ResponseData<AgeTag[]>;
+
 export type Book = {
   id: string;
-  name: string;
-  author?: string;
-  summary?: string;
+  title: string;
+  author: string;
+  description?: string;
   cover?: string;
-  genres: Genre['id'][];
+  genre: Genre[];
+  country: Country;
+  ageTag: AgeTag[];
+  episode: number;
+  status: number;
+  totalEpisode: number;
+  price?: number;
+  publishYear: string;
 };
 
 export type BooksResData = ResponseData<Book[]>;

@@ -5,6 +5,9 @@ export const QueryKey = {
 } as const;
 
 export const API = {
-  BOOKS: '/dump/books.json',
-  GENRES: '/dump/genres.json',
+  LOGIN: '/login',
+  LOGOUT: '/rest-auth/logout',
+  BOOKS: '/books?genre={genre}',
+  BOOK_DETAIL: '/books/{id}',
+  GENRES: '/genre',
 } as const;

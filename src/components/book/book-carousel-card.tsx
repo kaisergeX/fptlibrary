@@ -16,10 +16,10 @@ type BookCarouselCardProps = Book & {
 const BookCarouselCard = ({
   className = '',
   id,
-  name,
+  title,
   author,
   cover,
-  summary,
+  description,
   onActionClick,
   coverProps,
 }: BookCarouselCardProps) => {
@@ -49,8 +49,8 @@ const BookCarouselCard = ({
         <Image
           className="max-h-full rounded-lg"
           src={cover}
-          fallbackSrc={`https://placehold.co/200x300?text=${name}`}
-          alt={`Book cover - ${name}`}
+          fallbackSrc={`https://placehold.co/200x300?text=${title}`}
+          alt={`Book cover - ${title}`}
           loading="lazy"
           {...coverProps}
         />
@@ -64,12 +64,12 @@ const BookCarouselCard = ({
       >
         <div>
           <Link className="link-secondary" to="#">
-            <h3 className="line-clamp-2 text-base font-bold lg:line-clamp-3 lg:text-xl">{name}</h3>
+            <h3 className="line-clamp-2 text-base font-bold lg:line-clamp-3 lg:text-xl">{title}</h3>
           </Link>
           {author && <div className="italic">{author}</div>}
-          {summary && (
+          {description && (
             <p className="mt-4 line-clamp-2 cursor-default text-gray-500 lg:line-clamp-6">
-              {summary}
+              {description}
             </p>
           )}
         </div>

@@ -8,10 +8,24 @@ import {IconAt, IconLock} from '@tabler/icons-react';
 import i18next from 'i18next';
 import {z} from 'zod';
 import {usePersistStore, useStorage} from '~/store';
+import {useMutation} from '@tanstack/react-query';
+import {http} from '~/util/http';
+import {API} from '~/constants/service';
+import type {ResponseData} from '~/types';
+
+type LoginPayload = {
+  username: string;
+  password: string;
+};
+
+type LoginResData = ResponseData<{
+  refresh: string;
+  access: string;
+}>;
 
 const validationSchema = z.object({
   email: z.string().trim().email(i18next.t('auth.validation.email')),
-  password: z.string().min(8, i18next.t('auth.validation.password')),
+  password: z.string().min(6, i18next.t('auth.validation.password')),
 });
 
 type LoginForm = z.infer<typeof validationSchema>;
@@ -20,6 +34,14 @@ const LoginPage = () => {
   const {t} = useTranslation();
   const {setToken} = usePersistStore();
   const {userInfo, setUserInfo} = useStorage();
+
+  const {mutate: loginMutate, isPending} = useMutation({
+    mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
+    onSuccess: ({body}, {username}) => {
+      setToken({accessToken: body.access, refreshToken: body.refresh});
+      setUserInfo({email: username});
+    },
+  });
 
   const form = useForm<LoginForm>({
     initialValues: {
@@ -31,10 +53,8 @@ const LoginPage = () => {
     validateInputOnBlur: true,
   });
 
-  const handleLogin = (formValues: LoginForm) => {
-    // @todo call API then
-    setUserInfo({email: formValues.email.trim()});
-    setToken({accessToken: 'fakeToken'});
+  const handleLogin = ({email, password}: LoginForm) => {
+    loginMutate({username: email.trim(), password});
   };
 
   return (
@@ -73,6 +93,7 @@ const LoginPage = () => {
           className="button mb-2 w-full justify-center text-base"
           type="submit"
           form="login-form"
+          disabled={isPending}
         >
           {t('auth.login')}
         </button>

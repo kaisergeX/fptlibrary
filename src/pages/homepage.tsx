@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom';
 import BookCarouselCard from '~/components/book/book-carousel-card';
 import ScrollTopButton from '~/components/scroll-top-button';
 import {IconChevronRight, IconMail, IconNotebook, IconPhone} from '@tabler/icons-react';
-import {classNames} from '~/util';
+import {arrSamples, buildUrl, classNames} from '~/util';
 import Navbar from '~/components/navbar';
 import type {BooksResData, GenresResData} from '~/types';
-import {useQuery, useSuspenseQuery} from '@tanstack/react-query';
+import {useQueries, useSuspenseQuery} from '@tanstack/react-query';
 import {API, QueryKey} from '~/constants/service';
 import {http} from '~/util/http';
 import {Head} from '~/layout/outlet/Head';
@@ -15,6 +15,7 @@ import NoData from '~/components/no-data';
 import type {ReactNode} from 'react';
 import AppLogo from '~/components/app-logo';
 import WorkplaceIcon from '~/assets/WorkplaceIcon';
+import {HOME_GENRE_COUNT} from '~/config/system';
 
 const parallaxBgGroup = Math.floor(Math.random() * 3);
 const heroParallaxGroup = [
@@ -86,49 +87,53 @@ const images = [
 
 const Homepage = () => {
   const {t} = useTranslation();
-  const {data: sampledGenres} = useSuspenseQuery({
+  const {
+    data: {sampledGenres, genresFooter},
+  } = useSuspenseQuery({
     queryKey: [QueryKey.GENRES],
     queryFn: () => http.get<GenresResData>(API.GENRES),
-    select: ({data}) => data.slice(0, 2),
-    // select: ({data}) => arrSamples(data, HOME_GENRE_COUNT),
+    select: ({body}) => ({
+      sampledGenres: arrSamples(body, HOME_GENRE_COUNT),
+      genresFooter: body.slice(0, 5),
+    }),
   });
 
-  const {data: genreShowcase} = useQuery({
-    queryKey: [QueryKey.BOOKS, sampledGenres.length],
-    queryFn: () => http.get<BooksResData>(API.BOOKS),
+  const bookByGenres = useQueries({
+    queries: sampledGenres.map(({id: genreId, genreName}, index) => ({
+      queryKey: [QueryKey.BOOKS, sampledGenres.length, index],
+      queryFn: () => http.get<BooksResData>(buildUrl(API.BOOKS, {genre: genreId})),
+      select: ({body: books}: BooksResData): ReactNode => {
+        if (!Array.isArray(books)) {
+          return [];
+        }
 
-    select: ({data}): ReactNode[] => {
-      if (!Array.isArray(data)) {
-        return [];
-      }
+        const booksCarouselData = books.map((bookData) => ({
+          id: bookData.id,
+          content: <BookCarouselCard {...bookData} />,
+        }));
 
-      const genreBooks: ReactNode[] = [];
-      sampledGenres.forEach(({id: genreId, name: genreName}) => {
-        const booksCarouselData = data.flatMap((bookData) =>
-          bookData.genres.includes(genreId)
-            ? {
-                id: bookData.id,
-                content: <BookCarouselCard {...bookData} />,
-              }
-            : [],
-        );
-
-        genreBooks.push(
+        return (
           <section key={genreId}>
             <div className="flex-center-between">
               <h2>
                 <Trans t={t}>genre.{genreName}</Trans>
               </h2>
-              <Link className="link-secondary flex-center" to="#">
-                {t('common.viewMore')} <IconChevronRight />
-              </Link>
+
+              {books.length > 2 && (
+                <Link className="link-secondary flex-center" to="#">
+                  {t('common.viewMore')} <IconChevronRight />
+                </Link>
+              )}
             </div>
-            <div
-              className="text-watermark -top-2 left-14 text-9xl font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
-              aria-hidden="true"
-            >
-              <Trans t={t}>genre.{genreName}</Trans>
-            </div>
+
+            {!books.length || (
+              <div
+                className="text-watermark -top-2 left-14 whitespace-nowrap text-7xl font-black text-slate-300 sm-only:hidden dark:text-zinc-800/50 lg:text-[12rem]"
+                aria-hidden="true"
+              >
+                <Trans t={t}>genre.{genreName}</Trans>
+              </div>
+            )}
 
             <CarouselCustom
               className="lg:[&_.book-card]:h-[40vh]"
@@ -143,12 +148,12 @@ const Homepage = () => {
                 </NoData>
               }
             />
-          </section>,
+          </section>
         );
-      });
-      return genreBooks;
-    },
-    enabled: !!sampledGenres.length,
+      },
+      enabled: !!sampledGenres.length,
+    })),
+    combine: (result) => result.flatMap(({data}) => data),
   });
 
   return (
@@ -170,7 +175,7 @@ const Homepage = () => {
         </h2>
       </section>
 
-      <main className="bg-theme relative pb-4 [&>section]:container 2xl:pb-28 [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
+      <main className="bg-theme relative min-h-[50vh] overflow-x-hidden pb-4 [&>section]:container 2xl:pb-28 [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
         <CarouselCustom
           images={images}
           imageProps={{h: '40vh', alt: 'Carousel images'}}
@@ -180,7 +185,7 @@ const Homepage = () => {
           loop
         />
 
-        {genreShowcase}
+        {bookByGenres}
       </main>
 
       <footer className="relative isolate bg-white dark:bg-black">
@@ -212,9 +217,9 @@ const Homepage = () => {
           </div>
           <div className="flex flex-col">
             <h3 className="mb-2 font-bold">{t('genre.def')}</h3>
-            {sampledGenres.map(({id, name}) => (
+            {genresFooter.map(({id, genreName}) => (
               <Link key={id} className="link-secondary w-fit" to={`/genre/${id}`}>
-                <Trans t={t}>genre.{name}</Trans>
+                <Trans t={t}>genre.{genreName}</Trans>
               </Link>
             ))}
           </div>
@@ -242,7 +247,7 @@ const Homepage = () => {
         </div>
       </footer>
 
-      <ScrollTopButton />
+      <ScrollTopButton className="z-10" />
     </div>
   );
 };

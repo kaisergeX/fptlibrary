@@ -11,6 +11,7 @@ specifiers:
   '@tabler/icons-react': ^2.40.0
   '@tanstack/eslint-plugin-query': ^5.6.0
   '@tanstack/react-query': ^5.8.1
+  '@tanstack/react-query-devtools': ^5.8.2
   '@types/react': ^18.2.37
   '@types/react-dom': ^18.2.15
   '@typescript-eslint/eslint-plugin': ^6.0.0
@@ -62,6 +63,7 @@ dependencies:
   '@mantine/notifications': 7.2.1_42lw3jjgvuisugs23jbuagiham
   '@tabler/icons-react': 2.40.0_react@18.2.0
   '@tanstack/react-query': 5.8.1_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query-devtools': 5.8.2_72b3wcavwv5f3cqjtwoqxlh7da
   axios: 1.6.0
   dayjs: 1.11.10
   embla-carousel-autoplay: 8.0.0-rc14
@@ -737,6 +739,23 @@ packages:
 
   /@tanstack/query-core/5.8.1:
     resolution: {integrity: sha512-Y0enatz2zQXBAsd7XmajlCs+WaitdR7dIFkqz9Xd7HL4KV04JOigWVreYseTmNH7YFSBSC/BJ9uuNp1MAf+GfA==}
+    dev: false
+
+  /@tanstack/query-devtools/5.8.2:
+    resolution: {integrity: sha512-xzI5LpmCSed2/plSu1ujfYadkOay9AADTzQ7U3aGYXHgBkKJ5pZrcTVuK3SHHpuqsD+mNmpzq8jU8omfOsFLxg==}
+    dev: false
+
+  /@tanstack/react-query-devtools/5.8.2_72b3wcavwv5f3cqjtwoqxlh7da:
+    resolution: {integrity: sha512-8vcntQbZ1uDhSxkCJmbmBOAWsJaj7KlMUt4JbI1CvmOwI6HQi5SVy5Z8gtDH4h17kZKlwCoDUiaKetPgdLqaeg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.8.2
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@tanstack/query-devtools': 5.8.2
+      '@tanstack/react-query': 5.8.1_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@tanstack/react-query/5.8.1_biqbaboplfbrettd7655fr4n2y:

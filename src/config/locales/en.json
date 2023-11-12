@@ -123,7 +123,12 @@
     "mystery": "Mystery",
     "historical": "Historical",
     "romance": "Romance",
-    "fantasy": "Fantasy"
+    "fantasy": "Fantasy",
+    "dystopia": "Dystopia",
+    "fiction": "Fiction",
+    "western": "Western",
+    "thriller": "Thriller",
+    "sci_fi": "Sci-Fi"
   },
 
   "book": {

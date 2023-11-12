@@ -3,9 +3,13 @@
     "appName": "F3 Library",
     "introduce": "Library built by FSofter, for FSofter",
     "greeting": "Welcome to $t(common.appName)!",
+    "libraryAddress": "F-Ville 3, FPT Software Hoa Lac, Hoa Lac Hi-Tech Park, Thach That District, Hanoi, Vietnam",
+    "contact": "Contact",
+
     "changeLang": "Change language",
     "loading": "Loading",
     "theme": {
+      "color": "Theme color",
       "dark": "Dark mode",
       "light": "Light mode",
       "switch": "Toggle color scheme",
@@ -113,6 +117,7 @@
   },
 
   "genre": {
+    "def": "Genre",
     "horror": "Horror",
     "cookBooks": "Cook Books",
     "mystery": "Mystery",

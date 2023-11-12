@@ -97,6 +97,24 @@
   .link-secondary {
     @apply text-inherit hover:no-underline;
   }
+
+  /* Section Shape dividers */
+
+  .section-shape {
+    @apply absolute inset-x-0 -z-[1] overflow-hidden;
+  }
+
+  .section-shape > svg {
+    @apply h-24 w-[calc(100%+1.3px)];
+  }
+
+  .section-skew {
+    @apply relative isolate;
+  }
+
+  .section-skew::after {
+    @apply absolute inset-x-0 -top-10 bottom-0 -z-[1] -skew-y-3 content-[''];
+  }
 }
 
 @layer utilities {

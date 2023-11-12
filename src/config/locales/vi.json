@@ -3,9 +3,13 @@
     "appName": "F3 Library",
     "introduce": "Thư viện sách xây dựng bởi FSofter, dành riêng cho FSofter",
     "greeting": "Chào mừng đến với $t(common.appName)!",
+    "libraryAddress": "F-Ville 3, FPT Software Hòa Lạc, Khu công nghệ cao Hòa Lạc, xã Thạch Hoà, huyện Thạch Thất, Hà Nội",
+    "contact": "Liên hệ",
+
     "changeLang": "Thay đổi ngôn ngữ",
     "loading": "Đang tải",
     "theme": {
+      "color": "Màu chủ đề",
       "dark": "Chế độ tối",
       "light": "Chế độ sáng",
       "switch": "Bật tắt chế độ tối",
@@ -113,6 +117,7 @@
   },
 
   "genre": {
+    "def": "Thể loại",
     "horror": "Kinh dị",
     "cookBooks": "Nấu ăn",
     "mystery": "Kì bí",

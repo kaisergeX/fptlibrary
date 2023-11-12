@@ -89,7 +89,25 @@ const HiddenFeatures = () => {
         <h2 className="mb-2 mt-6">{t('common.changeLang')}</h2>
         <div className="flex gap-2">{renderLanguage}</div>
 
-        <Divider my="xl" variant="dashed" />
+        <h2 className="mb-2 mt-6 capitalize">{t(`common.theme.mode`, {theme: colorScheme})}</h2>
+        <Tooltip
+          className="capitalize"
+          withArrow
+          label={t(`common.theme.mode`, {theme: colorScheme})}
+          openDelay={500}
+        >
+          <ActionIcon
+            variant="outline"
+            size="lg"
+            radius="xl"
+            color={isDarkMode ? 'yellow' : ''}
+            onClick={() => toggleColorScheme()}
+          >
+            {isDarkMode ? <IconMoonStars size={18} /> : <IconSun size={18} />}
+          </ActionIcon>
+        </Tooltip>
+
+        <h2 className="mb-2 mt-6 capitalize">{t('common.theme.color')}</h2>
         <ThemeColors className="flex-wrap" />
 
         <Divider my="xl" variant="dashed" />

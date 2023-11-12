@@ -3,7 +3,7 @@ import CarouselCustom from '~/components/carousel-custom';
 import {Link} from 'react-router-dom';
 import BookCarouselCard from '~/components/book/book-carousel-card';
 import ScrollTopButton from '~/components/scroll-top-button';
-import {IconChevronRight, IconNotebook} from '@tabler/icons-react';
+import {IconChevronRight, IconMail, IconNotebook, IconPhone} from '@tabler/icons-react';
 import {classNames} from '~/util';
 import Navbar from '~/components/navbar';
 import type {BooksResData, GenresResData} from '~/types';
@@ -13,6 +13,8 @@ import {http} from '~/util/http';
 import {Head} from '~/layout/outlet/Head';
 import NoData from '~/components/no-data';
 import type {ReactNode} from 'react';
+import AppLogo from '~/components/app-logo';
+import WorkplaceIcon from '~/assets/WorkplaceIcon';
 
 const parallaxBgGroup = Math.floor(Math.random() * 3);
 const heroParallaxGroup = [
@@ -28,7 +30,7 @@ const heroParallaxGroup = [
     </div>
   </>,
   <>
-    <div className="absolute -bottom-32 z-[1] w-1/6 place-self-end overflow-x-hidden pl-8 opacity-20 parallax-speed-[25]">
+    <div className="absolute -bottom-32 z-[1] w-1/6 place-self-end overflow-x-hidden pl-8 opacity-20 parallax-speed-[15]">
       <img
         className="ml-16 w-40 lg:w-96"
         src="/image/parallax/book_painting1.png"
@@ -43,12 +45,12 @@ const heroParallaxGroup = [
   </>,
   <>
     <img
-      className="z-[1] mt-10 w-20 justify-self-end opacity-20 parallax-speed-[18] lg:w-40 2xl:parallax-speed-30"
+      className="z-[1] mt-10 w-20 justify-self-end opacity-20 parallax-speed-[15] lg:w-40 2xl:parallax-speed-[25]"
       src="/image/parallax/book3.svg"
       alt="the book image on the top-right"
     />
     <img
-      className="z-[1] w-20 self-end opacity-40 parallax-speed-[14] lg:w-40 2xl:parallax-speed-20"
+      className="z-[1] w-20 self-end opacity-40 parallax-speed-10 lg:w-40"
       src="/image/parallax/book2.svg"
       alt="the book image at the bottom-left"
     />
@@ -58,7 +60,7 @@ const heroParallaxGroup = [
       alt="the book image in the center"
     />
     <img
-      className="z-[1] ml-20 w-20 self-center opacity-10 parallax-speed-[40] lg:w-40"
+      className="z-[1] ml-20 w-20 self-center opacity-10 parallax-speed-[18] lg:w-40"
       src="/image/parallax/book4.svg"
       alt="the book image on the center-left"
     />
@@ -168,7 +170,7 @@ const Homepage = () => {
         </h2>
       </section>
 
-      <main className="bg-theme relative pb-4 [&>section]:container [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
+      <main className="bg-theme relative pb-4 [&>section]:container 2xl:pb-28 [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
         <CarouselCustom
           images={images}
           imageProps={{h: '40vh', alt: 'Carousel images'}}
@@ -181,8 +183,66 @@ const Homepage = () => {
         {genreShowcase}
       </main>
 
+      <footer className="relative isolate bg-white dark:bg-black">
+        <div className="absolute inset-x-0 top-[-6vw] z-[-1] hidden sm:block 2xl:top-[-8vw]">
+          <img
+            className="block w-full dark:invert 2xl:hidden"
+            src="/image/layered-waves-haikei.svg"
+            alt="hidden"
+          />
+          <img
+            className="hidden w-full dark:invert 2xl:block"
+            src="/image/layered-waves-haikei-xl.svg"
+            alt="hidden"
+          />
+        </div>
+
+        <div className="container mx-auto flex justify-between gap-4 px-4 pb-4 sm-only:flex-col sm-only:pt-4 sm:gap-8">
+          <div className="sm:w-1/4">
+            <AppLogo />
+            <h3 className="sm:mt-4">Thư viện Văn học Thế giới DEK biết gì</h3>
+            <a
+              href="https://maps.app.goo.gl/PCBgJ25qxznFSJ2AA"
+              className="link-secondary block text-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('common.libraryAddress')}
+            </a>
+          </div>
+          <div className="flex flex-col">
+            <h3 className="mb-2 font-bold">{t('genre.def')}</h3>
+            {sampledGenres.map(({id, name}) => (
+              <Link key={id} className="link-secondary w-fit" to={`/genre/${id}`}>
+                <Trans t={t}>genre.{name}</Trans>
+              </Link>
+            ))}
+          </div>
+          <div>
+            <h3 className="mb-2 font-bold">{t('common.contact')}</h3>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://fpt.workplace.com/"
+                className="link-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WorkplaceIcon />
+              </a>
+
+              <a href="mailto:" className="link-secondary">
+                <IconMail />
+              </a>
+
+              <a href="tel:+" className="link-secondary">
+                <IconPhone />
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
       <ScrollTopButton />
-      <footer className="bg-[#d6dbdc80] p-4 dark:bg-inherit sm:h-[40vh]">Footer content</footer>
     </div>
   );
 };

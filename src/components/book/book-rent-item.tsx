@@ -12,7 +12,14 @@ type BookRentItemProps = Book & {
   onActionClick?: () => void;
 };
 
-const BookRentItem = ({className = '', id, cover, name, author, coverProps}: BookRentItemProps) => {
+const BookRentItem = ({
+  className = '',
+  id,
+  cover,
+  title,
+  author,
+  coverProps,
+}: BookRentItemProps) => {
   const {t} = useTranslation();
   const removeBook = usePersistStore((state) => state.removeBook);
 
@@ -22,8 +29,8 @@ const BookRentItem = ({className = '', id, cover, name, author, coverProps}: Boo
         <Image
           className="rounded-lg"
           src={cover}
-          fallbackSrc={`https://placehold.co/200x300?text=${name}`}
-          alt={`Book cover - ${name}`}
+          fallbackSrc={`https://placehold.co/200x300?text=${title}`}
+          alt={`Book cover - ${title}`}
           loading="lazy"
           {...coverProps}
         />
@@ -32,7 +39,7 @@ const BookRentItem = ({className = '', id, cover, name, author, coverProps}: Boo
         <article className="flex flex-col gap-2">
           <div>
             <Link className="link-secondary" to="#">
-              <h3 className="line-clamp-2 text-base font-bold">{name}</h3>
+              <h3 className="line-clamp-2 text-base font-bold">{title}</h3>
             </Link>
             {author && <div className="italic">{author}</div>}
           </div>

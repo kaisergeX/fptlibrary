@@ -123,7 +123,12 @@
     "mystery": "Kì bí",
     "historical": "Lịch sử",
     "romance": "Lãng mạn",
-    "fantasy": "Giả tưởng"
+    "fantasy": "Giả tưởng",
+    "dystopia": "Phản địa đàng",
+    "fiction": "Viễn tưởng",
+    "western": "Viễn Tây",
+    "thriller": "Trinh thám",
+    "sci_fi": "Khoa học viễn tưởng"
   },
 
   "book": {

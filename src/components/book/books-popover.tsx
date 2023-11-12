@@ -1,5 +1,5 @@
 import {Indicator, ActionIcon, Tooltip, Popover} from '@mantine/core';
-import {useQuery} from '@tanstack/react-query';
+import {useQueries} from '@tanstack/react-query';
 import {IconBooks, IconLogin2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
@@ -9,29 +9,42 @@ import BookRentItem from './book-rent-item';
 import NoData from '../no-data';
 import {API, QueryKey} from '~/constants/service';
 import {http} from '~/util/http';
-import type {BooksResData} from '~/types';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
+import {buildUrl} from '~/util';
+import type {Book, ResponseData} from '~/types';
+import {useState} from 'react';
 
 const BooksPopover = () => {
   const {books: selectedBookIds, isAuthenticated} = usePersistStore();
   const navigate = useNavigate();
   const {t} = useTranslation();
   const [animateDropdown] = useAutoAnimate();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  const {data: bookList = []} = useQuery({
-    queryKey: [QueryKey.BOOKS],
-    queryFn: () => http.get<BooksResData>(API.BOOKS),
-    select: ({data}) => data,
+  const renderSelectedBooks = useQueries({
+    queries: selectedBookIds.map((bookId) => ({
+      queryKey: [QueryKey.BOOKS, bookId, isPopoverOpen],
+      queryFn: () => http.get<ResponseData<Book>>(buildUrl(API.BOOK_DETAIL, {id: bookId})),
+      select: ({body: bookData}: ResponseData<Book>) => (
+        <BookRentItem key={bookData.id} {...bookData} />
+      ),
+      staleTime: Infinity,
+      enabled: !!selectedBookIds.length && isPopoverOpen,
+    })),
+    combine: (result) => result.flatMap(({data}) => data),
   });
-
-  const renderSelectedBooks = bookList
-    .filter(({id}) => selectedBookIds.includes(id))
-    .map((bookData) => <BookRentItem key={bookData.id} {...bookData} />);
 
   const handleRent = () => {};
 
   return (
-    <Popover width="100%" position="bottom" shadow="md" radius="lg" trapFocus>
+    <Popover
+      width="100%"
+      position="bottom"
+      shadow="md"
+      radius="lg"
+      trapFocus
+      onChange={(isOpened) => setIsPopoverOpen(isOpened)}
+    >
       <Popover.Target>
         <Tooltip label={t('book.addedList')} withArrow>
           <Indicator

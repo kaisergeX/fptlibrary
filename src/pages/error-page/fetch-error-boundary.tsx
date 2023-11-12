@@ -12,8 +12,8 @@ const FetchErrorBoundary = ({children}: PropsWithChildren) => {
   return (
     <ErrorBoundary
       onReset={reset}
-      fallbackRender={({resetErrorBoundary}) => (
-        <ErrorPage icon={<IconSatellite size="4rem" />}>
+      fallbackRender={({error, resetErrorBoundary}) => (
+        <ErrorPage icon={<IconSatellite size="4rem" />} message={(error as Error).message}>
           <div className="text-center">
             <button
               className="button-secondary w-32 justify-center"

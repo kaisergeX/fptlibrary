@@ -27,6 +27,7 @@
     "add": "Add",
     "create": "Create",
     "update": "Update",
+    "updating": "Updating",
     "delete": "Delete",
     "close": "Close",
     "actions": "Actions",
@@ -131,7 +132,18 @@
     "sci_fi": "Sci-Fi"
   },
 
+  "author": "Author",
+
+  "ageTag": {
+    "teen": "Teen",
+    "young_adults": "Young adult",
+    "adult": "Adult"
+  },
+
   "book": {
+    "age": "Age",
+    "episode": "Episode",
+    "totalEpisode": "Total episode",
     "picked": "Picked",
     "unPicked": "Remove from list",
     "addedList": "Books list",
@@ -147,7 +159,9 @@
       "emptyList": "Haven't selected any books yet",
       "genre": "There are no books available in this category at the moment"
     },
-    "memberOnly": "Only members can rent books"
+    "memberOnly": "Only members can rent books",
+    "sameGenre": "Same genre",
+    "otherList": "Other books"
   },
 
   "home": {

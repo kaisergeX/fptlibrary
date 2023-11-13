@@ -1,7 +1,8 @@
 import {Image, type ImageProps, ActionIcon, Tooltip} from '@mantine/core';
 import {IconNotebookOff} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
-import {Link} from 'react-router-dom';
+import {Link, generatePath} from 'react-router-dom';
+import {Path} from '~/config/path';
 import {usePersistStore} from '~/store';
 import type {Book} from '~/types';
 import {classNames} from '~/util';
@@ -38,8 +39,8 @@ const BookRentItem = ({
       <div className="flex basis-2/3 flex-col justify-between gap-2">
         <article className="flex flex-col gap-2">
           <div>
-            <Link className="link-secondary" to="#">
-              <h3 className="line-clamp-2 text-base font-bold">{title}</h3>
+            <Link className="link-secondary" to={{pathname: generatePath(Path.BOOK_DETAIL, {id})}}>
+              <h3 className="line-clamp-2 font-bold">{title}</h3>
             </Link>
             {author && <div className="italic">{author}</div>}
           </div>

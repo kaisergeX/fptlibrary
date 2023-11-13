@@ -27,6 +27,7 @@
     "add": "Thêm",
     "create": "Tạo mới",
     "update": "Cập nhật",
+    "updating": "Đang cập nhật",
     "delete": "Xoá",
     "close": "Đóng",
     "actions": "Hành động",
@@ -131,7 +132,18 @@
     "sci_fi": "Khoa học viễn tưởng"
   },
 
+  "author": "Tác giả",
+
+  "ageTag": {
+    "teen": "Thiếu niên (13-17)",
+    "young_adults": "Thanh niên (18-23)",
+    "adult": "Trưởng thành"
+  },
+
   "book": {
+    "age": "Lứa tuổi",
+    "episode": "Tập",
+    "totalEpisode": "Tổng số tập",
     "picked": "Đã chọn",
     "unPicked": "Bỏ chọn",
     "addedList": "Sách đã chọn",
@@ -147,7 +159,9 @@
       "emptyList": "Bạn chưa chọn cuốn sách nào",
       "genre": "Hiện tại không có sách thuộc thể loại này"
     },
-    "memberOnly": "Chỉ thành viên mới có thể mượn sách"
+    "memberOnly": "Chỉ thành viên mới có thể mượn sách",
+    "sameGenre": "Sách cùng thể loại",
+    "otherList": "Các sách khác"
   },
 
   "home": {

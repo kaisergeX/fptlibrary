@@ -20,4 +20,4 @@ export const defaultLanguage = SupportedLanguage.VI;
  * UI config
  */
 /** How many genres carousel will be shown */
-export const HOME_GENRE_COUNT: number = 2;
+export const HOME_GENRE_COUNT: number = 3;

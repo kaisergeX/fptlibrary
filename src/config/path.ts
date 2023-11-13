@@ -5,6 +5,10 @@ export enum Path {
   SIGNUP = '/auth/signup',
   RENT = '/rent',
 
+  LIBRARY = '/library',
+  BOOK_BROWSING = '/library/books',
+  BOOK_DETAIL = '/library/book/:id',
+
   CMS = '/cms',
   CMS_DASHBOARD = '/cms/dashboard',
 

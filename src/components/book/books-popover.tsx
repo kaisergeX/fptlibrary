@@ -12,39 +12,33 @@ import {http} from '~/util/http';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {buildUrl} from '~/util';
 import type {Book, ResponseData} from '~/types';
-import {useState} from 'react';
+import CommonLoading from '../common-loading';
 
 const BooksPopover = () => {
   const {books: selectedBookIds, isAuthenticated} = usePersistStore();
   const navigate = useNavigate();
   const {t} = useTranslation();
   const [animateDropdown] = useAutoAnimate();
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  const renderSelectedBooks = useQueries({
+  const {data: renderSelectedBooks, isLoading} = useQueries({
     queries: selectedBookIds.map((bookId) => ({
-      queryKey: [QueryKey.BOOKS, bookId, isPopoverOpen],
+      queryKey: [QueryKey.BOOK_DETAIL, bookId],
       queryFn: () => http.get<ResponseData<Book>>(buildUrl(API.BOOK_DETAIL, {id: bookId})),
       select: ({body: bookData}: ResponseData<Book>) => (
         <BookRentItem key={bookData.id} {...bookData} />
       ),
-      staleTime: Infinity,
-      enabled: !!selectedBookIds.length && isPopoverOpen,
+      enabled: !!selectedBookIds.length,
     })),
-    combine: (result) => result.flatMap(({data}) => data),
+    combine: (result) => ({
+      data: result.flatMap(({data}) => data),
+      isLoading: result.some(({isLoading}) => isLoading),
+    }),
   });
 
   const handleRent = () => {};
 
   return (
-    <Popover
-      width="100%"
-      position="bottom"
-      shadow="md"
-      radius="lg"
-      trapFocus
-      onChange={(isOpened) => setIsPopoverOpen(isOpened)}
-    >
+    <Popover width="100%" position="bottom" offset={-1} shadow="md" radius="lg" trapFocus>
       <Popover.Target>
         <Tooltip label={t('book.addedList')} withArrow>
           <Indicator
@@ -67,8 +61,9 @@ const BooksPopover = () => {
       </Popover.Target>
       <Popover.Dropdown
         ref={animateDropdown}
-        className="max-h-[70vh] max-w-sm overflow-y-auto p-0 md:max-w-md 2xl:max-h-[unset] 2xl:max-w-lg"
+        className="max-h-[70vh] max-w-sm overflow-y-auto overflow-x-hidden p-0 md:max-w-md 2xl:max-h-[unset] 2xl:max-w-lg"
       >
+        {isLoading && <CommonLoading className="h-40" />}
         {renderSelectedBooks.length ? (
           <>
             <div className="flex flex-col gap-4 p-4" ref={animateDropdown}>

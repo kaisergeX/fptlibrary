@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {GlobalHistory} from './util/global-history.ts';
+import {DEFAULT_STALE_TIME} from './constants/service.ts';
 
 import 'dayjs/locale/vi';
 import './config/i18n';
@@ -24,7 +25,7 @@ dayjs.extend(customParseFormat);
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {retry: false},
+    queries: {retry: false, staleTime: DEFAULT_STALE_TIME},
   },
 });
 

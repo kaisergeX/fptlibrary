@@ -1,8 +1,9 @@
-import {Image, type ImageProps} from '@mantine/core';
+import {Button, Image, type ImageProps} from '@mantine/core';
 import {IconCheck} from '@tabler/icons-react';
 import {IconBook2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
-import {Link} from 'react-router-dom';
+import {Link, generatePath} from 'react-router-dom';
+import {Path} from '~/config/path';
 import {usePersistStore} from '~/store';
 import type {Book} from '~/types';
 import {classNames} from '~/util';
@@ -63,7 +64,7 @@ const BookCarouselCard = ({
         )}
       >
         <div>
-          <Link className="link-secondary" to="#">
+          <Link className="link-secondary" to={{pathname: generatePath(Path.BOOK_DETAIL, {id})}}>
             <h3 className="line-clamp-2 text-base font-bold lg:line-clamp-3 lg:text-xl">{title}</h3>
           </Link>
           {author && <div className="italic">{author}</div>}
@@ -74,13 +75,13 @@ const BookCarouselCard = ({
           )}
         </div>
         {isBookAdded ? (
-          <button className="button-secondary justify-center" type="button" disabled>
-            <IconCheck className="text-green-500" /> {t('book.picked')}
-          </button>
+          <Button leftSection={<IconCheck className="text-green-500" />} radius="md" disabled>
+            {t('book.picked')}
+          </Button>
         ) : (
-          <button className="button-secondary justify-center" type="button" onClick={handleAction}>
-            <IconBook2 /> {t('common.rent')}
-          </button>
+          <Button variant="outline" onClick={handleAction} leftSection={<IconBook2 />} radius="md">
+            {t('common.rent')}
+          </Button>
         )}
       </article>
     </div>

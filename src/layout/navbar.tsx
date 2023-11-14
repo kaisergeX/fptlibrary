@@ -8,7 +8,7 @@ import {
   IconLogin2,
 } from '@tabler/icons-react';
 import {t} from 'i18next';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
 import {usePersistStore, useStorage} from '~/store';
 import AppLogo from '../components/app-logo';
@@ -18,6 +18,7 @@ import {IconUserQuestion} from '@tabler/icons-react';
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
+  const {pathname} = useLocation();
   const {isAuthenticated, resetAuthStore, setBooks} = usePersistStore();
   const resetUserStore = useStorage((state) => state.resetUserStore);
 
@@ -33,15 +34,18 @@ const NavbarComponent = () => {
       <AppLogo />
 
       <div className="flex-center gap-4">
-        <ActionIcon
-          variant="subtle"
-          size="lg"
-          radius="xl"
-          aria-label="Search book"
-          className="dark:text-inherit"
-        >
-          <IconSearch />
-        </ActionIcon>
+        {pathname.toLowerCase() === Path.BOOK_BROWSING.toLowerCase() || (
+          <ActionIcon
+            variant="subtle"
+            size="lg"
+            radius="xl"
+            aria-label="Search book"
+            className="dark:text-inherit"
+            onClick={() => navigate(Path.BOOK_BROWSING)}
+          >
+            <IconSearch />
+          </ActionIcon>
+        )}
 
         <BooksPopover />
 

@@ -98,3 +98,14 @@ export const arrSamples = <T extends unknown[] = unknown[]>(arr: T, size = 1): T
 
   return arrShuffle(arr).slice(0, size) as T;
 };
+
+export const strReplaceSpace = (
+  str: string,
+  {replaceStr = '\\n', everyNthSpace = 1}: {replaceStr?: string; everyNthSpace?: number} = {
+    replaceStr: '\\n',
+    everyNthSpace: 1,
+  },
+) => {
+  const regex = new RegExp(`((?:\\S*\\s){${everyNthSpace}}.*?)\\s`, 'g');
+  return str.replace(regex, `$1${replaceStr}`);
+};

@@ -39,6 +39,10 @@ export default {
           justifyContent: 'center',
           display: 'flex',
         },
+        '.card-primary': {
+          '@apply rounded-lg border border-gray-200 transition-shadow duration-150 ease-in-out hover:shadow-md dark:border-gray-700 dark:bg-gray-800':
+            {},
+        },
         '.outline-pale': {
           '@apply outline outline-slate-500/20 dark:outline-slate-300/50': '',
         },

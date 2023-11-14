@@ -8,6 +8,7 @@ import {
 import type {ReactNode} from 'react';
 import {Trans, useTranslation} from 'react-i18next';
 import type {AgeTag} from '~/types';
+import {classNames} from '~/util';
 
 type AgeTagsComponentProps =
   | {
@@ -24,8 +25,24 @@ type AgeTagsComponentProps =
     };
 
 const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNode}[] => [
-  {name: 'teen', icon: <IconRating12Plus {...iconProps} />},
-  {name: 'young_adults', icon: <IconRating18Plus {...iconProps} />},
+  {
+    name: 'teen',
+    icon: (
+      <IconRating12Plus
+        {...iconProps}
+        className={classNames('text-green-600', iconProps?.className || '')}
+      />
+    ),
+  },
+  {
+    name: 'young_adults',
+    icon: (
+      <IconRating18Plus
+        {...iconProps}
+        className={classNames('text-cyan-600', iconProps?.className || '')}
+      />
+    ),
+  },
   {name: 'adult', icon: <IconRating21Plus {...iconProps} />},
 ];
 

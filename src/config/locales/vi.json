@@ -45,6 +45,7 @@
     "description": "Mô tả",
     "title": "Tiêu đề",
     "content": "Nội dung",
+    "contentUpdating": "Nội dung đang cập nhật",
     "noData": "Không có dữ liệu",
     "datePicker": {
       "placeholder": "Chọn một ngày"
@@ -69,6 +70,10 @@
       "pagingOutRange": "Số trang bạn yêu cầu không có dữ liệu, hiển thị trang đầu tiên."
     },
     "error": {
+      "unauthorized": {
+        "title": "Không thể xác định tài khoản",
+        "message": "Hãy thử đăng nhập lại"
+      },
       "network": {
         "title": "Lỗi mạng",
         "message": "Xin vui lòng kiểm tra kết nối Internet của bạn!"
@@ -164,6 +169,9 @@
     "otherList": "Các sách khác"
   },
 
+  "bookBrowsing": {
+    "pageTitle": "Thư viện"
+  },
   "home": {
     "pageTitle": "Trang chủ"
   },

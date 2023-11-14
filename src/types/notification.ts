@@ -2,6 +2,7 @@ import type {NotificationData} from '@mantine/notifications';
 
 export enum ErrorCode {
   ERR = 'ERR',
+  ERR_UNAUTHORIZED = 'ERR_UNAUTHORIZED',
   ERR_NETWORK = 'ERR_NETWORK',
 }
 

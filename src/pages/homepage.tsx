@@ -15,6 +15,7 @@ import NoData from '~/components/no-data';
 import type {ReactNode} from 'react';
 import {HOME_GENRE_COUNT} from '~/config/system';
 import Footer from '~/layout/footer';
+import {Path, SEARCH_PARAMS} from '~/config/path';
 
 const parallaxBgGroup = Math.floor(Math.random() * 3);
 const heroParallaxGroup = [
@@ -103,7 +104,7 @@ const Homepage = () => {
 
         const booksCarouselData = books.map((bookData) => ({
           id: bookData.id,
-          content: <BookCarouselCard {...bookData} />,
+          content: <BookCarouselCard data={bookData} />,
         }));
 
         return (
@@ -114,7 +115,10 @@ const Homepage = () => {
               </h2>
 
               {books.length > 2 && (
-                <Link className="link-secondary flex-center" to="#">
+                <Link
+                  className="link-secondary flex-center"
+                  to={{pathname: Path.BOOK_BROWSING, search: `${SEARCH_PARAMS.GENRE}=${genreId}`}}
+                >
                   {t('common.viewMore')} <IconChevronRight />
                 </Link>
               )}

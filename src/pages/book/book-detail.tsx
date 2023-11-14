@@ -43,7 +43,7 @@ export default function BookDetail() {
         bookData.id !== bookId
           ? {
               id: bookData.id,
-              content: <BookCarouselCard {...bookData} />,
+              content: <BookCarouselCard data={bookData} />,
             }
           : [],
       );
@@ -77,7 +77,7 @@ export default function BookDetail() {
         bookData.id !== bookId
           ? {
               id: bookData.id,
-              content: <BookCarouselCard {...bookData} />,
+              content: <BookCarouselCard data={bookData} />,
             }
           : [],
       );
@@ -111,8 +111,8 @@ export default function BookDetail() {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="relative flex items-start gap-4 pt-8 xl:pt-20">
-        <div className="sticky top-8 basis-1/3 xl:top-24">
+      <div className="relative flex items-start gap-4 pt-8 sm-only:flex-col xl:pt-20">
+        <div className="top-8 basis-1/3 sm:sticky xl:top-24">
           <Image
             className="max-h-full rounded-lg"
             src={cover}

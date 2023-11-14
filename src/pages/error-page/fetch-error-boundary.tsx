@@ -4,6 +4,8 @@ import {ErrorBoundary} from 'react-error-boundary';
 import ErrorPage from './error-page';
 import {IconRefresh, IconSatellite} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
+import type {AxiosError} from 'axios';
+import {ErrorCode} from '~/types/notification';
 
 const FetchErrorBoundary = ({children}: PropsWithChildren) => {
   const {reset} = useQueryErrorResetBoundary();
@@ -12,18 +14,29 @@ const FetchErrorBoundary = ({children}: PropsWithChildren) => {
   return (
     <ErrorBoundary
       onReset={reset}
-      fallbackRender={({error, resetErrorBoundary}) => (
-        <ErrorPage icon={<IconSatellite size="4rem" />} message={(error as Error).message}>
-          <div className="text-center">
-            <button
-              className="button-secondary w-32 justify-center"
-              onClick={() => resetErrorBoundary()}
-            >
-              <IconRefresh size="1rem" /> {t('common.tryAgain')}
-            </button>
-          </div>
-        </ErrorPage>
-      )}
+      fallbackRender={({error, resetErrorBoundary}) => {
+        const errorExpose = error as AxiosError;
+
+        return (
+          <ErrorPage
+            icon={<IconSatellite size="4rem" />}
+            message={
+              Object.values<unknown>(ErrorCode).includes(errorExpose?.code)
+                ? errorExpose?.message || undefined
+                : undefined
+            }
+          >
+            <div className="text-center">
+              <button
+                className="button-secondary w-32 justify-center"
+                onClick={() => resetErrorBoundary()}
+              >
+                <IconRefresh size="1rem" /> {t('common.tryAgain')}
+              </button>
+            </div>
+          </ErrorPage>
+        );
+      }}
     >
       {children}
     </ErrorBoundary>

@@ -1,4 +1,4 @@
-import {IconExclamationMark, IconInfoCircle, IconWifiOff} from '@tabler/icons-react';
+import {IconExclamationMark, IconInfoCircle, IconUserX, IconWifiOff} from '@tabler/icons-react';
 import i18next from 'i18next';
 import {ErrorCode, NotiCode, type NotiConfig} from '~/types/notification';
 import {MAX_SELECTED_BOOKS} from './system';
@@ -12,6 +12,13 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     message: t('common.error.sthWrong.action'),
     color: 'red',
     icon: <IconExclamationMark />,
+  },
+  {
+    code: ErrorCode.ERR_UNAUTHORIZED,
+    title: t('common.error.unauthorized.title'),
+    message: t('common.error.unauthorized.message'),
+    color: 'red',
+    icon: <IconUserX />,
   },
   {
     code: ErrorCode.ERR_NETWORK,

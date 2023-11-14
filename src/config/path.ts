@@ -19,4 +19,5 @@ export enum Path {
 
 export const SEARCH_PARAMS = {
   REDIRECT_URL: 'redirectUrl',
+  GENRE: 'genre',
 } as const;

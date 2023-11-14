@@ -45,6 +45,7 @@
     "description": "Description",
     "title": "Title",
     "content": "Content",
+    "contentUpdating": "Content updating",
     "noData": "No Data",
     "datePicker": {
       "placeholder": "Pick a date"
@@ -69,6 +70,10 @@
       "pagingOutRange": "Your page number request has no data, showing the first page."
     },
     "error": {
+      "unauthorized": {
+        "title": "Unauthorized",
+        "message": "Please try logging in again!"
+      },
       "network": {
         "title": "Network Issue",
         "message": "Please check your internet connection!"
@@ -164,6 +169,9 @@
     "otherList": "Other books"
   },
 
+  "bookBrowsing": {
+    "pageTitle": "Library"
+  },
   "home": {
     "pageTitle": "Homepage"
   },

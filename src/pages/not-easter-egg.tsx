@@ -6,6 +6,7 @@ import {
   ActionIcon,
   Tooltip,
   useMantineColorScheme,
+  Card,
 } from '@mantine/core';
 import {DatePicker} from '@mantine/dates';
 import {showNotification, updateNotification} from '@mantine/notifications';
@@ -26,7 +27,7 @@ import {SERVICE_NAME} from '~/config/system';
 import {SupportedLanguage} from '~/types';
 
 const images = [
-  'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+  'https://source.unsplash.com/user/jswords',
   'https://source.unsplash.com/user/erondu',
   'https://source.unsplash.com/user/thedanrogers',
   'https://source.unsplash.com/user/tianshu',
@@ -125,8 +126,6 @@ const HiddenFeatures = () => {
           {t('common.error.sthWrong.action')}
         </Alert>
 
-        <DatePicker className="mx-auto w-fit" defaultValue={new Date()} />
-
         <Divider my="xl" variant="dashed" />
         <div className="flex flex-wrap items-center gap-4">
           <Button
@@ -174,14 +173,40 @@ const HiddenFeatures = () => {
         </div>
 
         <Divider my="xl" variant="dashed" />
-        <CarouselCustom
-          images={images}
-          imageProps={{h: '40vh', alt: 'Carousel images'}}
-          slideSize="auto"
-          autoPlay={5000}
-          withIndicators
-          loop
-        />
+        <Card className="card-primary max-w-xs">
+          <Card.Section>
+            <CarouselCustom
+              images={images}
+              imageProps={{h: '12rem', alt: 'Carousel images'}}
+              slideSize="auto"
+              autoPlay={3000}
+              withIndicators
+              loop
+            />
+          </Card.Section>
+
+          <div className="flex-center-between mt-4 font-semibold">
+            <span className="text-lg">Membership Pack</span>
+            <span className="text-sm">⭐ 4.78</span>
+          </div>
+
+          <p className="text-sm text-slate-500">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut neque repudiandae, quod,
+            officia incidunt error vero accusantium, ratione maxime voluptatibus quia officiis.
+            Laborum quisquam, libero delectus tempora sit eligendi modi?
+          </p>
+
+          <div className="flex-center-between mt-4">
+            <div>
+              <span className="text-xl font-semibold">399$</span>
+              <span className="text-sm text-slate-500"> / year</span>
+            </div>
+
+            <Button radius="md">Purchase</Button>
+          </div>
+        </Card>
+
+        <DatePicker className="mx-auto w-fit" defaultValue={new Date()} />
       </main>
     </div>
   );

@@ -5,6 +5,7 @@ import {Trans} from 'react-i18next';
 import {Link} from 'react-router-dom';
 import WorkplaceIcon from '~/assets/WorkplaceIcon';
 import AppLogo from '~/components/app-logo';
+import {Path, SEARCH_PARAMS} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import type {GenresResData} from '~/types';
 import {classNames} from '~/util';
@@ -48,7 +49,11 @@ export default function Footer({className = ''}: {className?: string}) {
         <div className="flex flex-col">
           <h3 className="mb-2 font-bold">{t('genre.def')}</h3>
           {genresFooter.map(({id, genreName}) => (
-            <Link key={id} className="link-secondary w-fit" to={`/genre/${id}`}>
+            <Link
+              key={id}
+              className="link-secondary w-fit"
+              to={{pathname: Path.BOOK_BROWSING, search: `${SEARCH_PARAMS.GENRE}=${id}`}}
+            >
               <Trans t={t}>genre.{genreName}</Trans>
             </Link>
           ))}

@@ -11,7 +11,7 @@ const ClientOutlet = () => {
       <main className="relative flex min-h-full flex-col">
         <Navbar />
 
-        <div className="flex-1 pb-4 sm:pb-16 2xl:pb-32">
+        <div className="flex-1 pb-4 sm:pb-16 2xl:pb-[10vw]">
           <Suspense
             fallback={
               <LoadingOverlay

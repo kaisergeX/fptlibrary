@@ -1,4 +1,4 @@
-import {Badge, Button, Divider, Image, Tooltip} from '@mantine/core';
+import {Badge, Button, Divider, Image} from '@mantine/core';
 import {IconBook2, IconBooks, IconCheck, IconNotebook, IconTags} from '@tabler/icons-react';
 import {useQuery, useSuspenseQuery} from '@tanstack/react-query';
 import {useLayoutEffect} from 'react';
@@ -125,11 +125,7 @@ export default function BookDetail() {
         <article className="min-h-[80vh] basis-2/3">
           <div className="flex items-start gap-2">
             <h2 className="font-bold sm:text-xl xl:text-3xl">{title}</h2>
-            <Tooltip label={<Trans t={t}>ageTag.{ageTag[0].ageTagName}</Trans>}>
-              <div>
-                <AgeTags data={ageTag[0]} iconProps={{size: '2rem', strokeWidth: 1.5}} />
-              </div>
-            </Tooltip>
+            <AgeTags data={ageTag[0]} iconProps={{size: '2rem', strokeWidth: 1.5}} />
           </div>
           <div>
             {t('author')}: <strong>{author || '-'}</strong>

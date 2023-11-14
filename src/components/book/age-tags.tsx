@@ -1,4 +1,4 @@
-import {Badge} from '@mantine/core';
+import {Badge, Tooltip} from '@mantine/core';
 import {
   IconRating12Plus,
   IconRating18Plus,
@@ -16,12 +16,14 @@ type AgeTagsComponentProps =
       data: AgeTag;
       type?: 'icon';
       iconProps?: TablerIconsProps;
+      disabledTooltip?: boolean;
     }
   | {
       className?: string;
       data: AgeTag;
       type: 'badge';
       iconProps?: never;
+      disabledTooltip?: never;
     };
 
 const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNode}[] => [
@@ -51,6 +53,7 @@ export default function AgeTags({
   data: {ageTagName},
   type = 'icon',
   iconProps,
+  disabledTooltip = false,
 }: AgeTagsComponentProps) {
   const {t} = useTranslation();
 
@@ -63,12 +66,16 @@ export default function AgeTags({
       );
     }
 
-    return (
-      ageTagIcons(iconProps).find(({name}) => name === ageTagName)?.icon || (
-        <Badge variant="outline" className="cursor-default">
-          <Trans t={t}>ageTag.{ageTagName}</Trans>
-        </Badge>
-      )
+    const renderAgeTagIcons = ageTagIcons(iconProps).find(({name}) => name === ageTagName)?.icon;
+
+    return renderAgeTagIcons ? (
+      <Tooltip label={<Trans t={t}>ageTag.{ageTagName}</Trans>} disabled={disabledTooltip}>
+        {renderAgeTagIcons}
+      </Tooltip>
+    ) : (
+      <Badge variant="outline" className="cursor-default">
+        <Trans t={t}>ageTag.{ageTagName}</Trans>
+      </Badge>
     );
   };
 

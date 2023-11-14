@@ -1,4 +1,4 @@
-import {Badge, Button, Image, Tooltip, type ImageProps} from '@mantine/core';
+import {Badge, Button, Image, type ImageProps} from '@mantine/core';
 import {IconCheck, IconTags} from '@tabler/icons-react';
 import {IconBook2} from '@tabler/icons-react';
 import {Trans, useTranslation} from 'react-i18next';
@@ -71,14 +71,7 @@ const BookCarouselCard = ({
                 {title}
               </h3>
             </Link>
-            <Tooltip label={<Trans t={t}>ageTag.{ageTag[0].ageTagName}</Trans>}>
-              <div>
-                <AgeTags
-                  data={ageTag[0]}
-                  iconProps={{className: 'sm:h-8 sm:w-8', strokeWidth: 1.5}}
-                />
-              </div>
-            </Tooltip>
+            <AgeTags data={ageTag[0]} iconProps={{className: 'sm:h-8 sm:w-8', strokeWidth: 1.5}} />
           </div>
           {author && <div className="italic">{author}</div>}
 

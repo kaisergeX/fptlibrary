@@ -55,10 +55,10 @@ export default function BookBrowsing() {
 
         <div
           className={classNames(
-            'grid grid-cols-1 justify-items-center gap-4 xl:gap-8',
+            'grid grid-cols-1 justify-items-center gap-4',
             horizontalItem
-              ? 'sm:grid-cols-2 xl:grid-cols-4'
-              : 'sm:grid-cols-3 xl:grid-cols-[repeat(auto-fill,minmax(20rem,_1fr))]',
+              ? 'sm:grid-cols-2 xl:grid-cols-3'
+              : 'sm:grid-cols-3 xl:grid-cols-[repeat(auto-fill,minmax(18rem,_1fr))]',
           )}
         >
           {renderBooks}

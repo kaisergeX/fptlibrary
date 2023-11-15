@@ -13,9 +13,10 @@ import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {buildUrl} from '~/util';
 import type {Book, ResponseData} from '~/types';
 import CommonLoading from '../common-loading';
+import type {AxiosError} from 'axios';
 
 const BooksPopover = () => {
-  const {books: selectedBookIds, isAuthenticated} = usePersistStore();
+  const {books: selectedBookIds, isAuthenticated, removeBook} = usePersistStore();
   const navigate = useNavigate();
   const {t} = useTranslation();
   const [animateDropdown] = useAutoAnimate();
@@ -30,12 +31,69 @@ const BooksPopover = () => {
       enabled: !!selectedBookIds.length,
     })),
     combine: (result) => ({
-      data: result.flatMap(({data}) => data),
+      data: result.flatMap(({data, error}, index) => {
+        if (error) {
+          const errorResponse = (error as AxiosError).response;
+          if (errorResponse?.status === 400) {
+            removeBook(selectedBookIds[index], false);
+          }
+        }
+
+        return data || [];
+      }),
       isLoading: result.some(({isLoading}) => isLoading),
     }),
   });
 
   const handleRent = () => {};
+
+  const renderPopoverDropdown = () => {
+    if (isLoading) {
+      return <CommonLoading className="h-40" />;
+    }
+
+    if (!renderSelectedBooks.length) {
+      return (
+        <NoData
+          className="py-4 opacity-80"
+          image={<IconBooks className="mb-4 inline-block" strokeWidth="1.25" size="4rem" />}
+        >
+          {t('book.noData.emptyList')}
+        </NoData>
+      );
+    }
+
+    return (
+      <>
+        <div className="flex flex-col gap-4 p-4" ref={animateDropdown}>
+          {renderSelectedBooks}
+        </div>
+
+        <div className="shadow-t-theme flex-center-between sticky inset-x-0 bottom-0 gap-2 bg-inherit p-4">
+          {isAuthenticated ? (
+            <button className="button ml-auto" onClick={handleRent} disabled>
+              {t('common.rent')}
+            </button>
+          ) : (
+            <>
+              <span className="flex items-center sm-only:hidden">{t('book.memberOnly')}</span>
+              <button
+                className="button-secondary ml-auto"
+                onClick={() =>
+                  navigate({
+                    pathname: Path.LOGIN,
+                    search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
+                  })
+                }
+              >
+                <IconLogin2 size="1.2rem" /> {t('auth.login')}
+              </button>
+            </>
+          )}
+        </div>
+      </>
+    );
+  };
 
   return (
     <Popover width="100%" position="bottom" offset={-1} shadow="md" radius="lg" trapFocus>
@@ -63,44 +121,7 @@ const BooksPopover = () => {
         ref={animateDropdown}
         className="max-h-[70vh] max-w-sm overflow-y-auto overflow-x-hidden p-0 md:max-w-md 2xl:max-h-[unset] 2xl:max-w-lg"
       >
-        {isLoading && <CommonLoading className="h-40" />}
-        {renderSelectedBooks.length ? (
-          <>
-            <div className="flex flex-col gap-4 p-4" ref={animateDropdown}>
-              {renderSelectedBooks}
-            </div>
-
-            <div className="shadow-t-theme flex-center-between sticky inset-x-0 bottom-0 gap-2 bg-inherit p-4">
-              {isAuthenticated ? (
-                <button className="button ml-auto" onClick={handleRent} disabled>
-                  {t('common.rent')}
-                </button>
-              ) : (
-                <>
-                  <span className="flex items-center sm-only:hidden">{t('book.memberOnly')}</span>
-                  <button
-                    className="button-secondary ml-auto"
-                    onClick={() =>
-                      navigate({
-                        pathname: Path.LOGIN,
-                        search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
-                      })
-                    }
-                  >
-                    <IconLogin2 size="1.2rem" /> {t('auth.login')}
-                  </button>
-                </>
-              )}
-            </div>
-          </>
-        ) : (
-          <NoData
-            className="py-4 opacity-80"
-            image={<IconBooks className="mb-4 inline-block" strokeWidth="1.25" size="4rem" />}
-          >
-            {t('book.noData.emptyList')}
-          </NoData>
-        )}
+        {renderPopoverDropdown()}
       </Popover.Dropdown>
     </Popover>
   );

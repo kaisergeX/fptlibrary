@@ -35,11 +35,10 @@ const handleBeforeRequest = (config: InternalAxiosRequestConfig): InternalAxiosR
 const handleResponseError = (error: Error | AxiosError | null) => {
   if (!navigator.onLine) {
     showNotification(findNotiConfig(ErrorCode.ERR_NETWORK));
-
     return Promise.reject(error);
   }
 
-  const notiConfig = findNotiConfig(ErrorCode.ERR); // an unknown error noti.
+  let notiConfig = findNotiConfig(ErrorCode.ERR); // an unknown error noti.
   if (error === null || !axios.isAxiosError(error)) {
     showNotification(notiConfig);
     return Promise.reject(error);
@@ -47,9 +46,19 @@ const handleResponseError = (error: Error | AxiosError | null) => {
 
   const errRes = error.response;
   const errStatus = errRes?.status;
-  if (errStatus === 401) {
-    showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED));
-    return Promise.reject(error);
+
+  switch (errStatus) {
+    case 401: {
+      showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED));
+      return Promise.reject(error);
+    }
+
+    case 400:
+      notiConfig = findNotiConfig(ErrorCode.ERR_BADREQUEST);
+      break;
+
+    default:
+      break;
   }
 
   // Show a noti with server error msg

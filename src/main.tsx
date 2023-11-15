@@ -26,6 +26,7 @@ dayjs.extend(customParseFormat);
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {retry: false, staleTime: DEFAULT_STALE_TIME},
+    mutations: {retry: false},
   },
 });
 

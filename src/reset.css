@@ -1,4 +1,14 @@
+@layer reset, mantine;
+
 @layer reset {
+  *,
+  ::before,
+  ::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: theme('borderColor.DEFAULT', 'currentColor');
+  }
+
   blockquote,
   dl,
   dd,
@@ -47,5 +57,13 @@
   ol,
   ul {
     @apply m-0 list-none p-0;
+  }
+
+  a {
+    @apply text-blue-600 no-underline transition-colors hover:text-blue-400;
+  }
+
+  .mantine-Badge-label {
+    @apply align-middle;
   }
 }

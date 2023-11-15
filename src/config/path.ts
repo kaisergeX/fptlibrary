@@ -3,19 +3,23 @@ export enum Path {
   AUTH = '/auth',
   LOGIN = '/auth/login',
   SIGNUP = '/auth/signup',
-  RENT = '/rent',
 
   LIBRARY = '/library',
   BOOK_BROWSING = '/library/books',
   BOOK_DETAIL = '/library/book/:id',
 
-  CMS = '/cms',
-  CMS_DASHBOARD = '/cms/dashboard',
+  CMS = '/portal',
+  CMS_DASHBOARD = '/portal/dashboard',
+  CMS_BOOKS = '/portal/books',
+  CMS_BOOKS_MUTATION = '/portal/books/:id',
+  CMS_BOOKS_DETAIL = '/portal/books/:id/detail',
 
   HIDDEN_FEATURES = '/not-easter-egg',
   PERMISSION_DENIED = '/permission-denied',
   UNDEFINED = '*',
 }
+
+export enum FullPath {}
 
 export const SEARCH_PARAMS = {
   REDIRECT_URL: 'redirectUrl',

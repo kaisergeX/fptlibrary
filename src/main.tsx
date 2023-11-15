@@ -14,11 +14,11 @@ import 'dayjs/locale/vi';
 import './config/i18n';
 import App from './App.tsx';
 
+import './index.css';
 import '@mantine/core/styles.layer.css';
 import '@mantine/carousel/styles.layer.css';
 import '@mantine/dates/styles.layer.css';
 import '@mantine/notifications/styles.layer.css';
-import './index.css';
 
 dayjs.extend(relativeTime);
 dayjs.extend(customParseFormat);

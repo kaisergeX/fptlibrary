@@ -5,7 +5,7 @@ import {Path} from './path';
 
 const ClientOutlet = lazy(() => import('~/layout/outlet/ClientOutlet'));
 const AuthOutlet = lazy(() => import('~/layout/outlet/AuthOutlet'));
-const PrivateOutlet = lazy(() => import('~/layout/outlet/PrivateOutlet'));
+// const PrivateOutlet = lazy(() => import('~/layout/outlet/PrivateOutlet'));
 const Homepage = lazy(() => import('~/pages/homepage'));
 const LoginPage = lazy(() => import('~/pages/auth/login'));
 const SignUpPage = lazy(() => import('~/pages/auth/signup'));
@@ -17,6 +17,9 @@ const BookDetail = lazy(() => import('~/pages/book/book-detail'));
 // CMS pages
 const CMSOutlet = lazy(() => import('~/layout/outlet/CMSOutlet'));
 const CMSDashboard = lazy(() => import('~/pages/admin/dashboard'));
+const CMSBookManagement = lazy(() => import('~/pages/admin/books'));
+const CMSBookMutation = lazy(() => import('~/pages/admin/books/mutation'));
+const CMSBookDetail = lazy(() => import('~/pages/admin/books/detail'));
 
 // Common pages
 const HiddenFeatures = lazy(() => import('~/pages/not-easter-egg'));
@@ -34,13 +37,20 @@ const routesConfig: RouteObject[] = [
       {path: Path.SIGNUP, element: <SignUpPage />},
     ],
   },
-  {path: Path.RENT, element: <PrivateOutlet />},
   {
     path: Path.CMS,
     element: <CMSOutlet />,
     children: [
       {index: true, element: <Navigate to={Path.CMS_DASHBOARD} replace />},
       {path: Path.CMS_DASHBOARD, element: <CMSDashboard />},
+      {
+        path: Path.CMS_BOOKS,
+        children: [
+          {index: true, element: <CMSBookManagement />},
+          {path: ':id?', element: <CMSBookMutation />},
+          {path: Path.CMS_BOOKS_DETAIL, element: <CMSBookDetail />},
+        ],
+      },
     ],
   },
 

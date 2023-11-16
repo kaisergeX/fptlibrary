@@ -19,6 +19,7 @@ specifiers:
   '@vitejs/plugin-react-swc': ^3.4.1
   autoprefixer: ^10.4.16
   axios: ^1.6.2
+  clsx: ^2.0.0
   dayjs: ^1.11.10
   embla-carousel-autoplay: 8.0.0-rc14
   embla-carousel-react: 8.0.0-rc14
@@ -32,6 +33,7 @@ specifiers:
   i18next: ^23.6.0
   i18next-browser-languagedetector: ^7.1.0
   i18next-http-backend: ^2.3.1
+  mantine-datatable: ^7.1.7
   postcss: ^8.4.31
   postcss-preset-mantine: ^1.9.1
   postcss-simple-vars: ^7.0.1
@@ -42,6 +44,7 @@ specifiers:
   react-error-boundary: ^4.0.11
   react-helmet-async: ^1.3.0
   react-i18next: ^13.3.1
+  react-medium-image-zoom: ^5.1.8
   react-router-dom: ^6.18.0
   sharp: ^0.32.6
   svgo: ^3.0.3
@@ -65,17 +68,20 @@ dependencies:
   '@tanstack/react-query': 5.8.4_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 5.8.4_ckfiffndvnsabstt7xm5edcxg4
   axios: 1.6.2
+  clsx: 2.0.0
   dayjs: 1.11.10
   embla-carousel-autoplay: 8.0.0-rc14
   embla-carousel-react: 8.0.0-rc14_react@18.2.0
   i18next: 23.6.0
   i18next-browser-languagedetector: 7.1.0
   i18next-http-backend: 2.3.1
+  mantine-datatable: 7.1.7_i22logare4bp4b2jozfqzjffke
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 4.0.11_react@18.2.0
   react-helmet-async: 1.3.0_biqbaboplfbrettd7655fr4n2y
   react-i18next: 13.3.1_hv3wqpusfuaxw6ocr52s2col5q
+  react-medium-image-zoom: 5.1.8_biqbaboplfbrettd7655fr4n2y
   react-router-dom: 6.18.0_biqbaboplfbrettd7655fr4n2y
   zod: 3.22.4
   zustand: 4.4.6_u5zja476buyywzbvglb2fbhaii
@@ -2656,6 +2662,20 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /mantine-datatable/7.1.7_i22logare4bp4b2jozfqzjffke:
+    resolution: {integrity: sha512-e3hmXrdYc00f1FaPOfA5nKSSfMWR1FXDPT+Ct1OgwP2H8naBeSzPCcBXcc1lIcjDXsxW77IdPo4uMq1UL18GZQ==}
+    peerDependencies:
+      '@mantine/core': '>=7'
+      '@mantine/hooks': '>=7'
+      clsx: '>=2'
+      react: '>=18.2'
+    dependencies:
+      '@mantine/core': 7.2.2_5krl5vizufup7twdvfgl2nrxci
+      '@mantine/hooks': 7.2.2_react@18.2.0
+      clsx: 2.0.0
+      react: 18.2.0
+    dev: false
+
   /mdn-data/2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
     dev: true
@@ -3277,6 +3297,16 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-medium-image-zoom/5.1.8_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-2X4oLlEopIWg7qalR1Qpy4gPrU9CTF0DvJ7HNu5u/NwdyQWupEsje2vuMbjBz7+np8MmQ4DKJ6zGr1ofCuzB3g==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-number-format/5.3.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-qpYcQLauIeEhCZUZY9jXZnnroOtdy3jYaS1zQ3M1Sr6r/KMOBEIGNIb7eKT19g2N1wbYgFgvDzs19hw5TrB8XQ==}

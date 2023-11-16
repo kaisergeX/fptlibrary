@@ -2,7 +2,7 @@ import {Indicator, ActionIcon, Tooltip, Popover} from '@mantine/core';
 import {useQueries} from '@tanstack/react-query';
 import {IconBooks, IconLogin2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
-import {useNavigate} from 'react-router-dom';
+import {generatePath, useNavigate} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
 import {usePersistStore} from '~/store';
 import BookRentItem from './book-rent-item';
@@ -10,7 +10,6 @@ import NoData from '../no-data';
 import {API, QueryKey} from '~/constants/service';
 import {http} from '~/util/http';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
-import {buildUrl} from '~/util';
 import type {Book, ResponseData} from '~/types';
 import CommonLoading from '../common-loading';
 import type {AxiosError} from 'axios';
@@ -24,7 +23,7 @@ const BooksPopover = () => {
   const {data: renderSelectedBooks, isLoading} = useQueries({
     queries: selectedBookIds.map((bookId) => ({
       queryKey: [QueryKey.BOOK_DETAIL, bookId],
-      queryFn: () => http.get<ResponseData<Book>>(buildUrl(API.BOOK_DETAIL, {id: bookId})),
+      queryFn: () => http.get<ResponseData<Book>>(generatePath(API.BOOK_DETAIL, {id: bookId})),
       select: ({body: bookData}: ResponseData<Book>) => (
         <BookRentItem key={bookData.id} {...bookData} />
       ),

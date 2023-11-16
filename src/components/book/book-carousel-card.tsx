@@ -23,7 +23,7 @@ const BookCarouselCard = ({
   coverProps,
 }: BookCarouselCardProps) => {
   const {t} = useTranslation();
-  const {id, title, author, cover, description, genre, ageTag} = data;
+  const {id, title, author, cover, summary, genre, ageTag} = data;
   const [isBookAdded, addBook] = usePersistStore((state) => [
     state.books.includes(id),
     state.addBook,
@@ -71,7 +71,7 @@ const BookCarouselCard = ({
                 {title}
               </h3>
             </Link>
-            <AgeTags data={ageTag[0]} iconProps={{className: 'sm:h-8 sm:w-8', strokeWidth: 1.5}} />
+            <AgeTags data={ageTag} iconProps={{className: 'sm:h-8 sm:w-8', strokeWidth: 1.5}} />
           </div>
           {author && <div className="italic">{author}</div>}
 
@@ -85,7 +85,7 @@ const BookCarouselCard = ({
           </div>
 
           <p className="mt-4 line-clamp-2 cursor-default text-gray-500 lg:line-clamp-6">
-            {description}
+            {summary}
           </p>
         </div>
 

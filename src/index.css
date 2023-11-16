@@ -118,6 +118,10 @@
     @apply bg-zinc-50 text-black dark:bg-zinc-900 dark:text-zinc-200;
   }
 
+  .bg-reverse {
+    @apply bg-zinc-900 text-zinc-200 dark:bg-zinc-50 dark:text-zinc-900;
+  }
+
   .bg-theme {
     @apply bg-[#d6dbdc80] bg-gradient-to-t from-transparent to-white bg-no-repeat dark:bg-inherit dark:bg-none;
   }

@@ -1,0 +1,95 @@
+import {Divider, Badge, Button, Image} from '@mantine/core';
+import {IconNotebook, IconTags, IconCheck, IconBook2} from '@tabler/icons-react';
+import {Trans, useTranslation} from 'react-i18next';
+import ZoomImage from '../zoom-image';
+import AgeTags from './age-tags';
+import {usePersistStore} from '~/store';
+import type {Book} from '~/types';
+import {classNames} from '~/util';
+
+type BookShowcaseProps = {
+  bookData: Book;
+  className?: string;
+  adminView?: boolean;
+};
+
+export default function BookShowcase({
+  bookData,
+  className = '',
+  adminView = false,
+}: BookShowcaseProps) {
+  const {t} = useTranslation();
+  const {id, title, cover, author, summary, episode, totalEpisode, ageTag, genre = []} = bookData;
+  const [isBookAdded, addBook] = usePersistStore((state) => [
+    id ? state.books.includes(id) : false,
+    state.addBook,
+  ]);
+
+  return (
+    <div className={classNames('relative flex items-start gap-4 sm-only:flex-col', className)}>
+      <div className="top-8 sm:sticky sm:basis-1/3 xl:top-24">
+        <ZoomImage author={author} summary={summary}>
+          <Image
+            className="max-h-full rounded-lg"
+            src={cover}
+            fallbackSrc={`https://placehold.co/200x300?text=${title}`}
+            alt={`Book cover - ${title}`}
+            loading="lazy"
+          />
+        </ZoomImage>
+      </div>
+
+      <article className="min-h-[80vh] max-sm:w-full sm:basis-2/3">
+        <div className="flex items-start gap-2 max-sm:justify-between">
+          <h2 className="font-bold sm:text-xl xl:text-3xl">{title}</h2>
+          <AgeTags data={ageTag} iconProps={{size: '2rem', strokeWidth: 1.5}} />
+        </div>
+        <div>
+          {t('book.author')}: <strong>{author || '-'}</strong>
+        </div>
+
+        <div className="group my-4 flex w-fit cursor-default items-center">
+          <IconNotebook className="mr-1 opacity-80 transition-all duration-500 group-hover:mr-0 group-hover:w-0" />
+          <div className="max-w-0 overflow-hidden transition-all duration-500 group-hover:mr-2 group-hover:max-w-xs">
+            {t('book.episode')}
+          </div>
+          <div className="rounded-sm px-1 font-semibold outline outline-1 outline-slate-400">
+            {episode}
+          </div>
+          <div className="max-w-0 overflow-hidden whitespace-nowrap transition-all duration-500 group-hover:max-w-xs group-hover:pl-2">
+            / {totalEpisode || 1}
+          </div>
+        </div>
+
+        <Divider className="my-4 sm:my-8" variant="dashed" />
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <IconTags />
+          {genre.map(({id, genreName}) => (
+            <Badge key={id} className="cursor-default" variant="outline" size="lg">
+              <Trans t={t}>genre.{genreName}</Trans>
+            </Badge>
+          ))}
+        </div>
+        <h3 className="mb-2 font-bold">{t('common.description')}</h3>
+        <p>{summary || t('common.updating')}</p>
+
+        {adminView || (
+          <>
+            <Divider className="my-4 sm:my-8" variant="dashed" />
+            <div className="sticky top-8 basis-1/3 xl:top-24">
+              {isBookAdded ? (
+                <Button leftSection={<IconCheck className="text-green-500" />} radius="md" disabled>
+                  {t('book.picked')}
+                </Button>
+              ) : (
+                <Button onClick={() => addBook(id)} leftSection={<IconBook2 />} radius="md">
+                  {t('common.rent')}
+                </Button>
+              )}
+            </div>
+          </>
+        )}
+      </article>
+    </div>
+  );
+}

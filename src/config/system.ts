@@ -17,6 +17,13 @@ export const MAX_SELECTED_BOOKS = maxSelectableBooks < 0 ? 0 : maxSelectableBook
 export const defaultLanguage = SupportedLanguage.VI;
 
 /**
+ * Common components config
+ */
+export const PAGESIZE_OPTIONS = [10, 15, 20];
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGESIZE = PAGESIZE_OPTIONS[0];
+
+/**
  * UI config
  */
 /** How many genres carousel will be shown */

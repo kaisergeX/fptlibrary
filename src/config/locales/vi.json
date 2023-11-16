@@ -46,6 +46,8 @@
     "title": "Tiêu đề",
     "content": "Nội dung",
     "contentUpdating": "Nội dung đang cập nhật",
+    "status": "Trạng thái",
+    "country": "Quốc gia",
     "noData": "Không có dữ liệu",
     "datePicker": {
       "placeholder": "Chọn một ngày"
@@ -59,6 +61,7 @@
     },
     "pagination": {
       "info": "{{from}} - {{to}} / {{totalRecords}} bản ghi",
+      "recordsPerPage": "Số bản ghi mỗi trang",
       "pageSize": "{{size}}/trang"
     },
 
@@ -137,18 +140,24 @@
     "sci_fi": "Khoa học viễn tưởng"
   },
 
-  "author": "Tác giả",
-
   "ageTag": {
-    "teen": "Thiếu niên (13-17)",
-    "young_adults": "Thanh niên (18-23)",
+    "teen": "Thiếu niên (12+)",
+    "young_adults": "Thanh niên (18+)",
     "adult": "Trưởng thành"
   },
 
   "book": {
+    "cover": "Ảnh bìa",
+    "author": "Tác giả",
+    "authorUnknown": "Không rõ tác giả",
     "age": "Lứa tuổi",
     "episode": "Tập",
     "totalEpisode": "Tổng số tập",
+    "publishYear": "Năm phát hành",
+
+    "add": "Thêm sách",
+    "update": "Cập nhật sách",
+    "detail": "Thông tin sách",
     "picked": "Đã chọn",
     "unPicked": "Bỏ chọn",
     "addedList": "Sách đã chọn",

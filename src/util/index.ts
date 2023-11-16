@@ -1,8 +1,6 @@
 import type {NotificationData} from '@mantine/notifications';
 import dayjs from 'dayjs';
 import notiConfigs from '~/config/notification';
-import {API_BASE_URL} from '~/config/system';
-import type {RequestParams} from '~/types';
 import type {ErrorCode, NotiCode} from '~/types/notification';
 
 export function classNames(...classes: string[]): string {
@@ -19,29 +17,6 @@ export function timeAgo(timestamp: Date | string | null, timeOnly?: boolean): st
   }
 
   return dayjs(timestamp).fromNow(timeOnly);
-}
-
-export function buildUrl<Params extends RequestParams>(
-  uriTemplate: string,
-  params?: Params,
-  addBaseURL: boolean | string = false,
-): string {
-  const baseURL = addBaseURL === true ? API_BASE_URL : addBaseURL;
-  let processedUriTemplate =
-    baseURL && uriTemplate.startsWith('/') ? baseURL + uriTemplate : uriTemplate;
-
-  if (!params) {
-    return processedUriTemplate.split('?')[0];
-  }
-
-  Object.keys(params).forEach((key) => {
-    processedUriTemplate = processedUriTemplate.replaceAll(
-      `{${key}}`,
-      encodeURIComponent(params[key]),
-    );
-  });
-
-  return processedUriTemplate;
 }
 
 export function isEqualNonNestedObj(

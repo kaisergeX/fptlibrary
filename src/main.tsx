@@ -19,6 +19,8 @@ import '@mantine/core/styles.layer.css';
 import '@mantine/carousel/styles.layer.css';
 import '@mantine/dates/styles.layer.css';
 import '@mantine/notifications/styles.layer.css';
+import 'mantine-datatable/styles.layer.css';
+import 'react-medium-image-zoom/dist/styles.css';
 
 dayjs.extend(relativeTime);
 dayjs.extend(customParseFormat);

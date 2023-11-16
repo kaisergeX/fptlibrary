@@ -21,7 +21,7 @@ export default function BookCard({
   coverProps,
   hozizontal = false,
 }: BookCardProps) {
-  const {id: bookId, title, cover, description, ageTag, genre} = data;
+  const {id: bookId, title, cover, summary, ageTag, genre} = data;
   const {t} = useTranslation();
   const [isBookAdded, addBook] = usePersistStore((state) => [
     bookId ? state.books.includes(bookId) : false,
@@ -57,7 +57,7 @@ export default function BookCard({
       >
         <div className="flex justify-between gap-2">
           <h3 className="line-clamp-2 font-bold leading-normal">{title}</h3>
-          <AgeTags data={ageTag[0]} iconProps={{size: '2rem', strokeWidth: 1.2}} />
+          <AgeTags data={ageTag} iconProps={{size: '2rem', strokeWidth: 1.2}} />
         </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -70,7 +70,7 @@ export default function BookCard({
         </div>
 
         <p className="my-4 line-clamp-3 flex-1 text-slate-500">
-          {description || t('common.contentUpdating')}
+          {summary || t('common.contentUpdating')}
         </p>
 
         <div>

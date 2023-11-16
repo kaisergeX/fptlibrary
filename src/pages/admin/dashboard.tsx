@@ -1,11 +1,13 @@
 import {Progress, RingProgress} from '@mantine/core';
 import {useTranslation} from 'react-i18next';
+import {Head} from '~/layout/outlet/Head';
 
 const CMSDashboard = () => {
   const {t} = useTranslation();
 
   return (
     <div className="p-4">
+      <Head title={t('dashboard.pageTitle')} />
       <h2>Admin Dashboard</h2>
       <h3 className="py-4">Dữ liệu tổng quan</h3>
       <RingProgress

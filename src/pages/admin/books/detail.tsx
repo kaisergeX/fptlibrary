@@ -7,6 +7,7 @@ import BookShowcase from '~/components/book/book-showcase';
 import {Path} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import CommonHeader from '~/layout/common-header';
+import {Head} from '~/layout/outlet/Head';
 import type {Book, BreadcrumbsOptions, ResponseData} from '~/types';
 import {http} from '~/util/http';
 
@@ -28,7 +29,8 @@ export default function BookDetailPage() {
   ];
 
   return (
-    <div className="flex h-full flex-col gap-4 p-4">
+    <div className="space-y-4">
+      <Head title={pageTitle} />
       <CommonHeader breadcrumbData={breadcrumbData}>
         <Button
           component={Link}

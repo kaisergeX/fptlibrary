@@ -1,6 +1,11 @@
 import type {MantineThemeColors} from '@mantine/core';
 import type {UserInfo} from '.';
 
+export enum Role {
+  ADMIN,
+  READER,
+}
+
 /**
  * ===================================
  * Persisted storage
@@ -11,11 +16,13 @@ export type AuthState = {
   uid?: string;
   accessToken?: string;
   refreshToken?: string;
+  role: Role;
 };
 
 export type AuthStore = AuthState & {
   setUID: (uid: string) => void;
   setToken: (token: {accessToken: string; refreshToken?: string}) => void;
+  setRole: (role: Role) => void;
   resetAuthStore: () => void;
 };
 

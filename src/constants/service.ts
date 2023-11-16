@@ -8,8 +8,8 @@ export const QueryKey = {
 export const API = {
   LOGIN: '/login',
   LOGOUT: '/rest-auth/logout',
-  BOOKS: '/books?genre={genre}',
-  BOOK_DETAIL: '/books/{id}',
+  BOOKS: '/books',
+  BOOK_DETAIL: '/books/:id',
   GENRES: '/genre',
 } as const;
 

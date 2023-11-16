@@ -44,11 +44,11 @@ const routesConfig: RouteObject[] = [
       {index: true, element: <Navigate to={Path.CMS_DASHBOARD} replace />},
       {path: Path.CMS_DASHBOARD, element: <CMSDashboard />},
       {
-        path: Path.CMS_BOOKS,
+        path: Path.CMS_BOOK,
         children: [
           {index: true, element: <CMSBookManagement />},
-          {path: ':id?', element: <CMSBookMutation />},
-          {path: Path.CMS_BOOKS_DETAIL, element: <CMSBookDetail />},
+          {path: Path.CMS_BOOK_MUTATION, element: <CMSBookMutation />},
+          {path: Path.CMS_BOOK_DETAIL, element: <CMSBookDetail />},
         ],
       },
     ],

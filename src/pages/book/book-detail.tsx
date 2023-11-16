@@ -1,39 +1,32 @@
-import {Badge, Button, Divider, Image} from '@mantine/core';
-import {IconBook2, IconBooks, IconCheck, IconNotebook, IconTags} from '@tabler/icons-react';
+import {Divider} from '@mantine/core';
+import {IconNotebook} from '@tabler/icons-react';
 import {useQuery, useSuspenseQuery} from '@tanstack/react-query';
 import {useLayoutEffect} from 'react';
-import {Trans, useTranslation} from 'react-i18next';
-import {Navigate, useParams} from 'react-router-dom';
-import AgeTags from '~/components/book/age-tags';
+import {useTranslation} from 'react-i18next';
+import {Navigate, generatePath, useParams} from 'react-router-dom';
 import BookCarouselCard from '~/components/book/book-carousel-card';
+import BookShowcase from '~/components/book/book-showcase';
 import CarouselCustom from '~/components/carousel-custom';
 import NoData from '~/components/no-data';
 import {Path} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
-import {usePersistStore} from '~/store';
+import {Head} from '~/layout/outlet/Head';
 import type {ResponseData, Book, BooksResData} from '~/types';
-import {buildUrl} from '~/util';
 import {http} from '~/util/http';
 
 export default function BookDetail() {
   const {id: bookId} = useParams();
   const {t} = useTranslation();
-  const [isBookAdded, addBook] = usePersistStore((state) => [
-    bookId ? state.books.includes(bookId) : false,
-    state.addBook,
-  ]);
 
-  const {
-    data: {title, cover, author, description, episode, totalEpisode, ageTag, genre = []},
-  } = useSuspenseQuery({
+  const {data: bookData} = useSuspenseQuery({
     queryKey: [QueryKey.BOOK_DETAIL, bookId],
-    queryFn: () => http.get<ResponseData<Book>>(buildUrl(API.BOOK_DETAIL, {id: bookId!})),
+    queryFn: () => http.get<ResponseData<Book>>(generatePath(API.BOOK_DETAIL, {id: bookId!})),
     select: ({body: bookData}) => bookData,
   });
 
   const {data: otherBooks} = useQuery({
     queryKey: [QueryKey.BOOKS],
-    queryFn: () => http.get<BooksResData>(buildUrl(API.BOOKS)),
+    queryFn: () => http.get<BooksResData>(API.BOOKS),
     select: ({body: books}: BooksResData) => {
       if (!Array.isArray(books)) {
         return [];
@@ -63,11 +56,11 @@ export default function BookDetail() {
     enabled: !!bookId,
   });
 
-  const bookFirstGenre = genre[0].id;
+  const bookFirstGenre = bookData.genre[0].id;
 
   const {data: sameGenre} = useQuery({
-    queryKey: [QueryKey.BOOKS, genre[0].id],
-    queryFn: () => http.get<BooksResData>(buildUrl(API.BOOKS, {genre: bookFirstGenre})),
+    queryKey: [QueryKey.BOOKS, bookFirstGenre],
+    queryFn: () => http.get<BooksResData>(API.BOOKS, {params: {genre: bookFirstGenre}}),
     select: ({body: books}: BooksResData) => {
       if (!Array.isArray(books)) {
         return [];
@@ -111,83 +104,8 @@ export default function BookDetail() {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="relative flex items-start gap-4 pt-8 sm-only:flex-col xl:pt-20">
-        <div className="top-8 basis-1/3 sm:sticky xl:top-24">
-          <Image
-            className="max-h-full rounded-lg"
-            src={cover}
-            fallbackSrc={`https://placehold.co/200x300?text=${title}`}
-            alt={`Book cover - ${title}`}
-            loading="lazy"
-          />
-        </div>
-
-        <article className="min-h-[80vh] basis-2/3">
-          <div className="flex items-start gap-2">
-            <h2 className="font-bold sm:text-xl xl:text-3xl">{title}</h2>
-            <AgeTags data={ageTag[0]} iconProps={{size: '2rem', strokeWidth: 1.5}} />
-          </div>
-          <div>
-            {t('author')}: <strong>{author || '-'}</strong>
-          </div>
-
-          <div className="group my-4 flex w-fit cursor-default items-center">
-            <IconBooks className="mr-1 opacity-80 transition-all duration-500 group-hover:mr-0 group-hover:w-0" />
-            <div className="max-w-0 overflow-hidden transition-all duration-500 group-hover:mr-2 group-hover:max-w-xs">
-              {t('book.episode')}
-            </div>
-            <div className="rounded-sm px-1 font-semibold outline outline-1 outline-slate-400">
-              {episode}
-            </div>
-            <div className="max-w-0 overflow-hidden whitespace-nowrap transition-all duration-500 group-hover:max-w-xs group-hover:pl-2">
-              / {totalEpisode || 1}
-            </div>
-          </div>
-
-          <Divider className="my-4 sm:my-8" variant="dashed" />
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            <IconTags />
-            {genre.map(({id, genreName}) => (
-              <Badge key={id} className="cursor-default" variant="outline" size="lg">
-                <Trans t={t}>genre.{genreName}</Trans>
-              </Badge>
-            ))}
-          </div>
-          <h3 className="mb-2 font-bold">{t('common.description')}</h3>
-          <p>
-            {description || t('common.updating')}
-            <br />
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti, blanditiis officiis
-            consequatur fuga provident minima, voluptatibus accusamus suscipit autem, inventore
-            incidunt animi voluptate totam vero ex saepe optio magni minus! Ab error nemo quisquam
-            eaque molestiae quam, reiciendis incidunt fugiat earum sed ipsa odio laborum veniam
-            aspernatur enim! Dolor numquam veritatis totam corporis vitae, nihil consectetur
-            voluptatem perferendis et quidem. Sunt, deleniti eum sed, soluta quasi debitis possimus
-            laboriosam dicta numquam non unde repellat perspiciatis nisi minima, labore
-            necessitatibus explicabo excepturi eius eaque quas. Dolores laborum molestiae nesciunt
-            perferendis vel. Repellendus minima ab facilis voluptatum deserunt nulla fuga possimus
-            laboriosam ad nisi officiis, dolor unde soluta ipsa illo rem architecto suscipit, sit
-            natus veniam consequatur! Ipsam, ipsa recusandae. Eligendi, totam? Consequatur nihil
-            officia deleniti ducimus voluptatem possimus provident perspiciatis maxime sint pariatur
-            ullam ipsum neque libero iusto quaerat voluptatibus, doloremque voluptatum ipsam dolores
-            labore. Nihil aliquid placeat fuga blanditiis rerum!
-          </p>
-
-          <Divider className="my-4 sm:my-8" variant="dashed" />
-
-          <div className="sticky top-8 basis-1/3 xl:top-24">
-            {isBookAdded ? (
-              <Button leftSection={<IconCheck className="text-green-500" />} radius="md" disabled>
-                {t('book.picked')}
-              </Button>
-            ) : (
-              <Button onClick={() => addBook(bookId)} leftSection={<IconBook2 />} radius="md">
-                {t('common.rent')}
-              </Button>
-            )}
-          </div>
-        </article>
-      </div>
+      <Head title={bookData.title || t('book.detail')} />
+      <BookShowcase className="pt-8 xl:pt-20" bookData={bookData} />
 
       <Divider className="my-4 sm:my-8" variant="dashed" />
 

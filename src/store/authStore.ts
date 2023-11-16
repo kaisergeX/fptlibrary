@@ -1,11 +1,12 @@
 import {type StateCreator} from 'zustand';
-import type {AuthState, AuthStore, PersistStore} from '~/types/store';
+import {Role, type AuthState, type AuthStore, type PersistStore} from '~/types/store';
 
 export const defaultAuthState: AuthState = {
   isAuthenticated: false,
   uid: undefined,
   accessToken: undefined,
   refreshToken: undefined,
+  role: Role.READER,
 };
 
 export const createAuthSlice: StateCreator<
@@ -15,6 +16,7 @@ export const createAuthSlice: StateCreator<
   AuthStore
 > = (set) => ({
   ...defaultAuthState,
+  setRole: (role) => set(() => ({role})),
   setToken: ({accessToken, refreshToken}) =>
     set(() => {
       // @todo add logic check isAuthenticated if needed

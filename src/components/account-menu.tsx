@@ -53,8 +53,7 @@ export default function AccountMenu() {
           leftSection={<IconLayoutDashboard size="1.2rem" />}
           className="link-unstyled"
           component={Link}
-          to="#"
-          disabled
+          to={Path.CMS_DASHBOARD}
         >
           {t('common.management')}
         </Menu.Item>

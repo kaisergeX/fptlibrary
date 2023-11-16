@@ -17,7 +17,7 @@ export const adminNavbarConfig: NavbarLink[] = [
   {
     label: t('bookBrowsing.pageTitle'),
     icon: IconBooks,
-    link: Path.CMS_BOOKS,
+    link: Path.CMS_BOOK,
   },
 ];
 

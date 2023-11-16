@@ -46,6 +46,8 @@
     "title": "Title",
     "content": "Content",
     "contentUpdating": "Content updating",
+    "status": "Status",
+    "country": "Country",
     "noData": "No Data",
     "datePicker": {
       "placeholder": "Pick a date"
@@ -59,6 +61,7 @@
     },
     "pagination": {
       "info": "{{from}} - {{to}} / {{totalRecords}} records",
+      "recordsPerPage": "Records per page",
       "pageSize": "{{size}}/page"
     },
 
@@ -137,8 +140,6 @@
     "sci_fi": "Sci-Fi"
   },
 
-  "author": "Author",
-
   "ageTag": {
     "teen": "Teen",
     "young_adults": "Young adult",
@@ -146,9 +147,17 @@
   },
 
   "book": {
+    "cover": "Book cover",
+    "author": "Author",
+    "authorUnknown": "Author unknown",
     "age": "Age",
     "episode": "Episode",
     "totalEpisode": "Total episode",
+    "publishYear": "Publish year",
+
+    "add": "Add book",
+    "update": "Update book",
+    "detail": "Book detail",
     "picked": "Picked",
     "unPicked": "Remove from list",
     "addedList": "Books list",

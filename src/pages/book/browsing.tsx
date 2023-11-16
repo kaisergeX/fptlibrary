@@ -9,7 +9,7 @@ import {Path} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import {Head} from '~/layout/outlet/Head';
 import type {Book, ResponseData} from '~/types';
-import {buildUrl, classNames} from '~/util';
+import {classNames} from '~/util';
 import {http} from '~/util/http';
 
 export default function BookBrowsing() {
@@ -18,7 +18,7 @@ export default function BookBrowsing() {
   const [horizontalItem, setHorizontalItem] = useState(false);
   const {data: renderBooks} = useQuery({
     queryKey: [QueryKey.BOOKS],
-    queryFn: () => http.get<ResponseData<Book[]>>(buildUrl(API.BOOKS)),
+    queryFn: () => http.get<ResponseData<Book[]>>(API.BOOKS),
     select: ({body: bookData}) =>
       bookData.map((data) => (
         <BookCard

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import BookCarouselCard from '~/components/book/book-carousel-card';
 import ScrollTopButton from '~/components/scroll-top-button';
 import {IconChevronRight, IconNotebook} from '@tabler/icons-react';
-import {arrSamples, buildUrl, classNames} from '~/util';
+import {arrSamples, classNames} from '~/util';
 import Navbar from '~/layout/navbar';
 import type {BooksResData, GenresResData} from '~/types';
 import {useQueries, useSuspenseQuery} from '@tanstack/react-query';
@@ -96,7 +96,7 @@ const Homepage = () => {
   const bookByGenres = useQueries({
     queries: sampledGenres.map(({id: genreId, genreName}, index) => ({
       queryKey: [QueryKey.BOOKS, sampledGenres.length, index],
-      queryFn: () => http.get<BooksResData>(buildUrl(API.BOOKS, {genre: genreId})),
+      queryFn: () => http.get<BooksResData>(API.BOOKS, {params: {genre: genreId}}),
       select: ({body: books}: BooksResData): ReactNode => {
         if (!Array.isArray(books)) {
           return [];
@@ -173,7 +173,7 @@ const Homepage = () => {
         </h2>
       </section>
 
-      <main className="bg-theme relative min-h-[50vh] overflow-x-hidden pb-4 [&>section]:container 2xl:pb-28 [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
+      <main className="bg-theme relative min-h-[50vh] overflow-x-hidden pb-4 [&>section]:container 2xl:pb-[10vw] [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
         <CarouselCustom
           images={images}
           imageProps={{h: '40vh', alt: 'Carousel images'}}

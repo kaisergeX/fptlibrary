@@ -10,9 +10,9 @@ export enum Path {
 
   CMS = '/portal',
   CMS_DASHBOARD = '/portal/dashboard',
-  CMS_BOOKS = '/portal/books',
-  CMS_BOOKS_MUTATION = '/portal/books/:id',
-  CMS_BOOKS_DETAIL = '/portal/books/:id/detail',
+  CMS_BOOK = '/portal/book',
+  CMS_BOOK_MUTATION = '/portal/book/:id?/modify',
+  CMS_BOOK_DETAIL = '/portal/book/:id',
 
   HIDDEN_FEATURES = '/not-easter-egg',
   PERMISSION_DENIED = '/permission-denied',

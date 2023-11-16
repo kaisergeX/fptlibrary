@@ -30,6 +30,7 @@ const CMSOutlet = () => {
         breakpoint: 'sm',
         collapsed: {mobile: !mobileOpened},
       }}
+      padding="md"
     >
       <AppShell.Header>
         <div className="flex-center-between h-full gap-4 px-4">
@@ -54,7 +55,7 @@ const CMSOutlet = () => {
             />
           }
         >
-          <div className="container m-auto h-full overflow-y-auto">
+          <div className="container m-auto h-full">
             <Outlet />
           </div>
         </Suspense>

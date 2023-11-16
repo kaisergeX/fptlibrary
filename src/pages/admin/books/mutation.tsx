@@ -4,6 +4,7 @@ import {useParams, generatePath} from 'react-router-dom';
 import {Path} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import CommonHeader from '~/layout/common-header';
+import {Head} from '~/layout/outlet/Head';
 import type {Book, BreadcrumbsOptions, ResponseData} from '~/types';
 import {http} from '~/util/http';
 
@@ -27,6 +28,7 @@ export default function BookMutationPage() {
 
   return (
     <div className="flex h-full flex-col gap-4 p-4">
+      <Head title={pageTitle} />
       <CommonHeader title={pageTitle} breadcrumbData={breadcrumbData} />
     </div>
   );

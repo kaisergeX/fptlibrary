@@ -13,7 +13,7 @@ import {NavItemBadge, NavItemExternalLink} from '~/layout/admin-navbar/NavbarIte
 import type {NavbarLink} from '~/types/layout';
 
 export const adminNavbarConfig: NavbarLink[] = [
-  {label: 'Dashboard', icon: IconGauge, link: Path.CMS_DASHBOARD},
+  {label: t('dashboard.pageTitle'), icon: IconGauge, link: Path.CMS_DASHBOARD},
   {
     label: t('bookBrowsing.pageTitle'),
     icon: IconBooks,

@@ -10,6 +10,7 @@ import {API, QueryKey} from '~/constants/service';
 import CommonHeader from '~/layout/common-header';
 import type {Book} from '~/types';
 import ZoomImage from '~/components/zoom-image';
+import {Head} from '~/layout/outlet/Head';
 
 const columnConfig: DataTableColumn<Book>[] = [
   {
@@ -19,7 +20,7 @@ const columnConfig: DataTableColumn<Book>[] = [
       <ZoomImage author={author} summary={summary}>
         <div className="flex-center">
           <Image
-            className="aspect-[1/1.5] h-12 object-cover object-center"
+            className="aspect-[1/1.5] h-14 object-cover object-center"
             src={cover}
             fallbackSrc={`https://placehold.co/100x150?text=${title}`}
             alt={`Book cover - ${title}`}
@@ -64,7 +65,7 @@ const columnConfig: DataTableColumn<Book>[] = [
             color="green"
             to={generatePath(Path.CMS_BOOK_DETAIL, {id})}
           >
-            <IconEye size="1rem" />
+            <IconEye size="1.2rem" />
           </ActionIcon>
           <ActionIcon
             component={Link}
@@ -72,10 +73,10 @@ const columnConfig: DataTableColumn<Book>[] = [
             variant="light"
             to={generatePath(Path.CMS_BOOK_MUTATION, {id})}
           >
-            <IconEdit size="1rem" />
+            <IconEdit size="1.2rem" />
           </ActionIcon>
           <ActionIcon color="red" variant="light">
-            <IconTrash size="1rem" />
+            <IconTrash size="1.2rem" />
           </ActionIcon>
         </div>
       ),
@@ -84,7 +85,8 @@ const columnConfig: DataTableColumn<Book>[] = [
 
 export default function BookManagement() {
   return (
-    <div className="flex h-full flex-col gap-4 p-4">
+    <div className="flex h-full flex-col gap-4">
+      <Head title={t('bookBrowsing.pageTitle')} />
       <CommonHeader title={t('bookBrowsing.pageTitle')}>
         <Button
           component={Link}

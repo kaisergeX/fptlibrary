@@ -27,7 +27,12 @@ export default function BookShowcase({
 
   return (
     <div className={classNames('relative flex items-start gap-4 sm-only:flex-col', className)}>
-      <div className="top-8 sm:sticky sm:basis-1/3 xl:top-24">
+      <div
+        className={classNames(
+          'sm:sticky sm:basis-1/3',
+          adminView ? 'top-[calc(var(--app-shell-header-height)+5rem)]' : 'top-8 xl:top-24',
+        )}
+      >
         <ZoomImage author={author} summary={summary}>
           <Image
             className="max-h-full rounded-lg"

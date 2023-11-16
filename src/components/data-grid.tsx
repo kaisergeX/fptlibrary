@@ -6,19 +6,20 @@ import {useSearchParams} from 'react-router-dom';
 
 import {DEFAULT_PAGE, DEFAULT_PAGESIZE, PAGESIZE_OPTIONS} from '~/config/system';
 import {useTranslation} from 'react-i18next';
-import {findNotiConfig, safeAnyToNumber} from '~/util';
+import {classNames, findNotiConfig, safeAnyToNumber} from '~/util';
 import type {API, QueryKey} from '~/constants/service';
 import {NotiCode} from '~/types/notification';
 import type {DataGridFilter, ExtractValues, ListResponseData} from '~/types';
 import {http} from '~/util/http';
 
 type DataGridProps<T> = {
+  className?: string;
   columns: DataTableColumn<T>[];
   queryKey: ExtractValues<typeof QueryKey>;
   api: ExtractValues<typeof API>;
 };
 
-const DataGrid = <T,>({columns, api, queryKey}: DataGridProps<T>) => {
+const DataGrid = <T,>({className = '', columns, api, queryKey}: DataGridProps<T>) => {
   const {t} = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -53,6 +54,7 @@ const DataGrid = <T,>({columns, api, queryKey}: DataGridProps<T>) => {
 
   return (
     <DataTable<T>
+      className={classNames('rounded-md', className)}
       classNames={{pagination: 'p-0 pt-4', table: 'text-base'}}
       fetching={isFetching}
       columns={columns}

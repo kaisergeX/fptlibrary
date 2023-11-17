@@ -6,7 +6,7 @@ import I18NextHttpBackend from 'i18next-http-backend';
 import {defaultLanguage} from './system';
 import translationEn from './locales/en.json';
 import translationVi from './locales/vi.json';
-import {SupportedLanguage} from '~/types';
+import {SupportedLanguage} from '~/constants';
 
 export const defaultNS = 'translation';
 export const resources = {

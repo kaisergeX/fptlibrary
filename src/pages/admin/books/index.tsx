@@ -11,6 +11,7 @@ import CommonHeader from '~/layout/common-header';
 import type {Book} from '~/types';
 import ZoomImage from '~/components/zoom-image';
 import {Head} from '~/layout/outlet/Head';
+import {BookStatusOptions} from '~/components/book/book-status';
 
 const columnConfig: DataTableColumn<Book>[] = [
   {
@@ -51,7 +52,11 @@ const columnConfig: DataTableColumn<Book>[] = [
     render: ({ageTag}) => !ageTag || <Trans t={t}>ageTag.{ageTag.ageTagName}</Trans>,
   },
   {accessor: 'country.name', title: t('common.country')},
-  {accessor: 'status', title: t('common.status')},
+  {
+    accessor: 'status',
+    title: t('common.status'),
+    render: ({status}) => BookStatusOptions[status].render,
+  },
   {
     accessor: 'actions',
     title: t('common.actions'),

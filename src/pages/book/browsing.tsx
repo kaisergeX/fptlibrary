@@ -1,7 +1,7 @@
 import {ActionIcon} from '@mantine/core';
+import {useLocalStorage} from '@mantine/hooks';
 import {IconLayoutColumns, IconLayoutRows} from '@tabler/icons-react';
 import {useQuery} from '@tanstack/react-query';
-import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {generatePath, useNavigate} from 'react-router-dom';
 import BookCard from '~/components/book/card';
@@ -15,7 +15,11 @@ import {http} from '~/util/http';
 export default function BookBrowsing() {
   const {t} = useTranslation();
   const navigate = useNavigate();
-  const [horizontalItem, setHorizontalItem] = useState(false);
+  const [horizontalItem, setHorizontalItem] = useLocalStorage({
+    key: 'book-browsing-layout',
+    defaultValue: false,
+  });
+
   const {data: renderBooks} = useQuery({
     queryKey: [QueryKey.BOOKS],
     queryFn: () => http.get<ResponseData<Book[]>>(API.BOOKS),
@@ -46,9 +50,9 @@ export default function BookBrowsing() {
             onClick={() => setHorizontalItem(!horizontalItem)}
           >
             {horizontalItem ? (
-              <IconLayoutColumns size="1.5rem" />
-            ) : (
               <IconLayoutRows size="1.5rem" />
+            ) : (
+              <IconLayoutColumns size="1.5rem" />
             )}
           </ActionIcon>
         </div>

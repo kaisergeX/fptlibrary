@@ -1,4 +1,4 @@
-import {SupportedLanguage} from '~/types';
+import {SupportedLanguage} from '~/constants';
 import {safeAnyToNumber} from '~/util';
 
 /**
@@ -22,9 +22,23 @@ export const defaultLanguage = SupportedLanguage.VI;
 export const PAGESIZE_OPTIONS = [10, 15, 20];
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGESIZE = PAGESIZE_OPTIONS[0];
+export const MAX_GENRES = 5;
 
 /**
  * UI config
  */
 /** How many genres carousel will be shown */
 export const HOME_GENRE_COUNT: number = 3;
+
+/**
+ * Validation config
+ */
+export const ACCEPTED_IMAGE_MIME_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+  'image/avif',
+];
+
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB

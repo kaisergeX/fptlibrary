@@ -1,12 +1,9 @@
 import type {ReactNode} from 'react';
+import type {BookStatus} from '~/constants';
 
 export type Primitives = string | number | boolean;
+export type ObjectAny = Record<PropertyKey, unknown>;
 export type ExtractValues<T> = T[keyof T];
-
-export enum SupportedLanguage {
-  EN = 'en',
-  VI = 'vi',
-}
 
 export type BreadcrumbsOptions = {
   data: {title: string; url?: string}[];
@@ -65,15 +62,31 @@ export type Book = {
   title: string;
   author: string;
   summary?: string;
-  cover?: string;
+  cover: string;
   genre: Genre[];
   country: Country;
   ageTag: AgeTag;
-  episode: number;
-  status: number;
-  totalEpisode: number;
+  episode?: number;
+  totalEpisode?: number;
   price?: number;
-  publishYear: string;
+  status: BookStatus;
+  publishYear?: string;
 };
 
 export type BooksResData = ResponseData<Book[]>;
+
+export type BookFormValues = Omit<
+  Book,
+  'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear'
+> & {
+  cover: File | null;
+  genre: string[];
+  country: Country['id'];
+  ageTag: number | null;
+  publishYear?: Date | null;
+};
+
+export type BookRequestData = Omit<BookFormValues, 'cover' | 'genre'> & {
+  cover: File;
+  genre: string;
+};

@@ -27,7 +27,7 @@ import {exampleNavbarConfig} from '~/config/admin-navbar';
 import {Path} from '~/config/path';
 import {SERVICE_NAME} from '~/config/system';
 import LinksGroup from '~/layout/admin-navbar/NavbarItemGroup';
-import {SupportedLanguage} from '~/types';
+import {SupportedLanguage} from '~/constants';
 
 const images = [
   'https://source.unsplash.com/user/jswords',

@@ -91,7 +91,7 @@
   }
 
   .link-secondary {
-    @apply text-inherit hover:no-underline;
+    @apply text-inherit hover:text-blue-400 hover:no-underline;
   }
 
   /* Section Shape dividers */

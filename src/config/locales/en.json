@@ -38,6 +38,8 @@
     "management": "Management",
     "quantity": "Quantity",
     "tryAgain": "Try again",
+    "maxOptions": "Up to {{max}} options",
+    "otherInfo": "Other information",
 
     "numericalOrder": "No.",
     "name": "Name",
@@ -92,7 +94,9 @@
     },
 
     "validation": {
-      "required": "This field is required"
+      "required": "This field is required",
+      "imageFileType": "Only {{mimeTypes}} files are accepted",
+      "maxFileSize": "Max file size is {{size}}"
     }
   },
 
@@ -127,6 +131,7 @@
 
   "genre": {
     "def": "Genre",
+    "select": "Select genre",
     "horror": "Horror",
     "cookBooks": "Cook Books",
     "mystery": "Mystery",
@@ -141,6 +146,8 @@
   },
 
   "ageTag": {
+    "def": "Age tag",
+    "select": "Choose the appropriate age category",
     "teen": "Teen",
     "young_adults": "Young adult",
     "adult": "Adult"
@@ -150,10 +157,11 @@
     "cover": "Book cover",
     "author": "Author",
     "authorUnknown": "Author unknown",
-    "age": "Age",
     "episode": "Episode",
     "totalEpisode": "Total episode",
     "publishYear": "Publish year",
+    "uploadCover": "Upload cover",
+    "price": "Price",
 
     "add": "Add book",
     "update": "Update book",
@@ -161,6 +169,13 @@
     "picked": "Picked",
     "unPicked": "Remove from list",
     "addedList": "Books list",
+    "status": {
+      "AVAILABLE": "Available",
+      "BOOKED": "Booked",
+      "IN_HAND": "In hand",
+      "RETURNED": "Returned",
+      "OFF": "Off"
+    },
     "exceeded": {
       "title": "You have already added {{count}} books",
       "description": "You cannot rent more books"

@@ -38,6 +38,8 @@
     "management": "Quản lý",
     "quantity": "Số lượng",
     "tryAgain": "Thử lại",
+    "maxOptions": "Tối đa {{max}} lựa chọn",
+    "otherInfo": "Thông tin khác",
 
     "numericalOrder": "No.",
     "name": "Tên",
@@ -92,7 +94,9 @@
     },
 
     "validation": {
-      "required": "Trường bắt buộc"
+      "required": "Trường bắt buộc",
+      "imageFileType": "Định dạng ảnh được chấp nhận: {{mimeTypes}}",
+      "maxFileSize": "Kích thước tệp tối đa {{size}}"
     }
   },
 
@@ -127,6 +131,7 @@
 
   "genre": {
     "def": "Thể loại",
+    "select": "Chọn thể loại",
     "horror": "Kinh dị",
     "cookBooks": "Nấu ăn",
     "mystery": "Kì bí",
@@ -141,6 +146,8 @@
   },
 
   "ageTag": {
+    "def": "Lứa tuổi",
+    "select": "Chọn lứa tuổi phù hợp",
     "teen": "Thiếu niên (12+)",
     "young_adults": "Thanh niên (18+)",
     "adult": "Trưởng thành"
@@ -150,10 +157,11 @@
     "cover": "Ảnh bìa",
     "author": "Tác giả",
     "authorUnknown": "Không rõ tác giả",
-    "age": "Lứa tuổi",
     "episode": "Tập",
     "totalEpisode": "Tổng số tập",
     "publishYear": "Năm phát hành",
+    "uploadCover": "Tải lên ảnh bìa",
+    "price": "Giá tiền",
 
     "add": "Thêm sách",
     "update": "Cập nhật sách",
@@ -161,6 +169,13 @@
     "picked": "Đã chọn",
     "unPicked": "Bỏ chọn",
     "addedList": "Sách đã chọn",
+    "status": {
+      "AVAILABLE": "Khả dụng",
+      "BOOKED": "Đã được đặt",
+      "IN_HAND": "Đang mượn đi",
+      "RETURNED": "Đã trả lại",
+      "OFF": "Không khả dụng"
+    },
     "exceeded": {
       "title": "Bạn đã thêm đủ {{count}} cuốn sách",
       "description": "Không thể thêm sách nữa"

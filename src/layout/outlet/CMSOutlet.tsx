@@ -1,6 +1,6 @@
 import {AppShell, Burger, LoadingOverlay} from '@mantine/core';
 import {Navigate, Outlet} from 'react-router-dom';
-import {Path} from '~/config/path';
+import {Path, SEARCH_PARAMS} from '~/config/path';
 import {usePersistStore} from '~/store';
 import {useDisclosure} from '@mantine/hooks';
 import AppLogo from '~/components/app-logo';
@@ -15,7 +15,15 @@ const CMSOutlet = () => {
   const [mobileOpened, {toggle: toggleMobile}] = useDisclosure();
 
   if (!isAuthenticated) {
-    return <Navigate to={Path.LOGIN} replace />;
+    return (
+      <Navigate
+        to={{
+          pathname: Path.LOGIN,
+          search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
+        }}
+        replace
+      />
+    );
   }
 
   if (permissionDenied) {

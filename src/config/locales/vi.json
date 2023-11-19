@@ -99,7 +99,7 @@
     "validation": {
       "required": "Trường bắt buộc",
       "invalidInput": "Dữ liệu không hợp lệ",
-      "imageFileType": "Định dạng ảnh được chấp nhận: {{- mimeTypes}}",
+      "imageFileType": "Sai định dạng ảnh, chỉ ảnh {{- mimeTypes}} được chấp nhận",
       "maxFileSize": "Kích thước tệp tối đa {{size}}"
     }
   },

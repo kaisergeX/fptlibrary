@@ -55,17 +55,20 @@ import {IconX} from '@tabler/icons-react';
 import {useEffect} from 'react';
 
 const validationSchema: z.ZodSchema<BookFormValues> = z.object({
-  title: z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
-  author: z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
+  title: z.string({errorMap: zodCustomErrorMap}).trim().min(1, t('common.validation.required')),
+  author: z.string({errorMap: zodCustomErrorMap}).trim().min(1, t('common.validation.required')),
   summary: z.string({errorMap: zodCustomErrorMap}).optional(),
   cover: zodImage.or(
-    z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
+    z.string({errorMap: zodCustomErrorMap}).trim().min(1, t('common.validation.required')),
   ),
   episode: z.number({errorMap: zodCustomErrorMap}).optional(),
   totalEpisode: z.number({errorMap: zodCustomErrorMap}).optional(),
   price: z.number({errorMap: zodCustomErrorMap}).optional(),
   publishYear: z.date().nullish(),
-  genre: z.array(z.string({errorMap: zodCustomErrorMap})).min(1, t('common.validation.required')),
+  genre: z
+    .array(z.string({errorMap: zodCustomErrorMap}))
+    .min(1, t('common.validation.required'))
+    .max(MAX_GENRES, t('common.maxOptions', {max: MAX_GENRES})),
   country: z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
   ageTag: z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
   status: z.nativeEnum(BookStatus, {required_error: t('common.validation.required')}),
@@ -95,7 +98,6 @@ export default function BookMutationPage() {
   });
 
   const pageTitle = bookData?.title ? `${t('book.update')}: ${bookData.title}` : t('book.add');
-
   const breadcrumbData: BreadcrumbsOptions['data'] = [
     {title: t('bookBrowsing.pageTitle'), url: Path.CMS_BOOK},
     {title: pageTitle},
@@ -134,41 +136,45 @@ export default function BookMutationPage() {
     reset,
   } = useForm<z.infer<typeof validationSchema>>({
     initialValues: {
-      title: bookData?.title || '',
-      summary: bookData?.summary || '',
-      author: bookData?.author || '',
-      cover: bookData?.cover || null,
+      title: '',
+      summary: '',
+      author: '',
+      cover: '',
 
-      price: safeAnyToNumber(bookData?.price) || undefined,
-      genre: bookData?.genre.map(({id: genreId}) => genreId.toString()) || [],
-      country: bookData?.country.id || '',
-      ageTag: bookData?.ageTag.id.toString() || '',
-      publishYear: bookData?.publishYear ? new Date(bookData.publishYear) : null,
-      status: bookData?.status.toString() as BookStatus,
+      genre: [],
+      country: '',
+      ageTag: '',
+      status: BookStatus.AVAILABLE,
     },
     validate: zodResolver(validationSchema),
     validateInputOnChange: true,
   });
 
-  const handleCreateDevice = (values: BookFormValues) => {
+  const handleBookMutation = (values: BookFormValues) => {
     const {cover, ...rest} = values;
+    const title = rest.title.trim();
+    const author = rest.author.trim();
 
     if (!(cover instanceof File)) {
       if (bookId) {
         // update book: if cover is string, it means cover is not changed -> opt out from mutation data.
         mutate({
           ...rest,
+          title,
+          author,
           genre: values.genre.join(','),
           publishYear: values.publishYear?.getFullYear(),
         });
       }
 
-      // add book: do nothing here cuz cover must be a File object
+      // create book: do nothing here cuz cover must be a File object
       return;
     }
 
     mutate({
       ...values,
+      title,
+      author,
       cover,
       genre: values.genre.join(','),
       publishYear: values.publishYear?.getFullYear(),
@@ -191,7 +197,7 @@ export default function BookMutationPage() {
           }
           fallbackSrc={`https://placehold.co/300x450?text=${strReplaceSpace(
             t('common.error.previewImage'),
-            {everyNthSpace: 3},
+            {everyNthSpace: 2},
           )}`}
         />
       </div>
@@ -210,7 +216,6 @@ export default function BookMutationPage() {
       country: bookData.country.id,
       ageTag: bookData.ageTag.id.toString(),
       publishYear: bookData?.publishYear ? new Date(bookData.publishYear) : null,
-      status: bookData.status.toString() as BookStatus,
     });
     reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -223,7 +228,7 @@ export default function BookMutationPage() {
       <form
         id="book-mutation-form"
         className="relative grid grid-cols-2 gap-4 py-4 xl:grid-cols-3"
-        onSubmit={onSubmit(handleCreateDevice)}
+        onSubmit={onSubmit(handleBookMutation)}
       >
         <LoadingOverlay
           visible={isBookDataLoading}
@@ -266,7 +271,7 @@ export default function BookMutationPage() {
             description={t('common.maxOptions', {max: MAX_GENRES})}
             data={selectGenreList}
             checkIconPosition="right"
-            maxValues={5}
+            maxValues={MAX_GENRES}
             clearable
             withAsterisk
             {...getInputProps('genre')}
@@ -276,7 +281,7 @@ export default function BookMutationPage() {
             label={t('common.description')}
             autosize
             minRows={3}
-            maxLength={512}
+            maxLength={1024}
             {...getInputProps('summary')}
           />
 
@@ -286,6 +291,8 @@ export default function BookMutationPage() {
             label={t('common.status')}
             withAsterisk
             {...getInputProps('status')}
+            value={formValues.status.toString()}
+            onChange={(val) => setFieldValue('status', safeAnyToNumber(val, BookStatus.AVAILABLE))}
             data={BookStatusOptions}
           />
         </div>

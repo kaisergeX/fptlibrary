@@ -1,4 +1,4 @@
-import {ActionIcon, Button, Image} from '@mantine/core';
+import {ActionIcon, Button, Image, Modal} from '@mantine/core';
 import {IconEdit, IconEye, IconPlus, IconTrash} from '@tabler/icons-react';
 import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
@@ -12,6 +12,13 @@ import type {Book} from '~/types';
 import ZoomImage from '~/components/zoom-image';
 import {Head} from '~/layout/outlet/Head';
 import {BookStatusOptions} from '~/components/book/book-status';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {http} from '~/util/http';
+import {showNotification} from '@mantine/notifications';
+import {NotiCode} from '~/types/notification';
+import {findNotiConfig} from '~/util';
+import {confirmRemoveBook} from '~/store/userStore';
+import {useEffect} from 'react';
 
 const columnConfig: DataTableColumn<Book>[] = [
   {
@@ -61,34 +68,64 @@ const columnConfig: DataTableColumn<Book>[] = [
     accessor: 'actions',
     title: t('common.actions'),
     textAlign: 'right',
-    render: ({id}) =>
-      id && (
-        <div className="flex items-center justify-end gap-1">
-          <ActionIcon
-            component={Link}
-            variant="light"
-            color="green"
-            to={generatePath(Path.CMS_BOOK_DETAIL, {id})}
-          >
-            <IconEye size="1.2rem" />
-          </ActionIcon>
-          <ActionIcon
-            component={Link}
-            color="blue"
-            variant="light"
-            to={generatePath(Path.CMS_BOOK_MUTATION, {id})}
-          >
-            <IconEdit size="1.2rem" />
-          </ActionIcon>
-          <ActionIcon color="red" variant="light">
-            <IconTrash size="1.2rem" />
-          </ActionIcon>
-        </div>
-      ),
+    render: (bookData) => {
+      const id = bookData.id;
+      return (
+        id && (
+          <div className="flex items-center justify-end gap-1">
+            <ActionIcon
+              component={Link}
+              variant="light"
+              color="green"
+              to={generatePath(Path.CMS_BOOK_DETAIL, {id})}
+            >
+              <IconEye size="1.2rem" />
+            </ActionIcon>
+            <ActionIcon
+              component={Link}
+              color="blue"
+              variant="light"
+              to={generatePath(Path.CMS_BOOK_MUTATION, {id})}
+            >
+              <IconEdit size="1.2rem" />
+            </ActionIcon>
+            <ActionIcon
+              color="red"
+              variant="light"
+              onClick={() => (confirmRemoveBook.value = bookData)}
+            >
+              <IconTrash size="1.2rem" />
+            </ActionIcon>
+          </div>
+        )
+      );
+    },
   },
 ];
 
 export default function BookManagement() {
+  const queryClient = useQueryClient();
+  const {isPending, mutate: removeBookMutate} = useMutation({
+    mutationFn: (removeBookId: Book['id']) =>
+      http.delete(generatePath(API.BOOK_REMOVE, {id: removeBookId})),
+    onSuccess: async () => {
+      confirmRemoveBook.value = undefined;
+      await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
+      showNotification({
+        ...findNotiConfig(NotiCode.SUCCESS),
+        message: t('common.success.action', {action: t('book.action.remove')}),
+      });
+    },
+  });
+
+  useEffect(() => {
+    return () => {
+      if (confirmRemoveBook.value) {
+        confirmRemoveBook.value = undefined;
+      }
+    };
+  }, []);
+
   return (
     <div className="flex h-full flex-col gap-4">
       <Head title={t('bookBrowsing.pageTitle')} />
@@ -103,7 +140,35 @@ export default function BookManagement() {
         </Button>
       </CommonHeader>
 
-      <DataGrid<Book> queryKey={QueryKey.BOOKS} api={API.BOOKS} columns={columnConfig} />
+      <DataGrid<Book>
+        queryKey={QueryKey.BOOKS}
+        isLoading={isPending}
+        api={API.BOOKS}
+        columns={columnConfig}
+      />
+
+      <Modal
+        opened={!!confirmRemoveBook.value}
+        onClose={() => (confirmRemoveBook.value = undefined)}
+        title={t('common.confirm')}
+        centered
+      >
+        <p className="mb-8">
+          {t('book.confirm.remove')}: <strong>{confirmRemoveBook.value?.title}</strong>
+        </p>
+        <div className="flex items-center justify-end gap-4">
+          <Button variant="outline" onClick={() => (confirmRemoveBook.value = undefined)}>
+            {t('common.cancelAction')}
+          </Button>
+          <Button
+            variant="filled"
+            color="red"
+            onClick={() => confirmRemoveBook.value && removeBookMutate(confirmRemoveBook.value.id)}
+          >
+            {t('book.action.remove')}
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }

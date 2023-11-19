@@ -33,6 +33,8 @@
     "actions": "Actions",
     "viewMore": "View more",
     "dragImage": "Drag images here or click to select files",
+    "confirm": "Confirm",
+    "cancelAction": "Cancel",
 
     "rent": "Rent book",
     "features": "Features",
@@ -170,15 +172,24 @@
     "add": "Add book",
     "update": "Update book",
     "detail": "Book detail",
-    "picked": "Picked",
-    "unPicked": "Remove from list",
+    "select": "Select Book",
+    "selected": "Selected",
+    "unselected": "Remove from list",
     "addedList": "Books list",
     "status": {
       "AVAILABLE": "Available",
       "BOOKED": "Booked",
       "IN_HAND": "In hand",
       "RETURNED": "Returned",
-      "OFF": "Off"
+      "OFF": "Unavailable"
+    },
+    "action": {
+      "booked": "Order book",
+      "returned": "Return the book",
+      "remove": "Remove book"
+    },
+    "confirm": {
+      "remove": "Are you sure you want to remove this book?"
     },
     "exceeded": {
       "title": "You have already added {{count}} books",
@@ -186,7 +197,8 @@
     },
     "existed": {
       "title": "Books already exist",
-      "rent": "The book has already been selected"
+      "rent": "The book has already been selected",
+      "rented": "Currently unavailable"
     },
     "noData": {
       "emptyList": "Haven't selected any books yet",
@@ -199,6 +211,9 @@
 
   "bookBrowsing": {
     "pageTitle": "Library"
+  },
+  "account": {
+    "pageTitle": "Personal page"
   },
   "home": {
     "pageTitle": "Homepage"

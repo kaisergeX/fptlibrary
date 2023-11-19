@@ -14,12 +14,19 @@ import {http} from '~/util/http';
 
 type DataGridProps<T> = {
   className?: string;
+  isLoading?: boolean;
   columns: DataTableColumn<T>[];
   queryKey: ExtractValues<typeof QueryKey>;
   api: ExtractValues<typeof API>;
 };
 
-const DataGrid = <T,>({className = '', columns, api, queryKey}: DataGridProps<T>) => {
+const DataGrid = <T,>({
+  className = '',
+  isLoading = false,
+  columns,
+  api,
+  queryKey,
+}: DataGridProps<T>) => {
   const {t} = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -56,7 +63,7 @@ const DataGrid = <T,>({className = '', columns, api, queryKey}: DataGridProps<T>
     <DataTable<T>
       className={classNames('rounded-md', className)}
       classNames={{pagination: 'p-0 pt-4', table: 'text-base'}}
-      fetching={isFetching}
+      fetching={isLoading || isFetching}
       columns={columns}
       records={listData?.body}
       totalRecords={listData?.count}

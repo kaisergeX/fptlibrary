@@ -1,11 +1,12 @@
-import {Divider, Badge, Button, Image} from '@mantine/core';
-import {IconNotebook, IconTags, IconCheck, IconBook2} from '@tabler/icons-react';
+import {Divider, Badge, Button, Image, ThemeIcon} from '@mantine/core';
+import {IconNotebook, IconTags, IconCheck, IconBook2, IconInfoCircle} from '@tabler/icons-react';
 import {Trans, useTranslation} from 'react-i18next';
 import ZoomImage from '../zoom-image';
 import AgeTags from './age-tags';
 import {usePersistStore} from '~/store';
 import type {Book} from '~/types';
 import {classNames} from '~/util';
+import {BookStatus} from '~/constants';
 
 type BookShowcaseProps = {
   bookData: Book;
@@ -19,7 +20,19 @@ export default function BookShowcase({
   adminView = false,
 }: BookShowcaseProps) {
   const {t} = useTranslation();
-  const {id, title, cover, author, summary, episode, totalEpisode, ageTag, genre = []} = bookData;
+  const {
+    id,
+    title,
+    cover,
+    author,
+    summary,
+    episode,
+    totalEpisode,
+    ageTag,
+    genre = [],
+    status,
+  } = bookData;
+
   const [isBookAdded, addBook] = usePersistStore((state) => [
     id ? state.books.includes(id) : false,
     state.addBook,
@@ -47,7 +60,7 @@ export default function BookShowcase({
       <article
         className={classNames(
           'max-sm:w-full sm:basis-2/3',
-          adminView ? 'min-h-[50vh]' : 'min-h-[80vh]',
+          adminView ? 'sm:min-h-[50vh]' : 'sm:min-h-[80vh]',
         )}
       >
         <div className="flex items-start gap-2 max-sm:justify-between">
@@ -86,15 +99,29 @@ export default function BookShowcase({
         {adminView || (
           <>
             <Divider className="my-4 sm:my-8" variant="dashed" />
-            <div className="sticky top-8 basis-1/3 xl:top-24">
+            <div className="sticky top-8 flex basis-1/3 items-center gap-2 xl:top-24">
               {isBookAdded ? (
                 <Button leftSection={<IconCheck className="text-green-500" />} radius="md" disabled>
-                  {t('book.picked')}
+                  {t('book.selected')}
                 </Button>
               ) : (
-                <Button onClick={() => addBook(id)} leftSection={<IconBook2 />} radius="md">
+                <Button
+                  onClick={() => addBook(id)}
+                  leftSection={<IconBook2 />}
+                  radius="md"
+                  disabled={status !== BookStatus.AVAILABLE}
+                >
                   {t('common.rent')}
                 </Button>
+              )}
+
+              {status !== BookStatus.AVAILABLE && (
+                <>
+                  <ThemeIcon variant="white" radius="xl" size="sm">
+                    <IconInfoCircle />
+                  </ThemeIcon>
+                  <span className="text-sm">{t('book.existed.rented')}</span>
+                </>
               )}
             </div>
           </>

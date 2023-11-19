@@ -40,6 +40,9 @@ const apiPost = <T>(url: string, payload?: unknown, config?: AxiosRequestConfig)
 const apiPut = <T>(url: string, payload?: unknown, config?: AxiosRequestConfig) =>
   axiosInstance.put<T>(url, payload, getAuthConfig(config)).then(({data}) => data);
 
+const apiDelete = <T>(url: string, config?: AxiosRequestConfig) =>
+  axiosInstance.delete<T>(url, getAuthConfig(config)).then(({data}) => data);
+
 const apiGetNonAuth = async <T>(url: string, config?: AxiosRequestConfig) =>
   axiosInstance.get<T>(url, {...httpConfig, ...config}).then(({data}) => data);
 
@@ -50,6 +53,7 @@ export const http = {
   get: apiGet,
   post: apiPost,
   put: apiPut,
+  delete: apiDelete,
 };
 
 export const httpNonAuth = {

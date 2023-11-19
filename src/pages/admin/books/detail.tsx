@@ -47,8 +47,8 @@ export default function BookDetailPage() {
       <div className="py-4">
         <BookShowcase bookData={bookData} adminView />
 
-        <Divider className="mb-8" variant="dashed" />
-        <h3>{t('common.otherInfo')}</h3>
+        <Divider className="my-8" variant="dashed" />
+        <h3 className="mb-4">{t('common.otherInfo')}</h3>
         {!bookData || (
           <Table>
             <Table.Thead>
@@ -60,10 +60,12 @@ export default function BookDetailPage() {
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-              <Table.Td>{bookData.country.name}</Table.Td>
-              <Table.Td>{bookData.price}</Table.Td>
-              <Table.Td>{bookData.publishYear}</Table.Td>
-              <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
+              <Table.Tr>
+                <Table.Td>{bookData.country.name}</Table.Td>
+                <Table.Td>{bookData.price}</Table.Td>
+                <Table.Td>{bookData.publishYear}</Table.Td>
+                <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
+              </Table.Tr>
             </Table.Tbody>
           </Table>
         )}

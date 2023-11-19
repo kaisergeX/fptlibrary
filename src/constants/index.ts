@@ -4,9 +4,17 @@ export enum SupportedLanguage {
 }
 
 export enum BookStatus {
-  AVAILABLE = '0',
-  BOOKED = '1',
-  IN_HAND = '2',
-  RETURNED = '3',
-  OFF = '4',
+  AVAILABLE,
+  BOOKED,
+  IN_HAND,
+  RETURNED,
+  OFF,
 }
+
+export const BOOK_ACTIONS = {
+  BOOKED: 'booked',
+  IN_HAND: 'in_hand',
+  RETURENED: 'returned',
+  OFF: 'off',
+  AVAILABLE: 'available',
+} as const;

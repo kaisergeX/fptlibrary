@@ -34,6 +34,8 @@
     "viewMore": "Xem thêm",
     "rent": "Mượn sách",
     "dragImage": "Kéo thả hoặc nhấn để chọn ảnh",
+    "confirm": "Xác nhận",
+    "cancelAction": "Huỷ hành động",
 
     "features": "Tính năng",
     "account": "Tài khoản",
@@ -170,15 +172,24 @@
     "add": "Thêm sách",
     "update": "Cập nhật sách",
     "detail": "Thông tin sách",
-    "picked": "Đã chọn",
-    "unPicked": "Bỏ chọn",
+    "select": "Chọn sách",
+    "selected": "Đã chọn",
+    "unselected": "Bỏ chọn",
     "addedList": "Sách đã chọn",
     "status": {
       "AVAILABLE": "Khả dụng",
       "BOOKED": "Đã được đặt",
-      "IN_HAND": "Đang mượn đi",
+      "IN_HAND": "Đang mượn đọc",
       "RETURNED": "Đã trả lại",
       "OFF": "Không khả dụng"
+    },
+    "action": {
+      "booked": "Đặt sách",
+      "returned": "Trả sách",
+      "remove": "Xóa sách"
+    },
+    "confirm": {
+      "remove": "Xin hãy xác nhận xóa sách"
     },
     "exceeded": {
       "title": "Bạn đã thêm đủ {{count}} cuốn sách",
@@ -186,7 +197,8 @@
     },
     "existed": {
       "title": "Sách đã tồn tại",
-      "rent": "Sách đã được chọn rồi"
+      "rent": "Sách đã được chọn rồi",
+      "rented": "Sách đã được mượn"
     },
     "noData": {
       "emptyList": "Bạn chưa chọn cuốn sách nào",
@@ -199,6 +211,9 @@
 
   "bookBrowsing": {
     "pageTitle": "Thư viện"
+  },
+  "account": {
+    "pageTitle": "Trang cá nhân"
   },
   "home": {
     "pageTitle": "Trang chủ"

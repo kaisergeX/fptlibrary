@@ -19,7 +19,7 @@ export const defaultLanguage = SupportedLanguage.VI;
 /**
  * Common components config
  */
-export const PAGESIZE_OPTIONS = [10, 15, 20];
+export const PAGESIZE_OPTIONS = [10, 20, 50];
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGESIZE = PAGESIZE_OPTIONS[0];
 export const MAX_GENRES = 5;

@@ -8,14 +8,14 @@ import AppLogo from '~/components/app-logo';
 import {Path, SEARCH_PARAMS} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import type {GenresResData} from '~/types';
-import {classNames} from '~/util';
+import {arrSamples, classNames} from '~/util';
 import {http} from '~/util/http';
 
 export default function Footer({className = ''}: {className?: string}) {
   const {data: genresFooter = []} = useQuery({
     queryKey: [QueryKey.GENRES],
     queryFn: () => http.get<GenresResData>(API.GENRES),
-    select: ({body}) => body.slice(0, 5),
+    select: ({body}) => arrSamples(body, 5),
   });
 
   return (

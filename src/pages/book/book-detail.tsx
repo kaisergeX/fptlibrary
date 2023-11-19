@@ -22,6 +22,7 @@ export default function BookDetail() {
     queryKey: [QueryKey.BOOK_DETAIL, bookId],
     queryFn: () => http.get<ResponseData<Book>>(generatePath(API.BOOK_DETAIL, {id: bookId!})),
     select: ({body: bookData}) => bookData,
+    staleTime: undefined,
   });
 
   const {data: otherBooks} = useQuery({

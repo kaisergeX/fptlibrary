@@ -12,6 +12,7 @@ const BreadcrumbsCustom = ({
     <Button
       key={index}
       className={url ? '' : 'dark:text-gray-400'}
+      classNames={{label: 'inline-block max-w-xs truncate h-auto'}}
       component={Link}
       to={url || '#'}
       size="compact-sm"

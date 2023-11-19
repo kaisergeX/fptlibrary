@@ -5,7 +5,7 @@ import {t} from 'i18next';
 
 export const BookStatusOptions: SelectCustomProps['data'] = [
   {
-    value: BookStatus.AVAILABLE,
+    value: BookStatus.AVAILABLE.toString(),
     render: (
       <Badge variant="light" color="blue" size="lg" radius="md">
         {t('book.status.AVAILABLE')}
@@ -13,7 +13,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
     ),
   },
   {
-    value: BookStatus.BOOKED,
+    value: BookStatus.BOOKED.toString(),
     render: (
       <Badge variant="light" color="green" size="lg" radius="md">
         {t('book.status.BOOKED')}
@@ -21,7 +21,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
     ),
   },
   {
-    value: BookStatus.IN_HAND,
+    value: BookStatus.IN_HAND.toString(),
     render: (
       <Badge variant="light" color="violet" size="lg" radius="md">
         {t('book.status.IN_HAND')}
@@ -29,7 +29,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
     ),
   },
   {
-    value: BookStatus.RETURNED,
+    value: BookStatus.RETURNED.toString(),
     render: (
       <Badge variant="light" color="pink" size="lg" radius="md">
         {t('book.status.RETURNED')}
@@ -37,7 +37,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
     ),
   },
   {
-    value: BookStatus.OFF,
+    value: BookStatus.OFF.toString(),
     render: (
       <Badge variant="light" color="gray" size="lg" radius="md">
         {t('book.status.OFF')}

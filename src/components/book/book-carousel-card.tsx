@@ -6,8 +6,9 @@ import {Link, generatePath} from 'react-router-dom';
 import {Path} from '~/config/path';
 import {usePersistStore} from '~/store';
 import type {Book} from '~/types';
-import {classNames, strReplaceSpace} from '~/util';
+import {arrSamples, classNames, strReplaceSpace} from '~/util';
 import AgeTags from './age-tags';
+import {BookStatus} from '~/constants';
 
 type BookCarouselCardProps = {
   className?: string;
@@ -23,7 +24,7 @@ const BookCarouselCard = ({
   coverProps,
 }: BookCarouselCardProps) => {
   const {t} = useTranslation();
-  const {id, title, author, cover, summary, genre, ageTag} = data;
+  const {id, title, author, cover, summary, genre, ageTag, status} = data;
   const [isBookAdded, addBook] = usePersistStore((state) => [
     state.books.includes(id),
     state.addBook,
@@ -45,7 +46,10 @@ const BookCarouselCard = ({
         className,
       )}
     >
-      <div className="flex basis-2/5 items-center self-center sm:h-full sm:basis-1/2">
+      <Link
+        className="flex basis-2/5 items-center self-center sm:h-full sm:basis-1/2"
+        to={{pathname: generatePath(Path.BOOK_DETAIL, {id})}}
+      >
         <Image
           className="max-h-full rounded-lg"
           src={cover}
@@ -56,7 +60,7 @@ const BookCarouselCard = ({
           loading="lazy"
           {...coverProps}
         />
-      </div>
+      </Link>
       <article
         className={classNames(
           'flex w-80 flex-col justify-between gap-4 rounded-lg p-2 transition-colors duration-300 sm:p-4',
@@ -77,7 +81,7 @@ const BookCarouselCard = ({
 
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <IconTags size="1.2rem" />
-            {genre.map(({id, genreName}) => (
+            {arrSamples(genre, 2).map(({id, genreName}) => (
               <Badge key={id} className="cursor-default" variant="outline">
                 <Trans t={t}>genre.{genreName}</Trans>
               </Badge>
@@ -91,11 +95,17 @@ const BookCarouselCard = ({
 
         {isBookAdded ? (
           <Button leftSection={<IconCheck className="text-green-500" />} radius="md" disabled>
-            {t('book.picked')}
+            {t('book.selected')}
           </Button>
         ) : (
-          <Button variant="outline" onClick={handleAction} leftSection={<IconBook2 />} radius="md">
-            {t('common.rent')}
+          <Button
+            variant="outline"
+            onClick={handleAction}
+            leftSection={status === BookStatus.AVAILABLE && <IconBook2 />}
+            radius="md"
+            disabled={status !== BookStatus.AVAILABLE}
+          >
+            {status === BookStatus.AVAILABLE ? t('common.rent') : t('book.existed.rented')}
           </Button>
         )}
       </article>

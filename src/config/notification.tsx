@@ -1,4 +1,5 @@
 import {
+  IconCheck,
   IconExclamationMark,
   IconInfoCircle,
   IconQuestionMark,
@@ -50,7 +51,17 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     code: NotiCode.SUCCESS,
     message: t('common.success.title'),
     color: 'teal',
-    icon: <IconExclamationMark />,
+    icon: <IconCheck />,
+  },
+  {
+    code: NotiCode.BOOK_BOOKED,
+    message: t('common.success.action', {action: t('book.action.booked')}),
+    color: 'teal',
+  },
+  {
+    code: NotiCode.BOOK_RETURNED,
+    message: t('common.success.action', {action: t('book.action.returned')}),
+    color: 'teal',
   },
 
   /**

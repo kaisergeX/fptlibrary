@@ -1,5 +1,5 @@
-import {Indicator, ActionIcon, Tooltip, Popover} from '@mantine/core';
-import {useQueries} from '@tanstack/react-query';
+import {Indicator, ActionIcon, Tooltip, Popover, Button} from '@mantine/core';
+import {useMutation, useQueries, useQueryClient} from '@tanstack/react-query';
 import {IconBooks, IconLogin2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {generatePath, useNavigate} from 'react-router-dom';
@@ -13,20 +13,23 @@ import {useAutoAnimate} from '@formkit/auto-animate/react';
 import type {Book, ResponseData} from '~/types';
 import CommonLoading from '../common-loading';
 import type {AxiosError} from 'axios';
+import {findNotiConfig, promiseAllSettled} from '~/util';
+import {BOOK_ACTIONS, BookStatus} from '~/constants';
+import {showNotification} from '@mantine/notifications';
+import {NotiCode} from '~/types/notification';
 
 const BooksPopover = () => {
-  const {books: selectedBookIds, isAuthenticated, removeBook} = usePersistStore();
+  const {books: selectedBookIds, isAuthenticated, removeBook, setBooks} = usePersistStore();
   const navigate = useNavigate();
   const {t} = useTranslation();
   const [animateDropdown] = useAutoAnimate();
+  const queryClient = useQueryClient();
 
   const {data: renderSelectedBooks, isLoading} = useQueries({
     queries: selectedBookIds.map((bookId) => ({
       queryKey: [QueryKey.BOOK_DETAIL, bookId],
       queryFn: () => http.get<ResponseData<Book>>(generatePath(API.BOOK_DETAIL, {id: bookId})),
-      select: ({body: bookData}: ResponseData<Book>) => (
-        <BookRentItem key={bookData.id} {...bookData} />
-      ),
+      select: ({body: bookData}: ResponseData<Book>) => bookData,
       enabled: !!selectedBookIds.length,
     })),
     combine: (result) => ({
@@ -38,13 +41,43 @@ const BooksPopover = () => {
           }
         }
 
-        return data || [];
+        if (!data) {
+          return [];
+        }
+
+        if (data.status !== BookStatus.AVAILABLE) {
+          // somebody already rented this book
+          removeBook(selectedBookIds[index], false);
+          return [];
+        }
+
+        return <BookRentItem key={data.id} {...data} />;
       }),
       isLoading: result.some(({isLoading}) => isLoading),
     }),
   });
 
-  const handleRent = () => {};
+  const {isPending, mutate: bookingMutate} = useMutation({
+    mutationFn: (bookIds: Book['id'][]) =>
+      promiseAllSettled(
+        bookIds.map((bookId) =>
+          http.post(generatePath(API.BOOK_ACTIONS, {actionType: BOOK_ACTIONS.BOOKED, id: bookId})),
+        ),
+      ),
+    onSuccess: async ({fulfilled}) => {
+      if (!fulfilled.length) {
+        return;
+      }
+
+      showNotification(findNotiConfig(NotiCode.BOOK_BOOKED));
+      setBooks([]);
+      await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
+    },
+  });
+
+  const handleRent = () => {
+    bookingMutate(selectedBookIds);
+  };
 
   const renderPopoverDropdown = () => {
     if (isLoading) {
@@ -70,14 +103,14 @@ const BooksPopover = () => {
 
         <div className="shadow-t-theme flex-center-between sticky inset-x-0 bottom-0 gap-2 bg-inherit p-4">
           {isAuthenticated ? (
-            <button className="button ml-auto" onClick={handleRent} disabled>
+            <Button className="ml-auto" onClick={handleRent} disabled={isPending}>
               {t('common.rent')}
-            </button>
+            </Button>
           ) : (
             <>
               <span className="flex items-center sm-only:hidden">{t('book.memberOnly')}</span>
-              <button
-                className="button-secondary ml-auto"
+              <Button
+                className="ml-auto"
                 onClick={() =>
                   navigate({
                     pathname: Path.LOGIN,
@@ -86,7 +119,7 @@ const BooksPopover = () => {
                 }
               >
                 <IconLogin2 size="1.2rem" /> {t('auth.login')}
-              </button>
+              </Button>
             </>
           )}
         </div>

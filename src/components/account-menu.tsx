@@ -49,14 +49,27 @@ export default function AccountMenu() {
         >
           {t('home.pageTitle')}
         </Menu.Item>
-        <Menu.Item
-          leftSection={<IconLayoutDashboard size="1.2rem" />}
-          className="link-unstyled"
-          component={Link}
-          to={Path.CMS_DASHBOARD}
-        >
-          {t('common.management')}
-        </Menu.Item>
+        {isAuthenticated && (
+          <>
+            <Menu.Item
+              leftSection={<IconLayoutDashboard size="1.2rem" />}
+              className="link-unstyled"
+              component={Link}
+              to={Path.CMS_DASHBOARD}
+            >
+              {t('common.management')}
+            </Menu.Item>
+            <Menu.Item
+              leftSection={<IconUser size="1.2rem" />}
+              className="link-unstyled"
+              component={Link}
+              to={Path.CMS_DASHBOARD}
+              disabled
+            >
+              {t('account.pageTitle')}
+            </Menu.Item>
+          </>
+        )}
 
         <Menu.Item
           leftSection={<IconSettings size="1.2rem" />}

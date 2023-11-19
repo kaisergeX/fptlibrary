@@ -2,6 +2,7 @@ import type {NotificationData} from '@mantine/notifications';
 import dayjs from 'dayjs';
 import {t} from 'i18next';
 import notiConfigs from '~/config/notification';
+import type {PromiseAllSettledReturnType} from '~/types';
 import type {ErrorCode, NotiCode} from '~/types/notification';
 
 export function classNames(...classes: string[]): string {
@@ -93,3 +94,26 @@ export const processFileUrl = (url: string) => {
   const fileExtension = fileName?.split('.').pop();
   return {fileName, fileExtension};
 };
+
+/**
+ * Add Type-guard and provides an easier way to extract responses from
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled Promise.allSettled}
+ */
+export async function promiseAllSettled<ResultType, ErrorType = unknown>(
+  promises: Promise<ResultType>[],
+): PromiseAllSettledReturnType<ResultType, ErrorType> {
+  const results = await Promise.allSettled(promises);
+  const fulfilled: PromiseFulfilledResult<ResultType>['value'][] = [];
+  const rejected: ErrorType[] = [];
+
+  for (const result of results) {
+    if (result.status === 'rejected') {
+      rejected.push(result.reason as ErrorType);
+      continue;
+    }
+
+    fulfilled.push(result.value);
+  }
+
+  return {fulfilled, rejected};
+}

@@ -67,6 +67,10 @@
     @apply align-middle;
   }
 
+  .mantine-Modal-close {
+    @apply -mt-2;
+  }
+
   [data-rmiz-btn-unzoom] {
     @apply transition-opacity;
   }

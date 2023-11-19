@@ -13,8 +13,11 @@ export type SelectCustomProps = {
   value: string;
   classNames?: ComboboxProps['classNames'];
   onChange: (value: string) => void;
-} & Omit<InputBaseProps, 'classNames'> &
-  Omit<HTMLAttributes<HTMLButtonElement>, keyof InputBaseProps>;
+};
+
+export type SelectCustomPropsExtended = SelectCustomProps &
+  Omit<InputBaseProps, 'classNames'> &
+  Omit<HTMLAttributes<HTMLButtonElement>, keyof InputBaseProps | keyof SelectCustomProps>;
 
 export default function SelectCustom({
   classNames,
@@ -22,7 +25,7 @@ export default function SelectCustom({
   onChange,
   data,
   ...inputButtonProps
-}: SelectCustomProps) {
+}: SelectCustomPropsExtended) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });

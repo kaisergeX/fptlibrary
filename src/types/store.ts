@@ -52,6 +52,7 @@ export type UserStoreState = {
 
 export type UserStore = UserStoreState & {
   setUserInfo: (userInfo: UserInfo) => void;
+  resetUserInfo: () => void;
   resetUserStore: () => void;
 };
 

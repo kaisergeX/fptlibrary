@@ -5,6 +5,7 @@ import {Trans, useTranslation} from 'react-i18next';
 import {usePersistStore} from '~/store';
 import {IconBook2, IconCheck, IconTags} from '@tabler/icons-react';
 import AgeTags from './age-tags';
+import {BookStatus} from '~/constants';
 
 type BookCardProps = {
   className?: string;
@@ -16,12 +17,12 @@ type BookCardProps = {
 
 export default function BookCard({
   className = '',
-  data,
+  data: bookData,
   onClick,
   coverProps,
   hozizontal = false,
 }: BookCardProps) {
-  const {id: bookId, title, cover, summary, ageTag, genre} = data;
+  const {id: bookId, title, cover, summary, ageTag, genre, status} = bookData;
   const {t} = useTranslation();
   const [isBookAdded, addBook] = usePersistStore((state) => [
     bookId ? state.books.includes(bookId) : false,
@@ -38,9 +39,9 @@ export default function BookCard({
       padding={0}
       onClick={onClick}
     >
-      <div className={classNames(hozizontal ? 'basis-1/3' : 'sm-only:basis-1/3')}>
+      <div className={hozizontal ? 'basis-1/3' : 'sm-only:basis-1/3'}>
         <Image
-          className="rounded-lg object-cover object-center"
+          className="aspect-[1/1.5] rounded-lg object-cover object-center"
           src={cover}
           fallbackSrc={`https://placehold.co/300x450?text=${title}`}
           alt={`Book cover - ${title}`}
@@ -63,15 +64,15 @@ export default function BookCard({
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <IconTags size="1.2rem" />
           {genre.map(({id, genreName}) => (
-            <Badge key={id} className="cursor-default" variant="outline">
+            <Badge key={id} variant="outline">
               <Trans t={t}>genre.{genreName}</Trans>
             </Badge>
           ))}
         </div>
 
-        <p className="my-4 line-clamp-3 flex-1 text-slate-500">
-          {summary || t('common.contentUpdating')}
-        </p>
+        <article className="my-4 flex-1">
+          <p className="line-clamp-3 text-slate-500">{summary || t('common.contentUpdating')}</p>
+        </article>
 
         <div>
           {isBookAdded ? (
@@ -81,7 +82,7 @@ export default function BookCard({
               fullWidth
               disabled
             >
-              {t('book.picked')}
+              {t('book.selected')}
             </Button>
           ) : (
             <Button
@@ -90,11 +91,12 @@ export default function BookCard({
                 e.stopPropagation();
                 addBook(bookId);
               }}
-              leftSection={<IconBook2 />}
+              leftSection={status === BookStatus.AVAILABLE && <IconBook2 />}
               radius="md"
               fullWidth
+              disabled={status !== BookStatus.AVAILABLE}
             >
-              {t('common.rent')}
+              {status === BookStatus.AVAILABLE ? t('book.select') : t('book.existed.rented')}
             </Button>
           )}
         </div>

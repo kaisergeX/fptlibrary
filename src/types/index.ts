@@ -5,6 +5,11 @@ export type Primitives = string | number | boolean;
 export type ObjectAny = Record<PropertyKey, unknown>;
 export type ExtractValues<T> = T[keyof T];
 
+export type PromiseAllSettledReturnType<ResultType, ErrorType> = Promise<{
+  fulfilled: PromiseFulfilledResult<ResultType>['value'][];
+  rejected: ErrorType[];
+}>;
+
 export type BreadcrumbsOptions = {
   data: {title: string; url?: string}[];
   separator?: ReactNode;
@@ -79,7 +84,7 @@ export type BookFormValues = Omit<
   Book,
   'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear'
 > & {
-  cover?: string | File | null;
+  cover: string | File;
   genre: string[];
   country: Country['id'];
   ageTag: string;

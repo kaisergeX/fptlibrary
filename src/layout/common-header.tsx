@@ -21,7 +21,7 @@ const CommonHeader = ({
     <div
       className={classNames(
         'sticky top-[calc(var(--app-shell-header-height)-3rem)] z-10 transition-[top] hover:top-[calc(var(--app-shell-header-height))]',
-        '-mx-4 -mt-4 bg-white p-4 dark:bg-[#1A1B1E]',
+        'bg-default -mx-4 -mt-4 p-4',
         y > 48 ? ' shadow-[0_8px_5px_-5px] shadow-slate-100 dark:shadow-none' : '',
         className,
       )}
@@ -33,7 +33,7 @@ const CommonHeader = ({
         />
       )}
       <div className="flex-center-between">
-        <h2 className="font-bold">{title}</h2>
+        <h2 className="line-clamp-2 font-bold">{title}</h2>
         {children}
       </div>
     </div>

@@ -7,6 +7,9 @@ import axios, {
 import {API_BASE_URL} from './system';
 import {findNotiConfig} from '~/util';
 import {ErrorCode} from '~/types/notification';
+import {usePersistStore} from '~/store';
+import {globalNavigate} from '~/util/global-history';
+import {Path, SEARCH_PARAMS} from './path';
 
 const httpConfig: AxiosRequestConfig = {
   withCredentials: true,
@@ -50,6 +53,12 @@ const handleResponseError = (error: Error | AxiosError | null) => {
   switch (errStatus) {
     case 401: {
       showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED));
+      usePersistStore.getState().resetAuthStore();
+      globalNavigate({
+        pathname: Path.LOGIN,
+        search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
+      });
+
       return Promise.reject(error);
     }
 

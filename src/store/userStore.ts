@@ -1,5 +1,6 @@
+import {signal} from '@preact/signals-react';
 import {type StateCreator} from 'zustand';
-import type {UserInfo} from '~/types';
+import type {Book, UserInfo} from '~/types';
 import type {UserStore, UserStoreState} from '~/types/store';
 
 const defaultUserInfo: UserInfo = {
@@ -16,3 +17,5 @@ export const createUserSlice: StateCreator<UserStore> = (set) => ({
   resetUserInfo: () => set(() => ({userInfo: defaultUserInfo})),
   resetUserStore: () => set(() => defaultUserState),
 });
+
+export const confirmRemoveBook = signal<Book | undefined>(undefined);

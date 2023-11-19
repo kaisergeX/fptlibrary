@@ -38,6 +38,7 @@ export default function useMasterData({
       })),
       genres: body,
     }),
+    refetchOnWindowFocus: false,
     enabled: enableGenres,
   });
 
@@ -49,6 +50,7 @@ export default function useMasterData({
         selectCountryList: body.map(({id, name}) => ({label: name, value: id})),
         countries: body,
       }),
+      refetchOnWindowFocus: false,
       enabled: enableCountries,
     },
   );
@@ -63,6 +65,7 @@ export default function useMasterData({
       })),
       ageTags: body,
     }),
+    refetchOnWindowFocus: false,
     enabled: enableAgeTags,
   });
 

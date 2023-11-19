@@ -15,7 +15,8 @@ export const API = {
   LOGIN: '/login',
   LOGOUT: '/rest-auth/logout',
   BOOKS: '/books',
+  BOOK_MUTATION: '/books/:id?',
   BOOK_DETAIL: '/books/:id',
 } as const;
 
-export const DEFAULT_STALE_TIME = 300000; // 5m (= 5 * 60 * 1000 ms)
+export const DEFAULT_STALE_TIME = 300000; // 3m (= 3 * 60 * 1000 ms)

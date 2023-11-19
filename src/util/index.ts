@@ -87,3 +87,9 @@ export const strReplaceSpace = (
 };
 
 export const i18nNormalizeKey = (key: string): string => t(key as unknown as TemplateStringsArray);
+
+export const processFileUrl = (url: string) => {
+  const fileName = url.split('/').pop();
+  const fileExtension = fileName?.split('.').pop();
+  return {fileName, fileExtension};
+};

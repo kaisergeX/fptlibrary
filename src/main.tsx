@@ -19,6 +19,7 @@ import '@mantine/core/styles.layer.css';
 import '@mantine/carousel/styles.layer.css';
 import '@mantine/dates/styles.layer.css';
 import '@mantine/notifications/styles.layer.css';
+import '@mantine/dropzone/styles.layer.css';
 import 'mantine-datatable/styles.layer.css';
 import 'react-medium-image-zoom/dist/styles.css';
 
@@ -31,6 +32,13 @@ const queryClient = new QueryClient({
     mutations: {retry: false},
   },
 });
+
+// sync query state and data accross browser tabs
+// https://tanstack.com/query/latest/docs/react/plugins/broadcastQueryClient
+// broadcastQueryClient({
+//   queryClient,
+//   broadcastChannel: SERVICE_NAME,
+// });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -5,6 +5,7 @@ specifiers:
   '@mantine/carousel': ^7.2.2
   '@mantine/core': ^7.2.2
   '@mantine/dates': ^7.2.2
+  '@mantine/dropzone': ^7.2.2
   '@mantine/form': ^7.2.2
   '@mantine/hooks': ^7.2.2
   '@mantine/notifications': ^7.2.2
@@ -47,7 +48,7 @@ specifiers:
   react-medium-image-zoom: ^5.1.8
   react-router-dom: ^6.18.0
   sharp: ^0.32.6
-  svgo: ^3.0.3
+  svgo: ^3.0.4
   tailwindcss: ^3.3.5
   typescript: ^5.0.2
   vite: ^4.4.5
@@ -61,6 +62,7 @@ dependencies:
   '@mantine/carousel': 7.2.2_m4btj3efeirz7xzvdmvxry2s24
   '@mantine/core': 7.2.2_5krl5vizufup7twdvfgl2nrxci
   '@mantine/dates': 7.2.2_3lpvkpjtj6on5xhoibn77jyvby
+  '@mantine/dropzone': 7.2.2_l64cu3cpzfzodothr3dhkyolcq
   '@mantine/form': 7.2.2_react@18.2.0
   '@mantine/hooks': 7.2.2_react@18.2.0
   '@mantine/notifications': 7.2.2_l64cu3cpzfzodothr3dhkyolcq
@@ -107,7 +109,7 @@ devDependencies:
   prettier: 3.0.3
   prettier-plugin-tailwindcss: 0.5.6_prettier@3.0.3
   sharp: 0.32.6
-  svgo: 3.0.3
+  svgo: 3.0.4
   tailwindcss: 3.3.5
   typescript: 5.2.2
   vite: 4.5.0
@@ -512,6 +514,21 @@ packages:
       dayjs: 1.11.10
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@mantine/dropzone/7.2.2_l64cu3cpzfzodothr3dhkyolcq:
+    resolution: {integrity: sha512-60eEG0Jd4cT4xxxU9fn5F0bOPU5v8YcC5DO/BfUU8e8wEVw2MHN8wi+TeadY/HVs3q6nPmN+J5ztmU1fyNQjYA==}
+    peerDependencies:
+      '@mantine/core': 7.2.2
+      '@mantine/hooks': 7.2.2
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@mantine/core': 7.2.2_5krl5vizufup7twdvfgl2nrxci
+      '@mantine/hooks': 7.2.2_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-dropzone-esm: 15.0.1_react@18.2.0
     dev: false
 
   /@mantine/form/7.2.2_react@18.2.0:
@@ -3247,6 +3264,16 @@ packages:
       scheduler: 0.23.0
     dev: false
 
+  /react-dropzone-esm/15.0.1_react@18.2.0:
+    resolution: {integrity: sha512-RdeGpqwHnoV/IlDFpQji7t7pTtlC2O1i/Br0LWkRZ9hYtLyce814S71h5NolnCZXsIN5wrZId6+8eQj2EBnEzg==}
+    engines: {node: '>= 10.13'}
+    peerDependencies:
+      react: '>= 16.8 || 18.0.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
   /react-error-boundary/4.0.11_react@18.2.0:
     resolution: {integrity: sha512-U13ul67aP5DOSPNSCWQ/eO0AQEYzEFkVljULQIjMV0KlffTAhxuDoBKdO0pb/JZ8mDhMKFZ9NZi0BmLGUiNphw==}
     peerDependencies:
@@ -3777,8 +3804,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svgo/3.0.3:
-    resolution: {integrity: sha512-X4UZvLhOglD5Xrp834HzGHf8RKUW0Ahigg/08yRO1no9t2NxffOkMiQ0WmaMIbaGlVTlSst2zWANsdhz5ybXgA==}
+  /svgo/3.0.4:
+    resolution: {integrity: sha512-T+Xul3JwuJ6VGXKo/p2ndqx1ibxNKnLTvRc1ZTWKCfyKS/GgNjRZcYsK84fxTsy/izr91g/Rwx6fGnVgaFSI5g==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -3786,6 +3813,7 @@ packages:
       commander: 7.2.0
       css-select: 5.1.0
       css-tree: 2.3.1
+      css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.0.0
     dev: true

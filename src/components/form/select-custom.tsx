@@ -37,6 +37,7 @@ export default function SelectCustom({
   return (
     <Combobox
       store={combobox}
+      offset={-8}
       withinPortal={false}
       classNames={classNames}
       onOptionSubmit={(val) => {

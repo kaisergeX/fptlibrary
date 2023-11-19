@@ -79,14 +79,15 @@ export type BookFormValues = Omit<
   Book,
   'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear'
 > & {
-  cover: File | null;
+  cover?: string | File | null;
   genre: string[];
   country: Country['id'];
-  ageTag: number | null;
+  ageTag: string;
   publishYear?: Date | null;
 };
 
-export type BookRequestData = Omit<BookFormValues, 'cover' | 'genre'> & {
-  cover: File;
+export type BookRequestData = Omit<BookFormValues, 'cover' | 'genre' | 'publishYear'> & {
+  cover?: File;
   genre: string;
+  publishYear?: number;
 };

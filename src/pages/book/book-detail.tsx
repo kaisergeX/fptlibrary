@@ -91,6 +91,7 @@ export default function BookDetail() {
         />
       );
     },
+    staleTime: undefined,
     enabled: !!bookId && !!bookFirstGenre,
   });
 

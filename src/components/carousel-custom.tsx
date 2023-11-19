@@ -40,7 +40,7 @@ const CarouselCustom = ({
     <Carousel.Slide key={image}>
       <Image
         src={image}
-        fallbackSrc="https://placehold.co/600x400?text=\n"
+        fallbackSrc="https://placehold.co/300x450?text=\n"
         alt={`Carousel image ${index}`}
         {...imageProps}
       />

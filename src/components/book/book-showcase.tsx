@@ -44,7 +44,12 @@ export default function BookShowcase({
         </ZoomImage>
       </div>
 
-      <article className="min-h-[80vh] max-sm:w-full sm:basis-2/3">
+      <article
+        className={classNames(
+          'max-sm:w-full sm:basis-2/3',
+          adminView ? 'min-h-[50vh]' : 'min-h-[80vh]',
+        )}
+      >
         <div className="flex items-start gap-2 max-sm:justify-between">
           <h2 className="font-bold sm:text-xl xl:text-3xl">{title}</h2>
           <AgeTags data={ageTag} iconProps={{size: '2rem', strokeWidth: 1.5}} />

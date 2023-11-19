@@ -49,7 +49,7 @@ const BookCarouselCard = ({
         <Image
           className="max-h-full rounded-lg"
           src={cover}
-          fallbackSrc={`https://placehold.co/300x500?text=${strReplaceSpace(title, {
+          fallbackSrc={`https://placehold.co/300x450?text=${strReplaceSpace(title, {
             everyNthSpace: 2,
           })}`}
           alt={`Book cover - ${title}`}

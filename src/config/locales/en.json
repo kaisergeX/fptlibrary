@@ -32,6 +32,8 @@
     "close": "Close",
     "actions": "Actions",
     "viewMore": "View more",
+    "dragImage": "Drag images here or click to select files",
+
     "rent": "Rent book",
     "features": "Features",
     "account": "Account",
@@ -86,7 +88,8 @@
       "sthWrong": {
         "normal": "An error occurred",
         "action": "Something went wrong. Please try again later!"
-      }
+      },
+      "previewImage": "Cannot preview image"
     },
     "notFound": {
       "title": "Page not found!",
@@ -95,7 +98,8 @@
 
     "validation": {
       "required": "This field is required",
-      "imageFileType": "Only {{mimeTypes}} files are accepted",
+      "invalidInput": "Invalid input data",
+      "imageFileType": "Only {{- mimeTypes}} files are accepted",
       "maxFileSize": "Max file size is {{size}}"
     }
   },

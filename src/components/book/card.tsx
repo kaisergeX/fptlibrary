@@ -42,7 +42,7 @@ export default function BookCard({
         <Image
           className="rounded-lg object-cover object-center"
           src={cover}
-          fallbackSrc={`https://placehold.co/300x500?text=${title}`}
+          fallbackSrc={`https://placehold.co/300x450?text=${title}`}
           alt={`Book cover - ${title}`}
           loading="lazy"
           {...coverProps}

@@ -1,13 +1,13 @@
 import {showNotification} from '@mantine/notifications';
 import {t} from 'i18next';
 import type {StateCreator} from 'zustand';
-import {MAX_SELECTED_BOOKS} from '~/config/system';
+import {DEFAULT_THEME_COLOR, MAX_SELECTED_BOOKS} from '~/config/system';
 import {NotiCode} from '~/types/notification';
 import type {PersistStore, SystemPersistState, SystemPersistStore} from '~/types/store';
 import {findNotiConfig} from '~/util';
 
 const defaultPersistState: SystemPersistState = {
-  theme: 'dark',
+  theme: DEFAULT_THEME_COLOR,
   books: [],
 };
 

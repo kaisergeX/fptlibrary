@@ -1,9 +1,10 @@
-import {Button} from '@mantine/core';
+import {Button, Divider, Table} from '@mantine/core';
 import {IconEdit} from '@tabler/icons-react';
 import {useSuspenseQuery} from '@tanstack/react-query';
 import {useTranslation} from 'react-i18next';
 import {useParams, generatePath, Link} from 'react-router-dom';
 import BookShowcase from '~/components/book/book-showcase';
+import {BookStatusOptions} from '~/components/book/book-status';
 import {Path} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import CommonHeader from '~/layout/common-header';
@@ -19,6 +20,7 @@ export default function BookDetailPage() {
     queryKey: [QueryKey.BOOK_DETAIL, bookId],
     queryFn: () => http.get<ResponseData<Book>>(generatePath(API.BOOK_DETAIL, {id: bookId!})),
     select: ({body}) => body,
+    staleTime: undefined,
   });
 
   const pageTitle = bookData.title || t('book.detail');
@@ -29,7 +31,7 @@ export default function BookDetailPage() {
   ];
 
   return (
-    <div className="space-y-4">
+    <>
       <Head title={pageTitle} />
       <CommonHeader breadcrumbData={breadcrumbData}>
         <Button
@@ -41,7 +43,31 @@ export default function BookDetailPage() {
           {t('book.update')}
         </Button>
       </CommonHeader>
-      <BookShowcase bookData={bookData} adminView />
-    </div>
+
+      <div className="py-4">
+        <BookShowcase bookData={bookData} adminView />
+
+        <Divider className="mb-8" variant="dashed" />
+        <h3>{t('common.otherInfo')}</h3>
+        {!bookData || (
+          <Table>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>{t('common.country')}</Table.Th>
+                <Table.Th>{t('book.price')} (&#8363;)</Table.Th>
+                <Table.Th>{t('book.publishYear')}</Table.Th>
+                <Table.Th>{t('common.status')}</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              <Table.Td>{bookData.country.name}</Table.Td>
+              <Table.Td>{bookData.price}</Table.Td>
+              <Table.Td>{bookData.publishYear}</Table.Td>
+              <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
+            </Table.Tbody>
+          </Table>
+        )}
+      </div>
+    </>
   );
 }

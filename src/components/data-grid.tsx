@@ -66,7 +66,7 @@ const DataGrid = <T,>({
       fetching={isLoading || isFetching}
       columns={columns}
       records={listData?.body}
-      totalRecords={listData?.count}
+      totalRecords={listData?.count || listData?.body.length || 0}
       page={queryParams.numPages + 1}
       onPageChange={(p) => updateSearchParams({numPages: p.toString()})}
       recordsPerPage={queryParams.pageSize}

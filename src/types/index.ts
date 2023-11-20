@@ -76,13 +76,15 @@ export type Book = {
   price?: number;
   status: BookStatus;
   publishYear?: string;
+  createAt: string;
+  updateAt: string;
 };
 
 export type BooksResData = ResponseData<Book[]>;
 
 export type BookFormValues = Omit<
   Book,
-  'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear'
+  'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear' | 'createAt' | 'updateAt'
 > & {
   cover: string | File;
   genre: string[];

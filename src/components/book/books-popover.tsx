@@ -71,6 +71,7 @@ const BooksPopover = () => {
 
       showNotification(findNotiConfig(NotiCode.BOOK_BOOKED));
       setBooks([]);
+      await queryClient.invalidateQueries({queryKey: [QueryKey.BOOK_RENT_LIST]});
       await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
     },
   });

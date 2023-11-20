@@ -75,7 +75,6 @@ const heroParallaxGroup = [
 ];
 
 const images = [
-  'https://source.unsplash.com/user/jswords',
   'https://source.unsplash.com/random/?tree',
   'https://source.unsplash.com/user/erondu',
   'https://source.unsplash.com/user/thedanrogers',

@@ -5,6 +5,7 @@ export const QueryKey = {
 
   BOOKS: 'BOOKS',
   BOOK_DETAIL: 'BOOK_DETAIL',
+  BOOK_RENT_LIST: 'BOOK_RENT_LIST',
 } as const;
 
 export const API = {
@@ -16,6 +17,7 @@ export const API = {
   LOGOUT: '/rest-auth/logout',
 
   BOOKS: '/books',
+  BOOK_RENT_LIST: '/book/borrow',
   BOOK_ACTIONS: '/action/:actionType/:id',
   BOOK_MUTATION: '/books/:id?',
   BOOK_DETAIL: '/books/:id',

@@ -36,6 +36,9 @@
     "dragImage": "Kéo thả hoặc nhấn để chọn ảnh",
     "confirm": "Xác nhận",
     "cancelAction": "Huỷ hành động",
+    "createdAt": "Ngày tạo",
+    "updatedAt": "Ngày cập nhật",
+    "lastUpdatedAt": "Ngày cập nhật mới nhất",
 
     "features": "Tính năng",
     "account": "Tài khoản",
@@ -189,6 +192,7 @@
       "remove": "Xóa sách"
     },
     "confirm": {
+      "return": "Bạn muốn trả sách",
       "remove": "Xin hãy xác nhận xóa sách"
     },
     "exceeded": {
@@ -213,7 +217,8 @@
     "pageTitle": "Thư viện"
   },
   "account": {
-    "pageTitle": "Trang cá nhân"
+    "pageTitle": "Trang cá nhân",
+    "bookRent": "Sách đã mượn"
   },
   "home": {
     "pageTitle": "Trang chủ"

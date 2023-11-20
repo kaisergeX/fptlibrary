@@ -7,28 +7,26 @@ import Footer from '../footer';
 
 const ClientOutlet = () => {
   return (
-    <>
-      <main className="relative flex min-h-full flex-col">
-        <Navbar />
+    <main className="relative flex min-h-full flex-col">
+      <Navbar />
 
-        <div className="flex-1 pb-4 sm:pb-16 2xl:pb-[10vw]">
-          <Suspense
-            fallback={
-              <LoadingOverlay
-                overlayProps={{opacity: 0.3}}
-                transitionProps={{duration: 500}}
-                visible
-              />
-            }
-          >
-            <Outlet />
-          </Suspense>
-        </div>
+      <div className="flex-1 pb-4 sm:pb-16 2xl:pb-[10vw]">
+        <Suspense
+          fallback={
+            <LoadingOverlay
+              overlayProps={{opacity: 0.3}}
+              transitionProps={{duration: 500}}
+              visible
+            />
+          }
+        >
+          <Outlet />
+        </Suspense>
+      </div>
 
-        <ScrollTopButton className="z-10" />
-        <Footer className="justify-self-end" />
-      </main>
-    </>
+      <ScrollTopButton className="z-10" />
+      <Footer className="justify-self-end" />
+    </main>
   );
 };
 

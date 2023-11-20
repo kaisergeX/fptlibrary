@@ -4,6 +4,8 @@ export enum Path {
   LOGIN = '/auth/login',
   SIGNUP = '/auth/signup',
 
+  PERSONAL = '/personal',
+
   LIBRARY = '/library',
   BOOK_BROWSING = '/library/books',
   BOOK_DETAIL = '/library/book/:id',

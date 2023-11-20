@@ -1,6 +1,7 @@
 import {Button, Divider, Table} from '@mantine/core';
 import {IconEdit} from '@tabler/icons-react';
 import {useSuspenseQuery} from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import {useTranslation} from 'react-i18next';
 import {useParams, generatePath, Link} from 'react-router-dom';
 import BookShowcase from '~/components/book/book-showcase';
@@ -57,6 +58,8 @@ export default function BookDetailPage() {
                 <Table.Th>{t('book.price')} (&#8363;)</Table.Th>
                 <Table.Th>{t('book.publishYear')}</Table.Th>
                 <Table.Th>{t('common.status')}</Table.Th>
+                <Table.Th>{t('common.createdAt')}</Table.Th>
+                <Table.Th>{t('common.lastUpdatedAt')}</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
@@ -65,6 +68,8 @@ export default function BookDetailPage() {
                 <Table.Td>{bookData.price}</Table.Td>
                 <Table.Td>{bookData.publishYear}</Table.Td>
                 <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
+                <Table.Td>{dayjs(bookData.createAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
+                <Table.Td>{dayjs(bookData.updateAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
               </Table.Tr>
             </Table.Tbody>
           </Table>

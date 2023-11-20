@@ -2,6 +2,7 @@
 import {lazy} from 'react';
 import {Navigate, type RouteObject} from 'react-router-dom';
 import {Path} from './path';
+import PrivateOutlet from '~/layout/outlet/PrivateOutlet';
 
 const ClientOutlet = lazy(() => import('~/layout/outlet/ClientOutlet'));
 const AuthOutlet = lazy(() => import('~/layout/outlet/AuthOutlet'));
@@ -9,6 +10,8 @@ const AuthOutlet = lazy(() => import('~/layout/outlet/AuthOutlet'));
 const Homepage = lazy(() => import('~/pages/homepage'));
 const LoginPage = lazy(() => import('~/pages/auth/login'));
 const SignUpPage = lazy(() => import('~/pages/auth/signup'));
+
+const PersonalPage = lazy(() => import('~/pages/personal'));
 
 // Book pages
 const BookBrowsing = lazy(() => import('~/pages/book/browsing'));
@@ -62,6 +65,12 @@ const routesConfig: RouteObject[] = [
       {path: Path.BOOK_BROWSING, element: <BookBrowsing />},
       {path: Path.BOOK_DETAIL, element: <BookDetail />},
     ],
+  },
+
+  {
+    path: Path.PERSONAL,
+    element: <PrivateOutlet />,
+    children: [{index: true, element: <PersonalPage />}],
   },
 
   {path: Path.HIDDEN_FEATURES, element: <HiddenFeatures />},

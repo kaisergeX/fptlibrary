@@ -18,4 +18,5 @@ export const createUserSlice: StateCreator<UserStore> = (set) => ({
   resetUserStore: () => set(() => defaultUserState),
 });
 
+export const confirmReturnBook = signal<Book | undefined>(undefined);
 export const confirmRemoveBook = signal<Book | undefined>(undefined);

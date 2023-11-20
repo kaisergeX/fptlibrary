@@ -35,6 +35,9 @@
     "dragImage": "Drag images here or click to select files",
     "confirm": "Confirm",
     "cancelAction": "Cancel",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "lastUpdatedAt": "Last updated at",
 
     "rent": "Rent book",
     "features": "Features",
@@ -189,6 +192,7 @@
       "remove": "Remove book"
     },
     "confirm": {
+      "return": "Are you sure you want to return this book?",
       "remove": "Are you sure you want to remove this book?"
     },
     "exceeded": {
@@ -213,7 +217,8 @@
     "pageTitle": "Library"
   },
   "account": {
-    "pageTitle": "Personal page"
+    "pageTitle": "Personal page",
+    "bookRent": "Borrowed Books List"
   },
   "home": {
     "pageTitle": "Homepage"

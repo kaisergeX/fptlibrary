@@ -27,7 +27,7 @@ export const MAX_GENRES = 5;
 /**
  * UI config
  */
-export const DEFAULT_THEME_COLOR: DefaultMantineColor = 'cyan';
+export const DEFAULT_THEME_COLOR: DefaultMantineColor = 'dark';
 /** How many genres carousel will be shown */
 export const HOME_GENRE_COUNT: number = 3;
 

@@ -5,5 +5,6 @@ interface ImportMetaEnv {
   VITE_SERVICE_NAME: string;
 
   VITE_API_BASE_URL: string;
+  VITE_GOOGLE_CLIENT_ID: string;
   VITE_MAX_SELECTED_BOOKS: number;
 }

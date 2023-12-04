@@ -1,17 +1,13 @@
-import {PasswordInput, TextInput} from '@mantine/core';
-import {useForm, zodResolver} from '@mantine/form';
+import {Button} from '@mantine/core';
 import {useTranslation} from 'react-i18next';
-import {Link} from 'react-router-dom';
-import {Path} from '~/config/path';
+import {useLocation, useSearchParams} from 'react-router-dom';
 import {Head} from '~/layout/outlet/Head';
-import {IconAt, IconLock} from '@tabler/icons-react';
-import i18next from 'i18next';
-import {z} from 'zod';
 import {usePersistStore, useStorage} from '~/store';
-import {useMutation} from '@tanstack/react-query';
-import {http} from '~/util/http';
-import {API} from '~/constants/service';
 import type {ResponseData} from '~/types';
+import {useGoogleLogin} from '@react-oauth/google';
+import GoogleLogo from '~/assets/GoogleLogo';
+import AppLogo from '~/components/app-logo';
+import Footer from '~/layout/footer';
 
 type LoginPayload = {
   username: string;
@@ -23,84 +19,49 @@ type LoginResData = ResponseData<{
   access: string;
 }>;
 
-const validationSchema = z.object({
-  email: z.string().trim().email(i18next.t('auth.validation.email')),
-  password: z.string().min(6, i18next.t('auth.validation.password')),
-});
-
-type LoginForm = z.infer<typeof validationSchema>;
-
 const LoginPage = () => {
   const {t} = useTranslation();
+  const location = useLocation();
   const {setToken} = usePersistStore();
   const {userInfo, setUserInfo} = useStorage();
+  const [searchParams] = useSearchParams();
+  console.log(searchParams.get('code'));
 
-  const {mutate: loginMutate, isPending} = useMutation({
-    mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
-    onSuccess: ({body}, {username}) => {
-      setToken({accessToken: body.access, refreshToken: body.refresh});
-      setUserInfo({email: username});
-    },
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    flow: 'auth-code',
+    ux_mode: 'redirect',
+    redirect_uri: window.location.origin,
   });
 
-  const form = useForm<LoginForm>({
-    initialValues: {
-      email: userInfo.email,
-      password: '',
-    },
-
-    validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
-  });
-
-  const handleLogin = ({email, password}: LoginForm) => {
-    loginMutate({username: email.trim(), password});
-  };
+  // const {mutate: loginMutate, isPending} = useMutation({
+  //   mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
+  //   onSuccess: ({body}, {username}) => {
+  //     setToken({accessToken: body.access, refreshToken: body.refresh});
+  //     setUserInfo({email: username});
+  //   },
+  // });
 
   return (
     <>
       <Head title={t('auth.login')} />
 
-      <form
-        id="login-form"
-        className="flex flex-col gap-4 py-8"
-        onSubmit={form.onSubmit(handleLogin)}
-      >
-        <TextInput
-          leftSectionPointerEvents="none"
-          leftSection={<IconAt size="1rem" />}
-          withAsterisk
-          size="md"
-          label="Email"
-          placeholder="your@email.com"
-          autoFocus
-          {...form.getInputProps('email')}
-        />
+      <main className="bg-theme flex-center h-full">
+        <div className="flex flex-col items-center gap-8 p-4 sm:w-full sm:max-w-lg">
+          <AppLogo className="h-24" />
 
-        <PasswordInput
-          leftSection={<IconLock size="1rem" />}
-          withAsterisk
-          size="md"
-          label={t('auth.password')}
-          placeholder={t('auth.password')}
-          autoFocus={!!userInfo.email}
-          {...form.getInputProps('password')}
-        />
-      </form>
-
-      <div>
-        <button
-          className="button mb-2 w-full justify-center text-base"
-          type="submit"
-          form="login-form"
-          disabled={isPending}
-        >
-          {t('auth.login')}
-        </button>
-        <Link className="link-secondary text-sm" to={Path.SIGNUP}>
-          {t('auth.toSignUp')}
-        </Link>
-      </div>
+          <Button
+            leftSection={<GoogleLogo />}
+            variant="default"
+            radius="md"
+            size="md"
+            onClick={() => googleLogin()}
+          >
+            {t('auth.signIn.withGoogle')}
+          </Button>
+        </div>
+      </main>
+      <Footer />
     </>
   );
 };

@@ -9,6 +9,7 @@ type AppLogoProps = {
   className?: string;
   badge?: string;
   navigateTo?: To;
+  showText?: boolean;
 };
 
 const badgeVariantConfigs: {
@@ -21,20 +22,36 @@ const badgeVariantConfigs: {
 
 const badgeProps = badgeVariantConfigs[Math.floor(Math.random() * badgeVariantConfigs.length)];
 
-const AppLogo = ({className = '', badge, navigateTo = Path.HOMEPAGE}: AppLogoProps) => {
+const AppLogo = ({
+  className = '',
+  badge,
+  navigateTo = Path.HOMEPAGE,
+  showText = false,
+}: AppLogoProps) => {
   const {t} = useTranslation();
 
   return (
-    <h1 className={classNames(badge ? 'gap-2 leading-none sm:flex' : '', className)}>
+    <h1 className={classNames(badge ? 'h-full gap-2 leading-none sm:flex' : '', className)}>
       <Link
         to={navigateTo}
-        className="link-unstyled font-handwriting font-normal transition-all hover:drop-shadow-md"
+        className={classNames(
+          'link-unstyled transition-all hover:drop-shadow-md',
+          showText ? 'font-handwriting font-normal' : '',
+        )}
       >
-        {t('common.appName') || SERVICE_NAME}
+        {showText ? (
+          t('common.appName') || SERVICE_NAME
+        ) : (
+          <img
+            className="block h-full min-h-[2.5rem] object-contain object-center dark:invert"
+            src="/image/cudek.svg"
+            alt={SERVICE_NAME}
+          />
+        )}
       </Link>
       {badge && (
         <Badge
-          className="hidden cursor-default self-end opacity-80 hover:opacity-100 sm:block"
+          className="mb-1 hidden cursor-default self-end opacity-80 hover:opacity-100 sm:block"
           size="sm"
           radius="sm"
           {...badgeProps}

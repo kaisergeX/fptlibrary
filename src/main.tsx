@@ -9,6 +9,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {GlobalHistory} from './util/global-history.ts';
 import {DEFAULT_STALE_TIME} from './constants/service.ts';
+import {GoogleOAuthProvider} from '@react-oauth/google';
+import {GOOGLE_CLIENT_ID} from './config/system.ts';
 
 import 'dayjs/locale/vi';
 import './config/i18n';
@@ -43,14 +45,16 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
-        <GlobalHistory />
+      <BrowserRouter future={{v7_startTransition: true}}>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <GlobalHistory />
 
-        <QueryClientProvider client={queryClient}>
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <App />
 
-          <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-        </QueryClientProvider>
+            <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+          </QueryClientProvider>
+        </GoogleOAuthProvider>
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>,

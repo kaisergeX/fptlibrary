@@ -44,7 +44,12 @@ const CMSOutlet = () => {
         <div className="flex-center-between h-full gap-4 px-4">
           <div className="flex h-full items-center gap-4">
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
-            <AppLogo className="xl:text-3xl" navigateTo={Path.CMS_DASHBOARD} badge="Portal" />
+            <AppLogo
+              className="xl:text-3xl"
+              navigateTo={Path.CMS_DASHBOARD}
+              badge="Portal"
+              showText
+            />
           </div>
 
           <AccountMenu />

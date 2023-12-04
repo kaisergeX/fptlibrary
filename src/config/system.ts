@@ -7,6 +7,7 @@ import {safeAnyToNumber} from '~/util';
  */
 export const SERVICE_NAME = import.meta.env.VITE_SERVICE_NAME || 'Library';
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
 
 const maxSelectableBooks = safeAnyToNumber(import.meta.env.VITE_MAX_SELECTED_BOOKS, 3);
 export const MAX_SELECTED_BOOKS = maxSelectableBooks < 0 ? 0 : maxSelectableBooks;

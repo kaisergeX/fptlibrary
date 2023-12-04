@@ -12,10 +12,10 @@ const NavbarComponent = () => {
   const {pathname} = useLocation();
 
   return (
-    <nav className="glass flex-center-between sticky inset-x-0 top-0 z-10 gap-4 p-4">
+    <nav className="glass flex-center-between sticky inset-x-0 top-0 z-10 gap-4 px-4">
       <AppLogo />
 
-      <div className="flex-center gap-4">
+      <div className="flex-center gap-4 py-4">
         {pathname.toLowerCase() === Path.BOOK_BROWSING.toLowerCase() || (
           <ActionIcon
             variant="subtle"

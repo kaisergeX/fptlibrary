@@ -35,7 +35,7 @@ export default function Footer({className = ''}: {className?: string}) {
 
       <div className="container mx-auto flex justify-between gap-4 px-4 pb-4 sm-only:flex-col sm-only:pt-4 sm:gap-8">
         <div className="sm:w-1/4">
-          <AppLogo />
+          <AppLogo className="h-24" />
           <h3 className="sm:mt-4">Thư viện Văn học Thế giới DEK biết gì</h3>
           <a
             href="https://maps.app.goo.gl/PCBgJ25qxznFSJ2AA"
@@ -62,7 +62,7 @@ export default function Footer({className = ''}: {className?: string}) {
           <h3 className="mb-2 font-bold">{t('common.contact')}</h3>
           <div className="flex items-center gap-4">
             <a
-              href="https://fpt.workplace.com/"
+              href="https://fpt.workplace.com/groups/1082042972793515"
               className="link-secondary"
               target="_blank"
               rel="noopener noreferrer"

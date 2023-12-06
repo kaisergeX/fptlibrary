@@ -82,6 +82,15 @@ export type Book = {
 
 export type BooksResData = ResponseData<Book[]>;
 
+export type BookFilterFormValues = {
+  title?: string;
+  genre?: string[];
+  ageTag?: string[];
+  country?: Country['id'][];
+  status?: BookStatus;
+  publishYear?: Date | null;
+};
+
 export type BookFormValues = Omit<
   Book,
   'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear' | 'createAt' | 'updateAt'

@@ -172,7 +172,12 @@ const Homepage = () => {
         </h2>
       </section>
 
-      <main className="bg-theme relative min-h-[50vh] overflow-x-hidden pb-4 [&>section]:container 2xl:pb-[10vw] [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold">
+      <main
+        className={classNames(
+          'bg-theme relative overflow-x-hidden pb-4 [&>section]:container 2xl:pb-[10vw] [&>section]:relative [&>section]:mx-auto [&>section]:px-4 [&>section]:py-6 lg:[&>section]:py-16 [&_h2]:my-4 [&_h2]:font-bold',
+          bookByGenres.length === 0 ? 'min-h-[80vh]' : 'min-h-[50vh]',
+        )}
+      >
         <CarouselCustom
           images={images}
           imageProps={{h: '40vh', alt: 'Carousel images'}}

@@ -25,13 +25,13 @@ const LoginPage = () => {
   const {setToken} = usePersistStore();
   const {userInfo, setUserInfo} = useStorage();
   const [searchParams] = useSearchParams();
-  console.log(searchParams.get('code'));
+  console.log(window.location.origin + location.pathname, searchParams.get('code'));
 
   const googleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => console.log(tokenResponse),
     flow: 'auth-code',
     ux_mode: 'redirect',
-    redirect_uri: window.location.origin,
+    redirect_uri: window.location.origin + location.pathname,
   });
 
   // const {mutate: loginMutate, isPending} = useMutation({
@@ -61,7 +61,6 @@ const LoginPage = () => {
           </Button>
         </div>
       </main>
-      <Footer />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import type {OS} from '@mantine/hooks';
 import type {NotificationData} from '@mantine/notifications';
 import dayjs from 'dayjs';
 import {t} from 'i18next';
@@ -21,22 +22,8 @@ export function timeAgo(timestamp: Date | string | null, timeOnly?: boolean): st
   return dayjs(timestamp).fromNow(timeOnly);
 }
 
-export function isEqualNonNestedObj(
-  obj1: Record<string, unknown>,
-  obj2: Record<string, unknown>,
-): boolean {
-  const obj1Keys = Object.keys(obj1);
-  if (!obj1Keys.every((key: string) => Object.keys(obj2).includes(key))) {
-    return false;
-  }
-
-  for (const key of obj1Keys) {
-    if (obj1[key] !== obj2[key]) {
-      return false;
-    }
-  }
-
-  return true;
+export function isValidDate(date: unknown) {
+  return date instanceof Date && !isNaN(date.getTime());
 }
 
 export const safeAnyToNumber = <T = unknown>(
@@ -116,4 +103,38 @@ export async function promiseAllSettled<ResultType, ErrorType = unknown>(
   }
 
   return {fulfilled, rejected};
+}
+
+export function getOS(): OS {
+  if (typeof window === 'undefined') {
+    return 'undetermined';
+  }
+
+  const {userAgent} = window.navigator;
+  const macosPlatforms = /(Macintosh)|(MacIntel)|(MacPPC)|(Mac68K)/i;
+  const windowsPlatforms = /(Win32)|(Win64)|(Windows)|(WinCE)/i;
+  const iosPlatforms = /(iPhone)|(iPad)|(iPod)/i;
+
+  if (macosPlatforms.test(userAgent)) {
+    return 'macos';
+  }
+  if (iosPlatforms.test(userAgent)) {
+    return 'ios';
+  }
+  if (windowsPlatforms.test(userAgent)) {
+    return 'windows';
+  }
+  if (/Android/i.test(userAgent)) {
+    return 'android';
+  }
+  if (/Linux/i.test(userAgent)) {
+    return 'linux';
+  }
+
+  return 'undetermined';
+}
+
+export function isMobile(): boolean {
+  const getDeviceOS = getOS();
+  return getDeviceOS === 'android' || getDeviceOS === 'ios';
 }

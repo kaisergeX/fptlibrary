@@ -2,7 +2,6 @@ export enum Path {
   HOMEPAGE = '/',
   AUTH = '/auth',
   LOGIN = '/auth/login',
-  SIGNUP = '/auth/signup',
 
   PERSONAL = '/personal',
 
@@ -25,5 +24,8 @@ export enum FullPath {}
 
 export const SEARCH_PARAMS = {
   REDIRECT_URL: 'redirectUrl',
+  SEARCH: 'search',
   GENRE: 'genre',
+  COUNTRY: 'country',
+  AGE_TAG: 'ageTag',
 } as const;

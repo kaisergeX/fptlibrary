@@ -1,4 +1,4 @@
-import {ActionIcon, Menu} from '@mantine/core';
+import {ActionIcon, Avatar, Menu} from '@mantine/core';
 import {
   IconUser,
   IconUserQuestion,
@@ -16,7 +16,10 @@ import {usePersistStore, useStorage} from '~/store';
 export default function AccountMenu() {
   const navigate = useNavigate();
   const {isAuthenticated, resetAuthStore, setBooks} = usePersistStore();
-  const resetUserStore = useStorage((state) => state.resetUserStore);
+  const {userInfo, resetUserStore} = useStorage((state) => ({
+    userInfo: state.userInfo,
+    resetUserStore: state.resetUserStore,
+  }));
 
   const handleLogout = () => {
     resetAuthStore();
@@ -28,18 +31,40 @@ export default function AccountMenu() {
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
-        <ActionIcon
-          variant="subtle"
-          size="lg"
-          radius="xl"
-          aria-label="User Management"
-          className="dark:text-inherit"
-        >
-          {isAuthenticated ? <IconUser /> : <IconUserQuestion />}
-        </ActionIcon>
+        {isAuthenticated ? (
+          <Avatar
+            className="[&>.mantine-Avatar-placeholder]:text-theme cursor-pointer hover:bg-[--mantine-color-dark-light-hover]"
+            variant="transparent"
+            color="inherit"
+            src={
+              'https://lh3.googleusercontent.com/a/ACg8ocLqDxbDsaLm7Xn_v2DbMzPQ3sDK5sED6zNrgamQPaoUYGA=s96-c'
+            }
+          >
+            <IconUser />
+          </Avatar>
+        ) : (
+          <ActionIcon
+            variant="subtle"
+            size="lg"
+            radius="xl"
+            aria-label="User Management"
+            className="dark:text-inherit"
+          >
+            <IconUserQuestion />
+          </ActionIcon>
+        )}
       </Menu.Target>
 
       <Menu.Dropdown>
+        {isAuthenticated && (
+          <div className="px-3 py-2">
+            <h3 className="text-base font-bold">{userInfo.name || 'Kai'}</h3>
+            <p className="text-sm text-slate-500 dark:text-inherit">
+              {userInfo.email || 'test@gmail.com'}
+            </p>
+          </div>
+        )}
+
         <Menu.Label>{t('common.features')}</Menu.Label>
         <Menu.Item
           leftSection={<IconHome size="1.2rem" />}

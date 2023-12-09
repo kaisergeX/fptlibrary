@@ -56,7 +56,7 @@ const heroParallaxGroup = [
       alt="the book image at the bottom-left"
     />
     <img
-      className="z-[1] ml-40 mt-40 w-20 place-self-center opacity-20 parallax-speed-10 lg:w-40"
+      className="z-[1] ml-40 mt-40 w-20 place-self-center opacity-20 parallax-speed-[5] lg:w-40"
       src="/image/parallax/book1.svg"
       alt="the book image in the center"
     />
@@ -161,7 +161,8 @@ const Homepage = () => {
       <section
         id="hero-section"
         className={classNames(
-          'bg-watermark parallax h-[50vh] px-4 [contain:paint] before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)] sm-only:[&>img]:hidden',
+          'bg-watermark parallax h-[50vh] px-4 before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)] sm-only:[&>img]:hidden',
+          parallaxBgGroup === heroParallaxGroup.length - 1 ? '' : 'sm:before:content-none',
           'dark:[&>img]:hue-rotate-180 dark:[&>img]:invert',
         )}
       >

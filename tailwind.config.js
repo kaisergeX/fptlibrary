@@ -50,6 +50,15 @@ export default {
           position: 'relative',
           display: 'grid',
           gridTemplateAreas: "'stack'",
+          /**
+           * set `contain: layout;` to make sure the parallax layout is not affects the outside layout
+           * but still keeps showing the parallax item normally.
+           * Other contain's values or animationRange won't statisfies it.
+           *
+           * e.g. On small vertical ratio viewport (like an ultrawide monitor - 21:9),
+           * some items might fall outside of the body tag and cause some weird scrolling behavior.
+           */
+          contain: 'layout',
           zIndex: 0,
 
           '& > *': {

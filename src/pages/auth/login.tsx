@@ -1,46 +1,43 @@
-import {Button} from '@mantine/core';
 import {useTranslation} from 'react-i18next';
-import {useLocation, useSearchParams} from 'react-router-dom';
 import {Head} from '~/layout/outlet/Head';
 import {usePersistStore, useStorage} from '~/store';
 import type {ResponseData} from '~/types';
-import {useGoogleLogin} from '@react-oauth/google';
-import GoogleLogo from '~/assets/GoogleLogo';
+import {GoogleLogin} from '@react-oauth/google';
 import AppLogo from '~/components/app-logo';
-import Footer from '~/layout/footer';
+import {useMutation} from '@tanstack/react-query';
+import {API} from '~/constants/service';
+import {http} from '~/util/http';
+import {showNotification} from '@mantine/notifications';
+import {findNotiConfig} from '~/util';
+import {ErrorCode} from '~/types/notification';
 
 type LoginPayload = {
-  username: string;
-  password: string;
+  credential: string;
 };
 
 type LoginResData = ResponseData<{
   refresh: string;
   access: string;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    avatar: string;
+  };
 }>;
 
 const LoginPage = () => {
   const {t} = useTranslation();
-  const location = useLocation();
   const {setToken} = usePersistStore();
-  const {userInfo, setUserInfo} = useStorage();
-  const [searchParams] = useSearchParams();
-  console.log(window.location.origin + location.pathname, searchParams.get('code'));
+  const {setUserInfo} = useStorage();
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    flow: 'auth-code',
-    ux_mode: 'redirect',
-    redirect_uri: window.location.origin + location.pathname,
+  const {mutate: loginMutate} = useMutation({
+    mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
+    onSuccess: ({body}) => {
+      setToken({accessToken: body.access, refreshToken: body.refresh});
+      setUserInfo(body.user);
+    },
   });
-
-  // const {mutate: loginMutate, isPending} = useMutation({
-  //   mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
-  //   onSuccess: ({body}, {username}) => {
-  //     setToken({accessToken: body.access, refreshToken: body.refresh});
-  //     setUserInfo({email: username});
-  //   },
-  // });
 
   return (
     <>
@@ -50,15 +47,17 @@ const LoginPage = () => {
         <div className="flex flex-col items-center gap-8 p-4 sm:w-full sm:max-w-lg">
           <AppLogo className="h-24" />
 
-          <Button
-            leftSection={<GoogleLogo />}
-            variant="default"
-            radius="md"
-            size="md"
-            onClick={() => googleLogin()}
-          >
-            {t('auth.signIn.withGoogle')}
-          </Button>
+          <GoogleLogin
+            onSuccess={({credential}) => {
+              if (!credential) {
+                showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED));
+                return;
+              }
+              loginMutate({credential});
+            }}
+            onError={() => showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED))}
+            shape="circle"
+          />
         </div>
       </main>
     </>

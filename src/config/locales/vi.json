@@ -24,6 +24,7 @@
 
     "back": "Quay lại",
     "search": "Tìm kiếm",
+    "navSearchHotKeyHint": "Nhấn {{hotkey}} để tìm kiếm",
     "add": "Thêm",
     "create": "Tạo mới",
     "update": "Cập nhật",
@@ -109,6 +110,13 @@
     }
   },
 
+  "filter": {
+    "title": "Lọc",
+    "query": "Lọc kết quả",
+    "reset": "Xóa bộ lọc",
+    "noResult": "Không tìm thấy kết quả"
+  },
+
   "auth": {
     "login": "Đăng nhập",
     "signIn": {
@@ -173,6 +181,7 @@
     "uploadCover": "Tải lên ảnh bìa",
     "price": "Giá tiền",
 
+    "filter": "Lọc sách",
     "add": "Thêm sách",
     "update": "Cập nhật sách",
     "detail": "Thông tin sách",

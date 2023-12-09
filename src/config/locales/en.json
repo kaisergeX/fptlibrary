@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Cudek",
+    "appName": "F3 Library",
     "introduce": "Library built by FSofter, for FSofter",
     "greeting": "Welcome to $t(common.appName)!",
     "libraryAddress": "F-Ville 3, FPT Software Hoa Lac, Hoa Lac Hi-Tech Park, Thach That District, Hanoi, Vietnam",
@@ -159,7 +159,8 @@
     "select": "Choose the appropriate age category",
     "teen": "Teen",
     "young_adults": "Young adult",
-    "adult": "Adult"
+    "adult": "Adult",
+    "children": "Children"
   },
 
   "book": {
@@ -206,7 +207,8 @@
     },
     "noData": {
       "emptyList": "Haven't selected any books yet",
-      "genre": "There are no books available in this category at the moment"
+      "genre": "There are no books available in this category at the moment",
+      "homeEmpty": "New books are being added to the library"
     },
     "memberOnly": "Only members can rent books",
     "sameGenre": "Same genre",

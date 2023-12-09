@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Cudek",
+    "appName": "F3 Library",
     "introduce": "Thư viện sách xây dựng bởi FSofter, dành riêng cho FSofter",
     "greeting": "Chào mừng đến với $t(common.appName)!",
     "libraryAddress": "F-Ville 3, FPT Software Hòa Lạc, Khu công nghệ cao Hòa Lạc, xã Thạch Hoà, huyện Thạch Thất, Hà Nội",
@@ -159,7 +159,8 @@
     "select": "Chọn lứa tuổi phù hợp",
     "teen": "Thiếu niên (12+)",
     "young_adults": "Thanh niên (18+)",
-    "adult": "Trưởng thành"
+    "adult": "Trưởng thành",
+    "children": "Trẻ em"
   },
 
   "book": {
@@ -206,7 +207,8 @@
     },
     "noData": {
       "emptyList": "Bạn chưa chọn cuốn sách nào",
-      "genre": "Hiện tại không có sách thuộc thể loại này"
+      "genre": "Hiện tại không có sách thuộc thể loại này",
+      "homeEmpty": "Sách đang được bổ sung vào thư viện"
     },
     "memberOnly": "Chỉ thành viên mới có thể mượn sách",
     "sameGenre": "Sách cùng thể loại",

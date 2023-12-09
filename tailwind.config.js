@@ -55,7 +55,8 @@ export default {
           '& > *': {
             gridArea: 'stack',
             animation: theme('animation.parallax'),
-            animationTimeline: 'scroll()',
+            animationTimeline: 'scroll(root)',
+            // animationRange: '0vh 100dvh',
           },
         },
       });

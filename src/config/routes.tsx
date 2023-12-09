@@ -9,7 +9,6 @@ const AuthOutlet = lazy(() => import('~/layout/outlet/AuthOutlet'));
 // const PrivateOutlet = lazy(() => import('~/layout/outlet/PrivateOutlet'));
 const Homepage = lazy(() => import('~/pages/homepage'));
 const LoginPage = lazy(() => import('~/pages/auth/login'));
-const SignUpPage = lazy(() => import('~/pages/auth/signup'));
 
 const PersonalPage = lazy(() => import('~/pages/personal'));
 
@@ -37,7 +36,6 @@ const routesConfig: RouteObject[] = [
     children: [
       {index: true, element: <Navigate to={Path.LOGIN} replace />},
       {path: Path.LOGIN, element: <LoginPage />},
-      {path: Path.SIGNUP, element: <SignUpPage />},
     ],
   },
   {

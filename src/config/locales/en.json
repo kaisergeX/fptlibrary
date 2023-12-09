@@ -24,6 +24,7 @@
 
     "back": "Go back",
     "search": "Search",
+    "navSearchHotKeyHint": "Search {{hotkey}}",
     "add": "Add",
     "create": "Create",
     "update": "Update",
@@ -109,6 +110,13 @@
     }
   },
 
+  "filter": {
+    "title": "Filter",
+    "query": "Filter result",
+    "reset": "Clear filter",
+    "noResult": "No filter result"
+  },
+
   "auth": {
     "login": "Login",
     "signIn": {
@@ -173,6 +181,7 @@
     "uploadCover": "Upload cover",
     "price": "Price",
 
+    "filter": "Filter books",
     "add": "Add book",
     "update": "Update book",
     "detail": "Book detail",

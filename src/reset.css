@@ -54,6 +54,10 @@
     @apply bg-cover bg-no-repeat align-middle italic;
   }
 
+  iframe {
+    color-scheme: normal;
+  }
+
   ol,
   ul {
     @apply m-0 list-none p-0;

@@ -15,7 +15,7 @@ export default function ScrollTopButton({
       type="button"
       role="navigation"
       className={classNames(
-        'button button-affix rounded-full p-1 transition-all sm-only:hidden',
+        'button button-affix rounded-full p-1 transition-all',
         scroll.y > 200 ? 'visible' : 'invisible -bottom-16',
         className,
       )}

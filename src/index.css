@@ -66,6 +66,10 @@
     @apply fixed bottom-4 right-4 mix-blend-difference invert dark:invert-0;
   }
 
+  .text-theme {
+    @apply text-black dark:text-zinc-200;
+  }
+
   .text-reverse {
     @apply text-white dark:text-zinc-900;
   }

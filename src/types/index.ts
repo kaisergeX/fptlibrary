@@ -3,6 +3,7 @@ import type {BookStatus} from '~/constants';
 
 export type Primitives = string | number | boolean;
 export type ObjectAny = Record<PropertyKey, unknown>;
+export type ObjectPrimitives = Record<PropertyKey, Primitives>;
 export type ExtractValues<T> = T[keyof T];
 
 export type PromiseAllSettledReturnType<ResultType, ErrorType> = Promise<{
@@ -21,8 +22,10 @@ export type DataGridFilter = {
 };
 
 export type UserInfo = {
+  id?: number;
   email: string;
   name?: string;
+  avatar?: string;
 };
 
 export type RequestParams<T = Primitives> = Record<string, T>;

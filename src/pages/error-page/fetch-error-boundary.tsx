@@ -6,13 +6,16 @@ import {IconRefresh, IconSatellite} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import type {AxiosError} from 'axios';
 import {ErrorCode} from '~/types/notification';
+import {useLocation} from 'react-router-dom';
 
 const FetchErrorBoundary = ({children}: PropsWithChildren) => {
   const {reset} = useQueryErrorResetBoundary();
   const {t} = useTranslation();
+  const {pathname} = useLocation();
 
   return (
     <ErrorBoundary
+      key={pathname} // reset error boundary when route changes
       onReset={reset}
       fallbackRender={({error, resetErrorBoundary}) => {
         const errorExpose = error as AxiosError;

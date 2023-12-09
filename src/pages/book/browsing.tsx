@@ -95,30 +95,28 @@ export default function BookBrowsing() {
           </ActionIcon>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Select
+        <div className="flex items-center gap-4 py-4">
+          <MultiSelect
             label={t('common.country')}
             data={selectCountryList}
             searchable
-            allowDeselect={false}
-            checkIconPosition="right"
+            clearable
+            hidePickedOptions
             {...getInputProps('country')}
           />
           <MultiSelect
             label={t('ageTag.def')}
-            description={t('ageTag.select')}
             data={selectAgeTagList}
-            checkIconPosition="right"
+            searchable
+            clearable
             hidePickedOptions
             {...getInputProps('ageTag')}
           />
           <MultiSelect
             label={t('genre.def')}
-            description={t('common.maxOptions', {max: MAX_GENRES})}
             data={selectGenreList}
-            searchable
-            checkIconPosition="right"
             maxValues={MAX_GENRES}
+            searchable
             clearable
             hidePickedOptions
             {...getInputProps('genre')}

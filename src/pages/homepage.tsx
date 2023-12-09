@@ -46,7 +46,7 @@ const heroParallaxGroup = [
   </>,
   <>
     <img
-      className="z-[1] mt-10 w-20 justify-self-end opacity-20 parallax-speed-[15] lg:w-40 2xl:parallax-speed-[25]"
+      className="z-[1] mt-10 w-20 justify-self-end opacity-20 parallax-speed-[15] lg:w-40 2xl:parallax-speed-[20]"
       src="/image/parallax/book3.svg"
       alt="the book image on the top-right"
     />
@@ -97,7 +97,7 @@ const Homepage = () => {
       queryKey: [QueryKey.BOOKS, sampledGenres.length, index],
       queryFn: () => http.get<BooksResData>(API.BOOKS, {params: {genre: genreId}}),
       select: ({body: books}: BooksResData): ReactNode => {
-        if (!Array.isArray(books)) {
+        if (!Array.isArray(books) || books.length === 0) {
           return [];
         }
 
@@ -161,7 +161,7 @@ const Homepage = () => {
       <section
         id="hero-section"
         className={classNames(
-          'bg-watermark parallax h-[50vh] px-4 before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)] sm-only:[&>img]:hidden',
+          'bg-watermark parallax h-[50vh] px-4 [contain:paint] before:bg-[url(/image/wave.svg)] dark:before:bg-[url(/image/wave-dark.svg)] sm-only:[&>img]:hidden',
           'dark:[&>img]:hue-rotate-180 dark:[&>img]:invert',
         )}
       >
@@ -187,7 +187,18 @@ const Homepage = () => {
           loop
         />
 
-        {bookByGenres}
+        {bookByGenres.length === 0 ? (
+          <NoData
+            className="my-20 h-full"
+            image={
+              <img className="h-20 object-cover object-center" src="/image/parallax/book1.svg" />
+            }
+          >
+            {t('book.noData.homeEmpty')}
+          </NoData>
+        ) : (
+          bookByGenres
+        )}
       </main>
 
       <Footer />

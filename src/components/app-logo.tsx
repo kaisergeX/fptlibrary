@@ -53,7 +53,7 @@ const AppLogo = ({
       </Link>
       {badge && (
         <Badge
-          className="mb-1 hidden cursor-default self-end opacity-80 hover:opacity-100 sm:block"
+          className="mb-4 hidden cursor-default self-end opacity-80 hover:opacity-100 sm:block"
           size="sm"
           radius="sm"
           {...badgeProps}

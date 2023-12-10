@@ -34,6 +34,7 @@
     "actions": "Actions",
     "viewMore": "View more",
     "dragImage": "Drag images here or click to select files",
+    "print": "Print",
     "confirm": "Confirm",
     "cancelAction": "Cancel",
     "createdAt": "Created at",
@@ -180,6 +181,7 @@
     "publishYear": "Publish year",
     "uploadCover": "Upload cover",
     "price": "Price",
+    "qrCode": "QR Code",
 
     "filter": "Filter books",
     "add": "Add book",

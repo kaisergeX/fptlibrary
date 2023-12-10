@@ -35,6 +35,7 @@
     "viewMore": "Xem thêm",
     "rent": "Mượn sách",
     "dragImage": "Kéo thả hoặc nhấn để chọn ảnh",
+    "print": "In",
     "confirm": "Xác nhận",
     "cancelAction": "Huỷ hành động",
     "createdAt": "Ngày tạo",
@@ -180,6 +181,7 @@
     "publishYear": "Năm phát hành",
     "uploadCover": "Tải lên ảnh bìa",
     "price": "Giá tiền",
+    "qrCode": "Mã QR",
 
     "filter": "Lọc sách",
     "add": "Thêm sách",

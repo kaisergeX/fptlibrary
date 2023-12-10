@@ -1,5 +1,6 @@
 import {type StateCreator} from 'zustand';
 import {Role, type AuthState, type AuthStore, type PersistStore} from '~/types/store';
+import {googleLogout} from '@react-oauth/google';
 
 export const defaultAuthState: AuthState = {
   isAuthenticated: false,
@@ -14,7 +15,7 @@ export const createAuthSlice: StateCreator<
   [['zustand/persist', unknown]],
   [],
   AuthStore
-> = (set) => ({
+> = (set, get) => ({
   ...defaultAuthState,
   setRole: (role) => set(() => ({role})),
   setToken: ({accessToken, refreshToken}) =>
@@ -23,5 +24,9 @@ export const createAuthSlice: StateCreator<
       return {accessToken, refreshToken, isAuthenticated: !!accessToken};
     }),
   setUID: (uid) => set(() => ({uid})),
-  resetAuthStore: () => set(defaultAuthState),
+  resetAuthStore: () => {
+    get().setBooks([]);
+    googleLogout();
+    set(defaultAuthState);
+  },
 });

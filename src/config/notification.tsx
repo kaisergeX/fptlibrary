@@ -79,6 +79,7 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     icon: <IconInfoCircle />,
   },
   {
+    id: NotiCode.PAGING_OUT_RANGE,
     code: NotiCode.PAGING_OUT_RANGE,
     message: t('common.info.pagingOutRange'),
   },

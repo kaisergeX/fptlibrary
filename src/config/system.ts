@@ -5,7 +5,7 @@ import {safeAnyToNumber} from '~/util';
 /**
  * Get & process environment variables (.env)
  */
-export const SERVICE_NAME = import.meta.env.VITE_SERVICE_NAME || 'Library';
+export const SERVICE_NAME = import.meta.env.VITE_SERVICE_NAME || 'Cudek';
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
 

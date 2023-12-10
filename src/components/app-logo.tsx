@@ -31,7 +31,9 @@ const AppLogo = ({
   const {t} = useTranslation();
 
   return (
-    <h1 className={classNames(badge ? 'h-full gap-2 leading-none sm:flex' : '', className)}>
+    <h1
+      className={classNames(badge ? 'flex h-full items-center gap-2 leading-none' : '', className)}
+    >
       <Link
         to={navigateTo}
         className={classNames(

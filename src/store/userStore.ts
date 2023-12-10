@@ -1,10 +1,10 @@
-import {signal} from '@preact/signals-react';
 import {type StateCreator} from 'zustand';
-import type {Book, UserInfo} from '~/types';
-import type {UserStore, UserStoreState} from '~/types/store';
+import type {UserInfo} from '~/types';
+import {Role, type UserStore, type UserStoreState} from '~/types/store';
 
-const defaultUserInfo: UserInfo = {
+export const defaultUserInfo: UserInfo = {
   email: '',
+  role: Role.READER,
 };
 
 const defaultUserState: UserStoreState = {
@@ -17,6 +17,3 @@ export const createUserSlice: StateCreator<UserStore> = (set) => ({
   resetUserInfo: () => set(() => ({userInfo: defaultUserInfo})),
   resetUserStore: () => set(() => defaultUserState),
 });
-
-export const confirmReturnBook = signal<Book | undefined>(undefined);
-export const confirmRemoveBook = signal<Book | undefined>(undefined);

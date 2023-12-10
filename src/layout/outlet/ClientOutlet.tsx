@@ -4,8 +4,11 @@ import {Outlet} from 'react-router-dom';
 import Navbar from '~/layout/navbar';
 import ScrollTopButton from '~/components/scroll-top-button';
 import Footer from '../footer';
+import useAuth from '~/hook/useAuth';
 
-const ClientOutlet = () => {
+export default function ClientOutlet() {
+  useAuth({enableOneTapLogin: true});
+
   return (
     <main className="relative flex min-h-full flex-col">
       <Navbar />
@@ -28,6 +31,4 @@ const ClientOutlet = () => {
       <Footer className="justify-self-end" />
     </main>
   );
-};
-
-export default ClientOutlet;
+}

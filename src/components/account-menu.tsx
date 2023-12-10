@@ -1,4 +1,4 @@
-import {ActionIcon, Avatar, Menu} from '@mantine/core';
+import {ActionIcon, Avatar, Menu, Tooltip} from '@mantine/core';
 import {
   IconUser,
   IconUserQuestion,
@@ -9,22 +9,20 @@ import {
   IconHome,
 } from '@tabler/icons-react';
 import {t} from 'i18next';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
-import {usePersistStore, useStorage} from '~/store';
+import useAuth from '~/hook/useAuth';
+import {usePersistStore} from '~/store';
+import {Role} from '~/types/store';
 
 export default function AccountMenu() {
   const navigate = useNavigate();
-  const {isAuthenticated, resetAuthStore, setBooks} = usePersistStore();
-  const {userInfo, resetUserStore} = useStorage((state) => ({
-    userInfo: state.userInfo,
-    resetUserStore: state.resetUserStore,
-  }));
+  const {isAuthenticated, resetAuthStore} = usePersistStore();
+  const {userInfo} = useAuth();
+  const {pathname} = useLocation();
 
   const handleLogout = () => {
-    resetAuthStore();
-    resetUserStore();
-    setBooks([]);
+    resetAuthStore(); // this will remove user info, selected books from storage and call googleLogout function too.
     navigate(Path.HOMEPAGE);
   };
 
@@ -36,9 +34,8 @@ export default function AccountMenu() {
             className="[&>.mantine-Avatar-placeholder]:text-theme cursor-pointer hover:bg-[--mantine-color-dark-light-hover]"
             variant="transparent"
             color="inherit"
-            src={
-              'https://lh3.googleusercontent.com/a/ACg8ocLqDxbDsaLm7Xn_v2DbMzPQ3sDK5sED6zNrgamQPaoUYGA=s96-c'
-            }
+            size={34}
+            src={userInfo.avatar}
           >
             <IconUser />
           </Avatar>
@@ -57,12 +54,17 @@ export default function AccountMenu() {
 
       <Menu.Dropdown>
         {isAuthenticated && (
-          <div className="px-3 py-2">
-            <h3 className="text-base font-bold">{userInfo.name || 'Kai'}</h3>
-            <p className="text-sm text-slate-500 dark:text-inherit">
-              {userInfo.email || 'test@gmail.com'}
-            </p>
-          </div>
+          <>
+            <div className="px-3 py-2">
+              <h3 className="truncate text-base font-bold">{userInfo.name}</h3>
+              <Tooltip label={userInfo.email} openDelay={1000}>
+                <p className="truncate text-xs text-slate-500 dark:text-inherit">
+                  {userInfo.email}
+                </p>
+              </Tooltip>
+            </div>
+            <Menu.Divider />
+          </>
         )}
 
         <Menu.Label>{t('common.features')}</Menu.Label>
@@ -76,6 +78,16 @@ export default function AccountMenu() {
         </Menu.Item>
         {isAuthenticated && (
           <>
+            {userInfo.role === Role.ADMIN && (
+              <Menu.Item
+                leftSection={<IconLayoutDashboard size="1.2rem" />}
+                className="link-unstyled"
+                component={Link}
+                to={Path.CMS_DASHBOARD}
+              >
+                {t('common.management')}
+              </Menu.Item>
+            )}
             <Menu.Item
               leftSection={<IconUser size="1.2rem" />}
               className="link-unstyled"
@@ -84,14 +96,6 @@ export default function AccountMenu() {
             >
               {t('account.pageTitle')}
             </Menu.Item>
-            <Menu.Item
-              leftSection={<IconLayoutDashboard size="1.2rem" />}
-              className="link-unstyled"
-              component={Link}
-              to={Path.CMS_DASHBOARD}
-            >
-              {t('common.management')}
-            </Menu.Item>
           </>
         )}
 
@@ -99,7 +103,7 @@ export default function AccountMenu() {
           leftSection={<IconSettings size="1.2rem" />}
           component={Link}
           className="link-unstyled"
-          to={Path.HIDDEN_FEATURES}
+          to={Path.SETTING}
         >
           {t('setting.pageTitle')}
         </Menu.Item>
@@ -119,7 +123,7 @@ export default function AccountMenu() {
             onClick={() =>
               navigate({
                 pathname: Path.LOGIN,
-                search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
+                search: `${SEARCH_PARAMS.REDIRECT_URL}=${pathname}`,
               })
             }
           >

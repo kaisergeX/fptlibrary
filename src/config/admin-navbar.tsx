@@ -25,7 +25,7 @@ export const exampleNavbarConfig: NavbarLink[] = [
   {
     label: 'Demo UI',
     icon: IconComponents,
-    link: Path.HIDDEN_FEATURES,
+    link: Path.SETTING,
   },
   {
     label: 'Example',

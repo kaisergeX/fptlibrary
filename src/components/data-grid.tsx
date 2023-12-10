@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useCallback, useMemo} from 'react';
 import {keepPreviousData, useQuery} from '@tanstack/react-query';
 import {DataTable, type DataTableColumn} from 'mantine-datatable';
 import {showNotification} from '@mantine/notifications';
@@ -6,7 +6,7 @@ import {useSearchParams} from 'react-router-dom';
 
 import {DEFAULT_PAGE, DEFAULT_PAGESIZE, PAGESIZE_OPTIONS} from '~/config/system';
 import {useTranslation} from 'react-i18next';
-import {classNames, findNotiConfig, safeAnyToNumber} from '~/util';
+import {classNames, findNotiConfig, genericMemo, safeAnyToNumber} from '~/util';
 import type {API, QueryKey} from '~/constants/service';
 import {NotiCode} from '~/types/notification';
 import type {DataGridFilter, ExtractValues, ListResponseData} from '~/types';
@@ -20,13 +20,13 @@ type DataGridProps<T> = {
   api: ExtractValues<typeof API>;
 };
 
-const DataGrid = <T,>({
+function DataGridComponent<T>({
   className = '',
   isLoading = false,
   columns,
   api,
   queryKey,
-}: DataGridProps<T>) => {
+}: DataGridProps<T>) {
   const {t} = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -35,19 +35,19 @@ const DataGrid = <T,>({
 
     return {
       ...getParamsObject,
-      numPages: safeAnyToNumber(getParamsObject.numPages, DEFAULT_PAGE) - 1,
+      page: safeAnyToNumber(getParamsObject.page, DEFAULT_PAGE),
       pageSize: safeAnyToNumber(getParamsObject.pageSize, DEFAULT_PAGESIZE),
     };
   }, [searchParams]);
 
   const {data: listData, isFetching} = useQuery({
-    queryKey: [queryKey, ...Object.values(queryParams)],
+    queryKey: [queryKey, queryParams],
     queryFn: () => http.get<ListResponseData<T>>(api, {params: queryParams}),
     select: (data) => {
-      const isPagingOutRange = queryParams.numPages * queryParams.pageSize + 1 > data.count;
+      const isPagingOutRange = queryParams.page > data.numPages;
       if (isPagingOutRange) {
         showNotification(findNotiConfig(NotiCode.PAGING_OUT_RANGE));
-        updateSearchParams({numPages: DEFAULT_PAGE.toString()});
+        updateSearchParams({page: DEFAULT_PAGE.toString()});
       }
 
       return data;
@@ -55,9 +55,13 @@ const DataGrid = <T,>({
     placeholderData: keepPreviousData,
   });
 
-  const updateSearchParams = (param: Partial<{[k in keyof DataGridFilter]: string}>) => {
-    setSearchParams({...Object.fromEntries(searchParams), ...param}, {replace: true});
-  };
+  const updateSearchParams = useCallback(
+    (param: Partial<{[k in keyof DataGridFilter]: string}>) => {
+      setSearchParams({...Object.fromEntries(searchParams), ...param}, {replace: true});
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchParams],
+  );
 
   return (
     <DataTable<T>
@@ -67,13 +71,13 @@ const DataGrid = <T,>({
       columns={columns}
       records={listData?.body}
       totalRecords={listData?.count || listData?.body.length || 0}
-      page={queryParams.numPages + 1}
-      onPageChange={(p) => updateSearchParams({numPages: p.toString()})}
+      page={queryParams.page}
+      onPageChange={(p) => updateSearchParams({page: p.toString()})}
       recordsPerPage={queryParams.pageSize}
       recordsPerPageOptions={PAGESIZE_OPTIONS}
       recordsPerPageLabel={t('common.pagination.recordsPerPage')}
       onRecordsPerPageChange={(s) =>
-        updateSearchParams({numPages: DEFAULT_PAGE.toString(), pageSize: s.toString()})
+        updateSearchParams({page: DEFAULT_PAGE.toString(), pageSize: s.toString()})
       }
       paginationSize="md"
       paginationText={({from, to, totalRecords}) =>
@@ -85,6 +89,7 @@ const DataGrid = <T,>({
       highlightOnHover
     />
   );
-};
+}
 
+const DataGrid = genericMemo(DataGridComponent);
 export default DataGrid;

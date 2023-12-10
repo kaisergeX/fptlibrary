@@ -1,9 +1,14 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
-import type {NormalStore, PersistStore} from '~/types/store';
+import type {PersistStore} from '~/types/store';
 import {createAuthSlice} from './authStore';
-import {createUserSlice} from './userStore';
 import {createSystemPersistSlice} from './systemStore';
+import {signal} from '@preact/signals-react';
+import type {Book} from '~/types';
+import {SERVICE_NAME} from '~/config/system';
+
+export const confirmReturnBook = signal<Book | undefined>(undefined);
+export const confirmRemoveBook = signal<Book | undefined>(undefined);
 
 export const usePersistStore = create<PersistStore>()(
   persist(
@@ -12,7 +17,7 @@ export const usePersistStore = create<PersistStore>()(
       ...createSystemPersistSlice(...store),
     }),
     {
-      name: 'F3 Library',
+      name: SERVICE_NAME,
       // partialize: ({uid, accessToken, refreshToken, theme, isAuthenticated}) => ({
       //   uid,
       //   isAuthenticated,
@@ -25,6 +30,6 @@ export const usePersistStore = create<PersistStore>()(
   ),
 );
 
-export const useStorage = create<NormalStore>()((...store) => ({
-  ...createUserSlice(...store),
-}));
+// export const useStorage = create<NormalStore>()((...store) => ({
+//   ...createUserSlice(...store),
+// }));

@@ -12,7 +12,7 @@ type BookCardProps = {
   data: Book;
   onClick?: () => void;
   coverProps?: Omit<ImageProps, 'src'> & {alt?: string};
-  hozizontal?: boolean;
+  horizontal?: boolean;
 };
 
 export default function BookCard({
@@ -20,7 +20,7 @@ export default function BookCard({
   data: bookData,
   onClick,
   coverProps,
-  hozizontal = false,
+  horizontal = false,
 }: BookCardProps) {
   const {id: bookId, title, cover, summary, ageTag, genre, status} = bookData;
   const {t} = useTranslation();
@@ -33,13 +33,13 @@ export default function BookCard({
     <Card
       className={classNames(
         'card-primary',
-        hozizontal ? 'flex-row items-center' : 'sm-only:flex-row sm-only:items-center',
+        horizontal ? 'flex-row items-center' : 'sm-only:flex-row sm-only:items-center',
         className,
       )}
       padding={0}
       onClick={onClick}
     >
-      <div className={hozizontal ? 'basis-1/3' : 'sm-only:basis-1/3'}>
+      <div className={horizontal ? 'basis-1/3' : 'sm-only:basis-1/3'}>
         <Image
           className="aspect-[1/1.5] rounded-lg object-cover object-center"
           src={cover}
@@ -53,7 +53,7 @@ export default function BookCard({
       <div
         className={classNames(
           'flex h-full min-w-0 flex-col p-4',
-          hozizontal ? 'basis-2/3' : 'sm-only:basis-2/3',
+          horizontal ? 'basis-2/3' : 'sm-only:basis-2/3',
         )}
       >
         <div className="flex justify-between gap-2">

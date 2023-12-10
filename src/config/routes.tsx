@@ -2,14 +2,16 @@
 import {lazy} from 'react';
 import {Navigate, type RouteObject} from 'react-router-dom';
 import {Path} from './path';
-import PrivateOutlet from '~/layout/outlet/PrivateOutlet';
 
+// Outlets
 const ClientOutlet = lazy(() => import('~/layout/outlet/ClientOutlet'));
 const AuthOutlet = lazy(() => import('~/layout/outlet/AuthOutlet'));
-// const PrivateOutlet = lazy(() => import('~/layout/outlet/PrivateOutlet'));
+const PrivateOutlet = lazy(() => import('~/layout/outlet/PrivateOutlet'));
+
 const Homepage = lazy(() => import('~/pages/homepage'));
 const LoginPage = lazy(() => import('~/pages/auth/login'));
 
+// Personal pages
 const PersonalPage = lazy(() => import('~/pages/personal'));
 
 // Book pages
@@ -71,7 +73,7 @@ const routesConfig: RouteObject[] = [
     children: [{index: true, element: <PersonalPage />}],
   },
 
-  {path: Path.HIDDEN_FEATURES, element: <HiddenFeatures />},
+  {path: Path.SETTING, element: <HiddenFeatures />},
   {path: Path.PERMISSION_DENIED, element: <PermissionDenied />},
   {path: Path.UNDEFINED, element: <NotFound />},
 ];

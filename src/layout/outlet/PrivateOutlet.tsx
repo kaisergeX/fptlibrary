@@ -4,11 +4,14 @@ import {Navigate, Outlet, useLocation} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
 import {usePersistStore} from '~/store';
 import Navbar from '../navbar';
+import useAuth from '~/hook/useAuth';
 
+// Private Outlet for all authenticated users (any roles).
 const PrivateOutlet = () => {
-  const permissionDenied = false;
   const location = useLocation();
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated);
+  const {userInfo, isLoadingUserInfo} = useAuth();
+  const permissionDenied = isLoadingUserInfo ? false : !userInfo.id;
 
   if (!isAuthenticated) {
     return (

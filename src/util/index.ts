@@ -1,10 +1,13 @@
 import type {OS} from '@mantine/hooks';
 import type {NotificationData} from '@mantine/notifications';
+import {memo} from 'react';
 import dayjs from 'dayjs';
 import {t} from 'i18next';
 import notiConfigs from '~/config/notification';
 import type {PromiseAllSettledReturnType} from '~/types';
 import type {ErrorCode, NotiCode} from '~/types/notification';
+
+export const genericMemo: <T>(component: T) => T = memo;
 
 export function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(' ');

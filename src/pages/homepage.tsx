@@ -16,6 +16,7 @@ import type {ReactNode} from 'react';
 import {HOME_GENRE_COUNT} from '~/config/system';
 import Footer from '~/layout/footer';
 import {Path, SEARCH_PARAMS} from '~/config/path';
+import useAuth from '~/hook/useAuth';
 
 const parallaxBgGroup = Math.floor(Math.random() * 3);
 const heroParallaxGroup = [
@@ -92,6 +93,8 @@ const Homepage = () => {
     select: ({body}) => arrSamples(body, HOME_GENRE_COUNT),
   });
 
+  useAuth({enableOneTapLogin: true});
+
   const bookByGenres = useQueries({
     queries: sampledGenres.map(({id: genreId, genreName}, index) => ({
       queryKey: [QueryKey.BOOKS, sampledGenres.length, index],
@@ -150,7 +153,7 @@ const Homepage = () => {
       },
       enabled: !!sampledGenres.length,
     })),
-    combine: (result) => result.flatMap(({data}) => data),
+    combine: (result) => result.flatMap(({data}) => data || []),
   });
 
   return (

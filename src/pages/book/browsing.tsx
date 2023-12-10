@@ -78,7 +78,7 @@ export default function BookBrowsing() {
           className="cursor-pointer xl:max-w-xl"
           data={data}
           onClick={() => navigate(generatePath(Path.BOOK_DETAIL, {id: data.id}))}
-          hozizontal={horizontalItem}
+          horizontal={horizontalItem}
         />
       )),
   });

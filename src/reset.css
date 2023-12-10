@@ -9,6 +9,10 @@
     border-color: theme('borderColor.DEFAULT', 'currentColor');
   }
 
+  #credential_picker_container {
+    @apply !top-16;
+  }
+
   blockquote,
   dl,
   dd,

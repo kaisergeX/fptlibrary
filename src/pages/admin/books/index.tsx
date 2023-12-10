@@ -17,7 +17,7 @@ import {http} from '~/util/http';
 import {showNotification} from '@mantine/notifications';
 import {NotiCode} from '~/types/notification';
 import {findNotiConfig} from '~/util';
-import {confirmRemoveBook} from '~/store/userStore';
+import {confirmRemoveBook} from '~/store';
 import {useEffect} from 'react';
 
 const columnConfig: DataTableColumn<Book>[] = [

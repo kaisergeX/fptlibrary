@@ -12,7 +12,7 @@ import ZoomImage from '~/components/zoom-image';
 import {BOOK_ACTIONS, BookStatus} from '~/constants';
 import {API, QueryKey} from '~/constants/service';
 import {Head} from '~/layout/outlet/Head';
-import {confirmReturnBook} from '~/store/userStore';
+import {confirmReturnBook} from '~/store';
 import type {Book} from '~/types';
 import {NotiCode} from '~/types/notification';
 import {findNotiConfig} from '~/util';
@@ -73,7 +73,7 @@ export default function PersonalPage() {
       confirmReturnBook.value = undefined;
       await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
       await queryClient.invalidateQueries({queryKey: [QueryKey.BOOK_DETAIL, returnBookId]});
-      await queryClient.invalidateQueries({queryKey: [QueryKey.BOOK_RENT_LIST]});
+      await queryClient.invalidateQueries({queryKey: [QueryKey.ORDER_BORROW]});
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
         message: t('common.success.action', {action: t('book.action.returned')}),
@@ -96,9 +96,9 @@ export default function PersonalPage() {
         <h2 className="font-bold">{t('account.bookRent')}</h2>
       </div>
       <DataGrid<Book>
-        queryKey={QueryKey.BOOK_RENT_LIST}
+        queryKey={QueryKey.ORDER_BORROW}
         isLoading={isPending}
-        api={API.BOOK_RENT_LIST}
+        api={API.ORDER_BORROW}
         columns={columnConfig}
       />
 

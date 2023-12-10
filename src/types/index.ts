@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react';
 import type {BookStatus} from '~/constants';
+import type {Role} from './store';
 
 export type Primitives = string | number | boolean;
 export type ObjectAny = Record<PropertyKey, unknown>;
@@ -17,15 +18,18 @@ export type BreadcrumbsOptions = {
 };
 
 export type DataGridFilter = {
-  numPages: number;
+  page: number;
   pageSize: number;
 };
 
 export type UserInfo = {
   id?: number;
+  role: Role;
   email: string;
   name?: string;
   avatar?: string;
+  expireDate?: string | null;
+  active?: boolean;
 };
 
 export type RequestParams<T = Primitives> = Record<string, T>;

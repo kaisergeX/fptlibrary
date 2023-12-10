@@ -1,43 +1,15 @@
 import {useTranslation} from 'react-i18next';
 import {Head} from '~/layout/outlet/Head';
-import {usePersistStore, useStorage} from '~/store';
-import type {ResponseData} from '~/types';
 import {GoogleLogin} from '@react-oauth/google';
 import AppLogo from '~/components/app-logo';
-import {useMutation} from '@tanstack/react-query';
-import {API} from '~/constants/service';
-import {http} from '~/util/http';
 import {showNotification} from '@mantine/notifications';
 import {findNotiConfig} from '~/util';
 import {ErrorCode} from '~/types/notification';
-
-type LoginPayload = {
-  credential: string;
-};
-
-type LoginResData = ResponseData<{
-  refresh: string;
-  access: string;
-  user: {
-    id: number;
-    email: string;
-    name: string;
-    avatar: string;
-  };
-}>;
+import useAuth from '~/hook/useAuth';
 
 const LoginPage = () => {
   const {t} = useTranslation();
-  const {setToken} = usePersistStore();
-  const {setUserInfo} = useStorage();
-
-  const {mutate: loginMutate} = useMutation({
-    mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
-    onSuccess: ({body}) => {
-      setToken({accessToken: body.access, refreshToken: body.refresh});
-      setUserInfo(body.user);
-    },
-  });
+  const {loginMutate} = useAuth();
 
   return (
     <>
@@ -53,6 +25,9 @@ const LoginPage = () => {
                 showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED));
                 return;
               }
+
+              // @todo remove timeout when server setting clock_skew_in_seconds to fix the "Token used too early" error.
+              // might related to this: https://github.com/googleapis/google-auth-library-python/issues/889
               loginMutate({credential});
             }}
             onError={() => showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED))}

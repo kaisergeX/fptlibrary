@@ -3,9 +3,11 @@ export const QueryKey = {
   GENRES: 'GENRES',
   AGE_TAG: 'AGE_TAG',
 
+  USER_INFO: 'USER_INFO',
+  ORDER_BORROW: 'ORDER_BORROW',
+
   BOOKS: 'BOOKS',
   BOOK_DETAIL: 'BOOK_DETAIL',
-  BOOK_RENT_LIST: 'BOOK_RENT_LIST',
 } as const;
 
 export const API = {
@@ -14,10 +16,12 @@ export const API = {
   AGE_TAGS: '/age-tag',
 
   LOGIN: '/login',
+  USER_INFO: '/infor',
   LOGOUT: '/rest-auth/logout',
 
+  ORDER_BORROW: '/order/borrow',
+
   BOOKS: '/books',
-  BOOK_RENT_LIST: '/book/borrow',
   BOOK_ACTIONS: '/action/:actionType/:id',
   BOOK_MUTATION: '/books/:id?',
   BOOK_DETAIL: '/books/:id',

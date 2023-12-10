@@ -1,5 +1,5 @@
 import {AppShell, Burger, LoadingOverlay} from '@mantine/core';
-import {Navigate, Outlet} from 'react-router-dom';
+import {Navigate, Outlet, useLocation} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
 import {usePersistStore} from '~/store';
 import {useDisclosure} from '@mantine/hooks';
@@ -7,19 +7,22 @@ import AppLogo from '~/components/app-logo';
 import AccountMenu from '~/components/account-menu';
 import AdminNavbar from '../admin-navbar';
 import {Suspense} from 'react';
+import useAuth from '~/hook/useAuth';
+import {Role} from '~/types/store';
 
 const CMSOutlet = () => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated);
-  const role = 'admin';
-  const permissionDenied = role !== 'admin';
+  const {userInfo, isLoadingUserInfo} = useAuth();
+  const permissionDenied = isLoadingUserInfo ? false : userInfo.role !== Role.ADMIN;
   const [mobileOpened, {toggle: toggleMobile}] = useDisclosure();
+  const {pathname} = useLocation();
 
   if (!isAuthenticated) {
     return (
       <Navigate
         to={{
           pathname: Path.LOGIN,
-          search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
+          search: `${SEARCH_PARAMS.REDIRECT_URL}=${pathname}`,
         }}
         replace
       />

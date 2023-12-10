@@ -1,4 +1,4 @@
-import {Button, Divider, Table} from '@mantine/core';
+import {Button, Divider, Image, Table} from '@mantine/core';
 import {IconEdit} from '@tabler/icons-react';
 import {useSuspenseQuery} from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -12,10 +12,13 @@ import CommonHeader from '~/layout/common-header';
 import {Head} from '~/layout/outlet/Head';
 import type {Book, BreadcrumbsOptions, ResponseData} from '~/types';
 import {http} from '~/util/http';
+import {useDisclosure} from '@mantine/hooks';
+import ModalPrint from '~/components/modal-print';
 
 export default function BookDetailPage() {
   const {t} = useTranslation();
   const {id: bookId} = useParams();
+  const [qrCodeModalOpened, {open: openQRModal, close: closeQRModal}] = useDisclosure(false);
 
   const {data: bookData} = useSuspenseQuery({
     queryKey: [QueryKey.BOOK_DETAIL, bookId],
@@ -54,6 +57,7 @@ export default function BookDetailPage() {
           <Table>
             <Table.Thead>
               <Table.Tr>
+                <Table.Th className="text-center">{t('book.qrCode')}</Table.Th>
                 <Table.Th>{t('common.country')}</Table.Th>
                 <Table.Th>{t('book.price')} (&#8363;)</Table.Th>
                 <Table.Th>{t('book.publishYear')}</Table.Th>
@@ -64,6 +68,21 @@ export default function BookDetailPage() {
             </Table.Thead>
             <Table.Tbody>
               <Table.Tr>
+                <Table.Td align="center">
+                  <div
+                    className="flex-center w-14 cursor-pointer"
+                    role="button"
+                    onClick={openQRModal}
+                  >
+                    <Image
+                      className="aspect-square w-full object-cover object-center"
+                      src={bookData.qrCode}
+                      fallbackSrc={`https://placehold.co/200x200?text=${bookData.title}`}
+                      alt={`Book QR code - ${bookData.title}`}
+                      loading="lazy"
+                    />
+                  </div>
+                </Table.Td>
                 <Table.Td>{bookData.country.name}</Table.Td>
                 <Table.Td>{bookData.price}</Table.Td>
                 <Table.Td>{bookData.publishYear}</Table.Td>
@@ -75,6 +94,28 @@ export default function BookDetailPage() {
           </Table>
         )}
       </div>
+
+      <ModalPrint
+        className="flex flex-col items-center gap-4"
+        title={t('book.qrCode')}
+        documentTitle={`${bookData.title}_${bookData.author || t('book.authorUnknown')}`}
+        opened={qrCodeModalOpened}
+        onClose={closeQRModal}
+      >
+        <Image
+          className="aspect-square w-full object-cover object-center"
+          src={bookData.qrCode}
+          fallbackSrc={`https://placehold.co/400x400?text=${bookData.title}`}
+          alt={`Book QR code - ${bookData.title}`}
+          loading="lazy"
+        />
+        <div className="text-center">
+          <h2 className="font-bold">{bookData.title}</h2>
+          <p>
+            {t('book.author')}: <strong>{bookData.author || t('book.authorUnknown')}</strong>
+          </p>
+        </div>
+      </ModalPrint>
     </>
   );
 }

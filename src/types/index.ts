@@ -75,14 +75,18 @@ export type Book = {
   author: string;
   summary?: string;
   cover: string;
+
   genre: Genre[];
   country: Country;
   ageTag: AgeTag;
+
   episode?: number;
   totalEpisode?: number;
   price?: number;
   status: BookStatus;
   publishYear?: string;
+  qrCode: string;
+
   createAt: string;
   updateAt: string;
 };
@@ -98,15 +102,22 @@ export type BookFilterFormValues = {
   publishYear?: Date | null;
 };
 
-export type BookFormValues = Omit<
-  Book,
-  'id' | 'genre' | 'country' | 'ageTag' | 'cover' | 'publishYear' | 'createAt' | 'updateAt'
-> & {
+export type BookFormValues = {
+  title: string;
+  author: string;
+  summary?: string;
   cover: string | File;
+
   genre: string[];
   country: Country['id'];
   ageTag: string;
+
   publishYear?: Date | null;
+  episode?: number;
+  totalEpisode?: number;
+  price?: number;
+
+  status: BookStatus;
 };
 
 export type BookRequestData = Omit<BookFormValues, 'cover' | 'genre' | 'publishYear'> & {

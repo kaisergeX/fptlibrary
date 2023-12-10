@@ -49,6 +49,7 @@ specifiers:
   react-i18next: ^13.5.0
   react-medium-image-zoom: ^5.1.8
   react-router-dom: ^6.20.1
+  react-to-print: ^2.14.15
   sharp: ^0.32.6
   svgo: ^3.0.5
   tailwindcss: ^3.3.6
@@ -89,6 +90,7 @@ dependencies:
   react-i18next: 13.5.0_vjow25zt5c4n2jtveyjnguixb4
   react-medium-image-zoom: 5.1.8_biqbaboplfbrettd7655fr4n2y
   react-router-dom: 6.20.1_biqbaboplfbrettd7655fr4n2y
+  react-to-print: 2.14.15_biqbaboplfbrettd7655fr4n2y
   zod: 3.22.4
   zustand: 4.4.7_qjur23isozgejic6xjvb76mkmm
 
@@ -3464,6 +3466,16 @@ packages:
       use-latest: 1.2.1_qjur23isozgejic6xjvb76mkmm
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /react-to-print/2.14.15_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-SKnwOzU2cJ8eaAkoJO7+gNhvfEDmm+Y34IdcHsjtHioUevUPhprqbVtvNJlZ2JkGJ8ExK2QNWM9pXECTDR5D8w==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-transition-group/4.4.5_biqbaboplfbrettd7655fr4n2y:

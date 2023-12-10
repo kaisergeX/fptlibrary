@@ -1,8 +1,10 @@
+import {MS_EXCEL_MIME_TYPE} from '@mantine/dropzone';
 import {t} from 'i18next';
 import {z, ZodIssueCode, type ZodErrorMap} from 'zod';
 import {
   ACCEPTED_IMAGE_EXTENSIONS,
   ACCEPTED_IMAGE_MIME_TYPES,
+  ACCEPTED_IMPORT_FILE_EXTENSIONS,
   MAX_FILE_SIZE,
   MAX_FILE_SIZE_MB,
 } from '~/config/system';
@@ -14,6 +16,21 @@ export const zodImage = z
   .refine((file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), {
     message: t('common.validation.imageFileType', {
       mimeTypes: ACCEPTED_IMAGE_EXTENSIONS.join(', '),
+    }),
+  })
+  .refine((file) => file.size < MAX_FILE_SIZE, {
+    message: t('common.validation.maxFileSize', {
+      size: `${MAX_FILE_SIZE_MB}MB`,
+    }),
+  });
+
+export const zodExcel = z
+  .custom<File>((v) => v instanceof File, {
+    message: t('common.validation.required'),
+  })
+  .refine((file) => (MS_EXCEL_MIME_TYPE as string[]).includes(file.type), {
+    message: t('common.validation.fileType', {
+      mimeTypes: ACCEPTED_IMPORT_FILE_EXTENSIONS.join(', '),
     }),
   })
   .refine((file) => file.size < MAX_FILE_SIZE, {

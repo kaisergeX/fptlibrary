@@ -18,16 +18,14 @@ import {
   IconNotification,
   IconSun,
 } from '@tabler/icons-react';
-
 import {useTranslation} from 'react-i18next';
-import {Link} from 'react-router-dom';
 import CarouselCustom from '~/components/carousel-custom';
 import ThemeColors from '~/components/theme-colors';
 import {exampleNavbarConfig} from '~/config/admin-navbar';
-import {Path} from '~/config/path';
-import {SERVICE_NAME} from '~/config/system';
 import LinksGroup from '~/layout/admin-navbar/NavbarItemGroup';
 import {SupportedLanguage} from '~/constants';
+import AppLogo from '~/components/app-logo';
+import AccountMenu from '~/components/account-menu';
 
 const images = [
   'https://source.unsplash.com/user/jswords',
@@ -68,28 +66,27 @@ const HiddenFeatures = () => {
   return (
     <div className="relative">
       <header className="glass flex-center-between sticky inset-x-0 top-0 z-10 gap-4 p-4">
-        <Link to={Path.HOMEPAGE} className="link-unstyled">
-          <h1 className="font-handwriting font-normal transition-all hover:drop-shadow-md">
-            {SERVICE_NAME}
-          </h1>
-        </Link>
+        <AppLogo />
 
-        <Tooltip
-          className="capitalize"
-          withArrow
-          label={t(`common.theme.mode`, {theme: colorScheme})}
-          openDelay={500}
-        >
-          <ActionIcon
-            variant="outline"
-            size="lg"
-            radius="xl"
-            color={isDarkMode ? 'yellow' : ''}
-            onClick={() => toggleColorScheme()}
+        <div className="flex items-center gap-4">
+          <Tooltip
+            className="capitalize"
+            withArrow
+            label={t(`common.theme.mode`, {theme: colorScheme})}
+            openDelay={500}
           >
-            {isDarkMode ? <IconMoonStars size={18} /> : <IconSun size={18} />}
-          </ActionIcon>
-        </Tooltip>
+            <ActionIcon
+              variant="outline"
+              size="lg"
+              radius="xl"
+              color={isDarkMode ? 'yellow' : ''}
+              onClick={() => toggleColorScheme()}
+            >
+              {isDarkMode ? <IconMoonStars size={18} /> : <IconSun size={18} />}
+            </ActionIcon>
+          </Tooltip>
+          <AccountMenu />
+        </div>
       </header>
 
       <main className="container mx-auto p-4">
@@ -121,9 +118,9 @@ const HiddenFeatures = () => {
         <Divider my="xl" variant="dashed" />
         <h2 className="mb-8">{t('setting.showcase')}</h2>
 
-        <div className="flex gap-4 divide-x py-4">
+        <div className="mb-8 flex gap-4 divide-x rounded-xl py-4 outline-4 outline-offset-8 outline-[--mantine-primary-color-1] sm:outline">
           <div className="w-64">
-            <h3 className="mb-4">Nested navbar</h3>
+            <AppLogo className="mb-8 h-20 [&_img]:mx-auto" />
             {renderExampleNavbar}
           </div>
 

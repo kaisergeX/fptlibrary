@@ -29,4 +29,6 @@ export const SEARCH_PARAMS = {
   GENRE: 'genre',
   COUNTRY: 'country',
   AGE_TAG: 'ageTag',
+  PAGE: 'page',
+  PAGE_SIZE: 'pageSize',
 } as const;

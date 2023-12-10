@@ -1,5 +1,5 @@
 import type {ReactNode} from 'react';
-import type {BookStatus} from '~/constants';
+import type {BookStatus, ImportStatus} from '~/constants';
 import type {Role} from './store';
 
 export type Primitives = string | number | boolean;
@@ -94,7 +94,6 @@ export type Book = {
 export type BooksResData = ResponseData<Book[]>;
 
 export type BookFilterFormValues = {
-  title?: string;
   genre?: string[];
   ageTag?: string[];
   country?: Country['id'][];
@@ -125,3 +124,24 @@ export type BookRequestData = Omit<BookFormValues, 'cover' | 'genre' | 'publishY
   genre: string;
   publishYear?: number;
 };
+
+export type BookImportRequest = {
+  file: File;
+};
+
+export type BookImportResData = ResponseData<{
+  id: number;
+  file: string;
+  status: ImportStatus;
+  message: string | null;
+}>;
+
+export type BookImportDetailResData = ResponseData<{
+  id: number;
+  file: string;
+  status: ImportStatus;
+  message: string | null;
+  imported: number;
+  error: number;
+  errorFile: null;
+}>;

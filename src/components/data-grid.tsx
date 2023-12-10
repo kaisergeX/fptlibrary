@@ -11,6 +11,7 @@ import type {API, QueryKey} from '~/constants/service';
 import {NotiCode} from '~/types/notification';
 import type {DataGridFilter, ExtractValues, ListResponseData} from '~/types';
 import {http} from '~/util/http';
+import {SEARCH_PARAMS} from '~/config/path';
 
 type DataGridProps<T> = {
   className?: string;
@@ -35,8 +36,8 @@ function DataGridComponent<T>({
 
     return {
       ...getParamsObject,
-      page: safeAnyToNumber(getParamsObject.page, DEFAULT_PAGE),
-      pageSize: safeAnyToNumber(getParamsObject.pageSize, DEFAULT_PAGESIZE),
+      page: safeAnyToNumber(getParamsObject[SEARCH_PARAMS.PAGE], DEFAULT_PAGE),
+      pageSize: safeAnyToNumber(getParamsObject[SEARCH_PARAMS.PAGE_SIZE], DEFAULT_PAGESIZE),
     };
   }, [searchParams]);
 
@@ -44,7 +45,7 @@ function DataGridComponent<T>({
     queryKey: [queryKey, queryParams],
     queryFn: () => http.get<ListResponseData<T>>(api, {params: queryParams}),
     select: (data) => {
-      const isPagingOutRange = queryParams.page > data.numPages;
+      const isPagingOutRange = queryParams[SEARCH_PARAMS.PAGE] > data.numPages;
       if (isPagingOutRange) {
         showNotification(findNotiConfig(NotiCode.PAGING_OUT_RANGE));
         updateSearchParams({page: DEFAULT_PAGE.toString()});
@@ -71,10 +72,10 @@ function DataGridComponent<T>({
       columns={columns}
       records={listData?.body}
       totalRecords={listData?.count || listData?.body.length || 0}
-      page={queryParams.page}
-      onPageChange={(p) => updateSearchParams({page: p.toString()})}
-      recordsPerPage={queryParams.pageSize}
+      page={queryParams[SEARCH_PARAMS.PAGE]}
+      recordsPerPage={queryParams[SEARCH_PARAMS.PAGE_SIZE]}
       recordsPerPageOptions={PAGESIZE_OPTIONS}
+      onPageChange={(p) => updateSearchParams({page: p.toString()})}
       recordsPerPageLabel={t('common.pagination.recordsPerPage')}
       onRecordsPerPageChange={(s) =>
         updateSearchParams({page: DEFAULT_PAGE.toString(), pageSize: s.toString()})

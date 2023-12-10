@@ -8,6 +8,7 @@ export const QueryKey = {
 
   BOOKS: 'BOOKS',
   BOOK_DETAIL: 'BOOK_DETAIL',
+  BOOK_IMPORT_DETAIL: 'BOOK_IMPORT_DETAIL',
 } as const;
 
 export const API = {
@@ -26,6 +27,8 @@ export const API = {
   BOOK_MUTATION: '/books/:id?',
   BOOK_DETAIL: '/books/:id',
   BOOK_REMOVE: '/books/:id',
+  BOOK_IMPORT: '/import-book',
+  BOOK_IMPORT_DETAIL: '/import-book/:id',
 } as const;
 
 export const DEFAULT_STALE_TIME = 300000; // 3m (= 3 * 60 * 1000 ms)

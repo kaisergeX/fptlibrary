@@ -147,6 +147,11 @@
     }
   },
 
+  "import": {
+    "importData": "Import data",
+    "templateFile": "Template file"
+  },
+
   "genre": {
     "def": "Genre",
     "select": "Select genre",

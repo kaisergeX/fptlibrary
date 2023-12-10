@@ -26,7 +26,7 @@ import {Head} from '~/layout/outlet/Head';
 import type {Book, ResponseData} from '~/types';
 import {classNames, isMobile, safeAnyToNumber} from '~/util';
 import {http} from '~/util/http';
-import BookFilter, {BOOK_FILTER_FORM_ID} from './book-filter';
+import BookFilter, {BOOK_FILTER_FORM_ID} from '~/components/book/book-filter';
 import NoData from '~/components/no-data';
 import {DEFAULT_PAGE, DEFAULT_PAGESIZE} from '~/config/system';
 

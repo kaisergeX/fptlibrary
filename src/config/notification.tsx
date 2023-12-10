@@ -68,6 +68,12 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
    * Neutral notification
    */
   {
+    id: NotiCode.BOOK_IMPORT_PROCESSING,
+    code: NotiCode.BOOK_IMPORT_PROCESSING,
+    message: t('common.processing'),
+    loading: true,
+  },
+  {
     code: NotiCode.BOOK_EXCEEDED,
     title: t('book.exceeded.title', {count: MAX_SELECTED_BOOKS}),
     message: t('book.exceeded.description'),

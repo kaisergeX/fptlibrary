@@ -17,7 +17,6 @@ import {zodCustomErrorMap} from '~/util/validation';
 export const BOOK_FILTER_FORM_ID = 'book-filter-form';
 
 const validationSchema: z.ZodSchema<Partial<BookFilterFormValues>> = z.object({
-  title: z.string({errorMap: zodCustomErrorMap}).trim().optional(),
   publishYear: z.date().nullish(),
   genre: z.array(z.string({errorMap: zodCustomErrorMap})).optional(),
   country: z.array(z.string({errorMap: zodCustomErrorMap})).optional(),
@@ -31,7 +30,6 @@ type BookFilterProps = {
   onReset?: () => void;
 };
 const initialFormValues: Partial<BookFilterFormValues> = {
-  title: '',
   genre: [],
   country: [],
   ageTag: [],
@@ -52,7 +50,6 @@ export default function BookFilter({className = '', onSubmit, onReset}: BookFilt
     setInitialValues,
   } = useForm<z.infer<typeof validationSchema>>({
     initialValues: {
-      title: '',
       genre: initGenreFilter?.split(',') || [],
       country: initCountryFilter?.split(',') || [],
       ageTag: initAgeTagFilter?.split(',') || [],
@@ -63,36 +60,35 @@ export default function BookFilter({className = '', onSubmit, onReset}: BookFilt
 
   const handleBookFilter = useCallback(
     (values: Partial<BookFilterFormValues>) => {
-      console.log(values);
       if (onSubmit) {
         onSubmit(values);
         return;
       }
 
-      const newSearchParams = objectJoinArrayValues(values, ',', {
-        preProcessValues: (value) => {
-          if (!value || typeof value === 'object') {
-            if (value instanceof Date) {
-              // publishYear filter
-              return isValidDate(value) ? value.getFullYear() : undefined;
+      const newSearchParams = objectJoinArrayValues(
+        {...Object.fromEntries(searchParams), ...values},
+        ',',
+        {
+          preProcessValues: (value) => {
+            if (!value || typeof value === 'object') {
+              if (value instanceof Date) {
+                // publishYear filter
+                return isValidDate(value) ? value.getFullYear() : undefined;
+              }
+
+              return value;
             }
 
-            return value;
-          }
-
-          return value.toString();
+            return value.toString();
+          },
+          removeFalsyProperties: true,
         },
-        removeFalsyProperties: true,
-      }) as RequestParams<string>;
+      ) as RequestParams<string>;
 
-      setSearchParams(
-        (prevSearchParams) =>
-          createSearchParams({...Object.fromEntries(prevSearchParams), ...newSearchParams}),
-        {replace: true},
-      );
+      setSearchParams(createSearchParams(newSearchParams), {replace: true});
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onSubmit],
+    [onSubmit, searchParams],
   );
 
   const handleReset: FormEventHandler<HTMLFormElement> = (formEvent) => {

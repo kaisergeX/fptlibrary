@@ -67,15 +67,6 @@ export default function AccountMenu() {
           </>
         )}
 
-        <Menu.Label>{t('common.features')}</Menu.Label>
-        <Menu.Item
-          leftSection={<IconHome size="1.2rem" />}
-          className="link-unstyled"
-          component={Link}
-          to={Path.HOMEPAGE}
-        >
-          {t('home.pageTitle')}
-        </Menu.Item>
         {isAuthenticated && (
           <>
             {userInfo.role === Role.ADMIN && (
@@ -98,6 +89,16 @@ export default function AccountMenu() {
             </Menu.Item>
           </>
         )}
+
+        <Menu.Label>{t('common.features')}</Menu.Label>
+        <Menu.Item
+          leftSection={<IconHome size="1.2rem" />}
+          className="link-unstyled"
+          component={Link}
+          to={Path.HOMEPAGE}
+        >
+          {t('home.pageTitle')}
+        </Menu.Item>
 
         <Menu.Item
           leftSection={<IconSettings size="1.2rem" />}

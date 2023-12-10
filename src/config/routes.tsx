@@ -26,7 +26,7 @@ const CMSBookMutation = lazy(() => import('~/pages/admin/books/mutation'));
 const CMSBookDetail = lazy(() => import('~/pages/admin/books/detail'));
 
 // Common pages
-const HiddenFeatures = lazy(() => import('~/pages/not-easter-egg'));
+const HiddenFeatures = lazy(() => import('~/pages/setting'));
 const PermissionDenied = lazy(() => import('~/pages/error-page/permission-denied'));
 const NotFound = lazy(() => import('~/pages/error-page/not-found'));
 

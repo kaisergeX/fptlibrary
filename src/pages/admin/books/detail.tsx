@@ -13,7 +13,7 @@ import {Head} from '~/layout/outlet/Head';
 import type {Book, BreadcrumbsOptions, ResponseData} from '~/types';
 import {http} from '~/util/http';
 import {useDisclosure} from '@mantine/hooks';
-import ModalPrint from '~/components/modal-print';
+import ModalPrint from '~/components/modals/modal-print';
 
 export default function BookDetailPage() {
   const {t} = useTranslation();

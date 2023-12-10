@@ -153,7 +153,11 @@ const Homepage = () => {
       },
       enabled: !!sampledGenres.length,
     })),
-    combine: (result) => result.flatMap(({data}) => data || []),
+    combine: (result) => {
+      const combinedData = result.flatMap(({data}) => data);
+      // if combinedData = [undefined, undefined, ...], return [] to show <Nodata />
+      return combinedData.every((item) => !item) ? [] : combinedData;
+    },
   });
 
   return (

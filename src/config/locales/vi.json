@@ -8,6 +8,7 @@
 
     "changeLang": "Thay đổi ngôn ngữ",
     "loading": "Đang tải",
+    "processing": "Đang xử lý",
     "theme": {
       "color": "Màu chủ đề",
       "dark": "Chế độ tối",
@@ -35,9 +36,13 @@
     "viewMore": "Xem thêm",
     "rent": "Mượn sách",
     "dragImage": "Kéo thả hoặc nhấn để chọn ảnh",
+    "dragFile": "Kéo thả hoặc nhấn để chọn tệp",
     "print": "In",
     "confirm": "Xác nhận",
     "cancelAction": "Huỷ hành động",
+    "upload": "Tải lên",
+    "completed": "Hoàn thành",
+
     "createdAt": "Ngày tạo",
     "updatedAt": "Ngày cập nhật",
     "lastUpdatedAt": "Ngày cập nhật mới nhất",
@@ -106,7 +111,8 @@
     "validation": {
       "required": "Trường bắt buộc",
       "invalidInput": "Dữ liệu không hợp lệ",
-      "imageFileType": "Sai định dạng ảnh, chỉ ảnh {{- mimeTypes}} được chấp nhận",
+      "imageFileType": "Chỉ ảnh {{- mimeTypes}} được chấp nhận",
+      "fileType": "Chỉ tệp {{- mimeTypes}} được chấp nhận",
       "maxFileSize": "Kích thước tệp tối đa {{size}}"
     }
   },
@@ -144,6 +150,15 @@
     "sentence": "Với việc Đăng kí tài khoản, bạn đồng ý với <PolicyComponent>{{policy}}</PolicyComponent> của chúng tôi.",
     "privacy": {
       "title": "Chính sách bảo mật"
+    }
+  },
+
+  "import": {
+    "importData": "Nhập dữ liệu",
+    "templateFile": "Tệp mẫu",
+    "takeTime": "Quá trình nhập dữ liệu hoạt động dưới nền và có thể cần một khoảng thời gian để xử lý.\nBạn có thể đóng cửa sổ lại và làm việc khác.",
+    "error": {
+      "process": "Có lỗi xử lý dữ liệu, xin hãy kiểm tra lại tệp"
     }
   },
 

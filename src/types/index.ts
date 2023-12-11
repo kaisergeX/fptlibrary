@@ -37,7 +37,7 @@ export type RequestParams<T = Primitives> = Record<string, T>;
 export type ResponseData<T> = {
   success: boolean;
   body: T;
-  error: Record<string, unknown>;
+  error?: Record<string, unknown>;
 };
 
 export type ListResponseData<T> = ResponseData<T> & {

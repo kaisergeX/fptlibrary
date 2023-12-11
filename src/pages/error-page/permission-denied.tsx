@@ -25,7 +25,7 @@ const PermissionDenied = () => {
 
         <div className="flex gap-4">
           <button type="button" className="button" onClick={() => navigate(-1)}>
-            <IconArrowLeft /> {t('common.back')}
+            <IconArrowLeft size="1.2rem" /> {t('common.back')}
           </button>
           <Link to={Path.HOMEPAGE} className="button-secondary" replace>
             🏡 {t('home.pageTitle')}

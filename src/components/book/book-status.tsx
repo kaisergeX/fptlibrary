@@ -28,14 +28,20 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
       </Badge>
     ),
   },
-  {
-    value: BookStatus.RETURNED.toString(),
-    render: (
-      <Badge variant="light" color="pink" size="lg" radius="md">
-        {t('book.status.RETURNED')}
-      </Badge>
-    ),
-  },
+
+  /**
+   * RETURNED status now exists only for the purpose of related data statistic such as on for the Orders history, dashboard overview, etc...
+   *
+   * This status must be hidden from any Book status select field.
+   */
+  // {
+  //   value: BookStatus.RETURNED.toString(),
+  //   render: (
+  //     <Badge variant="light" color="pink" size="lg" radius="md">
+  //       {t('book.status.RETURNED')}
+  //     </Badge>
+  //   ),
+  // },
   {
     value: BookStatus.OFF.toString(),
     render: (

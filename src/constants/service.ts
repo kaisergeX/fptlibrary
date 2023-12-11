@@ -4,6 +4,7 @@ export const QueryKey = {
   AGE_TAG: 'AGE_TAG',
 
   USER_INFO: 'USER_INFO',
+  TOP_PAGE: 'TOP_PAGE',
   ORDER_BORROW: 'ORDER_BORROW',
 
   BOOKS: 'BOOKS',
@@ -19,6 +20,8 @@ export const API = {
   LOGIN: '/login',
   USER_INFO: '/infor',
   LOGOUT: '/rest-auth/logout',
+
+  TOP_PAGE: '/top-page',
 
   ORDER_BORROW: '/order/borrow',
 

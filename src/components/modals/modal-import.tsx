@@ -27,10 +27,11 @@ type ModalImportProps = {
 export default memo(function ModalImport({opened, title, onClose}: ModalImportProps) {
   const {t} = useTranslation();
   const queryClient = useQueryClient();
-  const [importInProgress, setImportInProgress] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
   const [errorMsg, setErrorMsg] = useState('');
   const [importId, setImportId] = useState('');
+  const [importStatus, setImportStatus] = useState<ImportStatus | undefined>();
+  const isImportDone = importStatus === ImportStatus.DONE;
 
   const {isPending: isPendingUpload, mutate: mutateImport} = useMutation({
     mutationFn: (payload: BookImportRequest) =>
@@ -41,40 +42,37 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
       }),
     onSuccess: ({body}) => {
       showNotification(findNotiConfig(NotiCode.BOOK_IMPORT_PROCESSING));
-      setImportInProgress(true);
+      setImportStatus(ImportStatus.INPROGRESS);
       setImportId(body?.id.toString());
     },
   });
 
-  const {data: importCompleted} = useQuery({
+  useQuery({
     queryKey: [QueryKey.BOOK_IMPORT_DETAIL, importId],
     queryFn: () =>
       http.get<BookImportDetailResData>(generatePath(API.BOOK_IMPORT_DETAIL, {id: importId})),
     select: ({body}) => {
-      if (
-        body.status === ImportStatus.IMPORT_STATUS_DONE ||
-        body.status === ImportStatus.IMPORT_STATUS_ERROR
-      ) {
+      if (body.status === ImportStatus.DONE || body.status === ImportStatus.ERROR) {
         hideNotification(NotiCode.BOOK_IMPORT_PROCESSING);
         handleResetState();
       }
 
-      if (body.status === ImportStatus.IMPORT_STATUS_DONE) {
+      if (body.status === ImportStatus.DONE) {
+        showNotification(findNotiConfig(NotiCode.BOOK_IMPORT_SUCCESSFULLY));
+        setImportStatus(ImportStatus.DONE);
         void queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
       }
 
-      if (body.status === ImportStatus.IMPORT_STATUS_ERROR) {
+      if (body.status === ImportStatus.ERROR) {
         setErrorMsg(t('import.error.process'));
       }
-
-      return body.status === ImportStatus.IMPORT_STATUS_DONE;
     },
     staleTime: DEFAULT_STALE_TIME,
     refetchInterval: importId ? 5000 : false,
     enabled: !!importId,
   });
 
-  const isProcessing = importInProgress || isPendingUpload;
+  const isProcessing = importStatus === ImportStatus.INPROGRESS || isPendingUpload;
 
   const handleFileSelection = useCallback((file?: File) => {
     if (!file) {
@@ -91,16 +89,22 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
     setErrorMsg('');
   }, []);
 
-  const handleResetState = () => {
+  const handleResetState = (removeSelectedFile = false) => {
     setImportId('');
-    setSelectedFile(undefined);
-    setImportInProgress(false);
+    setImportStatus(undefined);
+
+    if (removeSelectedFile) {
+      setSelectedFile(undefined);
+    }
   };
 
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={() => {
+        handleResetState(true);
+        onClose();
+      }}
       title={title || t('import.importData')}
       size="xl"
       radius="md"
@@ -119,11 +123,11 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
       <div className="relative">
         {!selectedFile || isProcessing || (
           <ActionIcon
-            className="absolute -right-3 -top-3 z-10"
+            className="absolute right-3 top-3 z-10"
             radius="xl"
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedFile(undefined);
+              handleResetState(true);
             }}
           >
             <IconX />
@@ -132,7 +136,7 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
         <Dropzone
           className={classNames(
             'group flex-center relative min-h-[30vh] w-full text-center',
-            importInProgress || importCompleted ? 'border-none' : '',
+            isProcessing ? 'border-none' : '',
             errorMsg ? 'border-red-600' : '',
           )}
           classNames={{inner: 'flex-center w-full flex-col gap-2'}}
@@ -162,10 +166,10 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
             <div className="flex w-full flex-col items-center">
               <h3>{selectedFile.name}</h3>
 
-              {(importInProgress || importCompleted) && (
+              {(isImportDone || importStatus === ImportStatus.INPROGRESS) && (
                 <>
                   <h4 className="mt-8 flex w-full items-center gap-1 text-left">
-                    {importCompleted ? (
+                    {isImportDone ? (
                       <>
                         <IconCircleCheckFilled
                           size="1rem"
@@ -179,7 +183,7 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
                   </h4>
                   <FakeProgressBar
                     start
-                    completed={importCompleted}
+                    completed={isImportDone}
                     className="w-full"
                     classNames={{section: 'transition-[width] duration-300'}}
                     color="teal"
@@ -187,7 +191,7 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
                     size="lg"
                     maxFakeProgress={95}
                     animated
-                    frequency={3000}
+                    frequency={2000}
                   />
                 </>
               )}
@@ -216,7 +220,7 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
         </Input.Description>
         <Button
           leftSection={<IconCloudUpload />}
-          disabled={!selectedFile}
+          disabled={!selectedFile || isImportDone}
           loading={isProcessing}
           onClick={() => selectedFile && mutateImport({file: selectedFile})}
         >

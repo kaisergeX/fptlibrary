@@ -18,10 +18,10 @@ export enum BookStatus {
 }
 
 export enum ImportStatus {
-  IMPORT_STATUS_RECEIVED,
-  IMPORT_STATUS_INPROGRESS,
-  IMPORT_STATUS_DONE,
-  IMPORT_STATUS_ERROR,
+  RECEIVED,
+  INPROGRESS,
+  DONE,
+  ERROR,
 }
 
 export const BOOK_ACTIONS = {

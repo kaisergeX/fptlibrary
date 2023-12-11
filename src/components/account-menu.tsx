@@ -7,6 +7,7 @@ import {
   IconLogout,
   IconLogin2,
   IconHome,
+  IconDiscountCheckFilled,
 } from '@tabler/icons-react';
 import {t} from 'i18next';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
@@ -20,6 +21,7 @@ export default function AccountMenu() {
   const {isAuthenticated, resetAuthStore} = usePersistStore();
   const {userInfo} = useAuth();
   const {pathname} = useLocation();
+  const isAdmin = userInfo.role === Role.ADMIN;
 
   const handleLogout = () => {
     resetAuthStore(); // this will remove user info, selected books from storage and call googleLogout function too.
@@ -56,7 +58,20 @@ export default function AccountMenu() {
         {isAuthenticated && (
           <>
             <div className="px-3 py-2">
-              <h3 className="truncate text-base font-bold">{userInfo.name}</h3>
+              <div className="flex items-center gap-1">
+                <h3 className="truncate text-base font-bold">{userInfo.name}</h3>
+                {isAdmin && (
+                  <Tooltip label={t('role.admin')}>
+                    <div>
+                      <IconDiscountCheckFilled
+                        className="text-[--mantine-color-blue-filled]"
+                        size="1.2rem"
+                      />
+                    </div>
+                  </Tooltip>
+                )}
+              </div>
+
               <Tooltip label={userInfo.email} openDelay={1000}>
                 <p className="truncate text-xs text-slate-500 dark:text-inherit">
                   {userInfo.email}
@@ -69,7 +84,7 @@ export default function AccountMenu() {
 
         {isAuthenticated && (
           <>
-            {userInfo.role === Role.ADMIN && (
+            {isAdmin && (
               <Menu.Item
                 leftSection={<IconLayoutDashboard size="1.2rem" />}
                 className="link-unstyled"

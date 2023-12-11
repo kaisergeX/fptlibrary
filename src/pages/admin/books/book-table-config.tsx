@@ -13,6 +13,16 @@ import type {Book} from '~/types';
 
 export const bookColumnConfig: DataTableColumn<Book>[] = [
   {
+    accessor: 'index',
+    title: '#',
+    textAlign: 'center',
+    render: ({id}) => (
+      <Link className="link-secondary" to={generatePath(Path.CMS_BOOK_DETAIL, {id})}>
+        {id}
+      </Link>
+    ),
+  },
+  {
     accessor: 'cover',
     title: t('book.cover'),
     render: ({title, cover, author, summary}) => (
@@ -46,7 +56,7 @@ export const bookColumnConfig: DataTableColumn<Book>[] = [
   },
   {
     accessor: 'ageTag.ageTagName',
-    title: t('common.title'),
+    title: t('ageTag.def'),
     render: ({ageTag}) => !ageTag || <Trans t={t}>ageTag.{ageTag.ageTagName}</Trans>,
   },
   {accessor: 'country.name', title: t('common.country')},

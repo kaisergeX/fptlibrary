@@ -36,6 +36,10 @@ export const API = {
   BOOK_IMPORT_DETAIL: '/import-book/:id',
 
   USERS: '/manage/user',
+  USER_EXTEND_EXPIRED_DATE: '/manage/active-account/:id',
+  USER_PROMOTE: '/manage/update-role/:id',
+  USER_BAN: '/manage/ban-account/:id',
+  USER_UNBAN: '/manage/unban-account/:id',
 } as const;
 
 export const DEFAULT_STALE_TIME = 300000; // 3m (= 3 * 60 * 1000 ms)

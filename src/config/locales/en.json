@@ -23,6 +23,7 @@
       "comeback": "Hey, welcome back! Reconnecting"
     },
 
+    "countDay": "{{day}} days",
     "back": "Go back",
     "search": "Search",
     "navSearchHotKeyHint": "Search {{hotkey}}",
@@ -64,6 +65,8 @@
     "contentUpdating": "Content updating",
     "status": "Status",
     "country": "Country",
+    "avatar": "Avatar",
+
     "noData": "No Data",
     "datePicker": {
       "placeholder": "Pick a date"
@@ -162,6 +165,12 @@
     }
   },
 
+  "role": {
+    "title": "Role",
+    "admin": "Admin",
+    "reader": "Reader"
+  },
+
   "genre": {
     "def": "Genre",
     "select": "Select genre",
@@ -205,6 +214,7 @@
     "select": "Select Book",
     "selected": "Selected",
     "unselected": "Remove from list",
+    "notSelected": "Not selected yet",
     "addedList": "Books list",
     "status": {
       "AVAILABLE": "Available",
@@ -253,6 +263,22 @@
   },
   "dashboard": {
     "pageTitle": "Dashboard"
+  },
+  "users": {
+    "pageTitle": "User Manangement",
+    "promote": "Promote",
+    "ban": "Ban",
+    "unban": "Unban",
+    "extendExpireDate": "Membership renewal",
+    "newExpireDate": "Extended to",
+    "expireDate": "Membership expiration date",
+
+    "confirm": {
+      "ban": "Are you sure you want to ban this user?",
+      "unban": "Are you sure you want to active this account?",
+      "promote": "Confirm administrator privileges for this account?",
+      "extendExpireDate": "Renew membership for this account"
+    }
   },
   "setting": {
     "pageTitle": "Settings",

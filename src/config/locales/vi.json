@@ -23,6 +23,7 @@
       "comeback": "Hey, welcome back! Reconnecting"
     },
 
+    "countDay": "{{day}} ngày",
     "back": "Quay lại",
     "search": "Tìm kiếm",
     "navSearchHotKeyHint": "Nhấn {{hotkey}} để tìm kiếm",
@@ -64,7 +65,6 @@
     "contentUpdating": "Nội dung đang cập nhật",
     "status": "Trạng thái",
     "country": "Quốc gia",
-    "role": "Loại tài khoản",
     "avatar": "Ảnh đại diện",
 
     "noData": "Không có dữ liệu",
@@ -165,6 +165,12 @@
     }
   },
 
+  "role": {
+    "title": "Loại tài khoản",
+    "admin": "Quản trị viên",
+    "reader": "Người dùng"
+  },
+
   "genre": {
     "def": "Thể loại",
     "select": "Chọn thể loại",
@@ -208,6 +214,7 @@
     "select": "Chọn sách",
     "selected": "Đã chọn",
     "unselected": "Bỏ chọn",
+    "notSelected": "Chưa chọn",
     "addedList": "Sách đã chọn",
     "status": {
       "AVAILABLE": "Khả dụng",
@@ -260,7 +267,18 @@
   "users": {
     "pageTitle": "Quản lý người dùng",
     "promote": "Thăng cấp",
-    "ban": "Cấm người dùng"
+    "ban": "Cấm người dùng",
+    "unban": "Kích hoạt tài khoản",
+    "extendExpireDate": "Gia hạn thành viên",
+    "newExpireDate": "Gia hạn đến",
+    "expireDate": "Hạn thành viên",
+
+    "confirm": {
+      "ban": "Bạn muốn cấm người dùng",
+      "unban": "Bạn muốn kích hoạt tài khoản",
+      "promote": "Chỉ định tài khoản này làm Quản trị viên",
+      "extendExpireDate": "Gia hạn thành viên cho tài khoản"
+    }
   },
   "setting": {
     "pageTitle": "Cài đặt",

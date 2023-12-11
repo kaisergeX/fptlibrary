@@ -1,13 +1,32 @@
 import {ActionIcon, Image, Tooltip} from '@mantine/core';
+import {IconCalendarEvent, IconDiscountCheckFilled} from '@tabler/icons-react';
 import {IconUserCheck} from '@tabler/icons-react';
 import {IconBan} from '@tabler/icons-react';
 import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
 import ZoomImage from '~/components/zoom-image';
-import {confirmBanUser, confirmPromoteUser, useStorage} from '~/store';
+import {
+  confirmBanUnbanUser,
+  confirmExtendExpiredDate,
+  confirmPromoteUser,
+  useStorage,
+} from '~/store';
 import type {UserManagament} from '~/types';
+import {Role} from '~/types/store';
+
+export const RenderRole = [
+  {
+    value: Role.ADMIN.toString(),
+    label: t('role.admin'),
+  },
+  {
+    value: Role.READER.toString(),
+    label: t('role.reader'),
+  },
+];
 
 export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
+  {accessor: 'id', title: 'Id', textAlign: 'center'},
   {
     accessor: 'avatar',
     title: t('common.avatar'),
@@ -31,8 +50,13 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
   },
   {accessor: 'name', title: t('common.name')},
   {accessor: 'email', title: 'Email'},
-  {accessor: 'role', title: t('common.role')},
+  {
+    accessor: 'role',
+    title: t('role.title'),
+    render: ({role}) => RenderRole[role].label,
+  },
   {accessor: 'active', title: t('common.status')},
+  {accessor: 'expireDate', title: t('users.expireDate')},
   {
     accessor: 'actions',
     title: t('common.actions'),
@@ -44,27 +68,55 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
       }
 
       return (
-        <div className="flex-center gap-2">
-          <Tooltip label={t('users.promote')}>
-            <ActionIcon
-              variant="subtle"
-              color="teal"
-              onClick={() => (confirmPromoteUser.value = rowData)}
-            >
-              <IconUserCheck size="1.2rem" />
-            </ActionIcon>
-          </Tooltip>
-          {currentUser.email === rowData.email || (
-            <Tooltip label={t('users.ban')}>
-              <ActionIcon
-                variant="subtle"
-                color="red"
-                onClick={() => (confirmBanUser.value = rowData)}
-              >
-                <IconBan size="1.2rem" />
-              </ActionIcon>
-            </Tooltip>
+        <div className="flex-center gap-1">
+          {rowData.role === Role.READER && (
+            <>
+              <Tooltip label={t('users.promote')}>
+                <ActionIcon
+                  variant="subtle"
+                  color="blue"
+                  onClick={() => (confirmPromoteUser.value = rowData)}
+                >
+                  <IconDiscountCheckFilled className="text-[--ai-color]" size="1.2rem" />
+                </ActionIcon>
+              </Tooltip>
+
+              {rowData.isBanned || (
+                <Tooltip label={t('users.extendExpireDate')}>
+                  <ActionIcon
+                    variant="subtle"
+                    color="violet"
+                    onClick={() => (confirmExtendExpiredDate.value = rowData)}
+                  >
+                    <IconCalendarEvent size="1.2rem" />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+            </>
           )}
+
+          {currentUser.email === rowData.email ||
+            (rowData.isBanned ? (
+              <Tooltip label={t('users.unban')}>
+                <ActionIcon
+                  variant="subtle"
+                  color="teal"
+                  onClick={() => (confirmBanUnbanUser.value = rowData)}
+                >
+                  <IconUserCheck size="1.2rem" />
+                </ActionIcon>
+              </Tooltip>
+            ) : (
+              <Tooltip label={t('users.ban')}>
+                <ActionIcon
+                  variant="subtle"
+                  color="red"
+                  onClick={() => (confirmBanUnbanUser.value = rowData)}
+                >
+                  <IconBan size="1.2rem" />
+                </ActionIcon>
+              </Tooltip>
+            ))}
         </div>
       );
     },

@@ -153,7 +153,12 @@ export type UserManagament = {
   avatar?: string | null;
   role: Role;
   expireDate?: string | null;
+  isBanned: boolean;
   active: boolean;
 };
 
 export type UserManagementList = ResponseData<UserManagament[]>;
+
+export type ExtendExpiredDate = {
+  expireDate: string;
+};

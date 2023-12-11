@@ -63,6 +63,12 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     message: t('common.success.action', {action: t('book.action.returned')}),
     color: 'teal',
   },
+  {
+    id: NotiCode.BOOK_IMPORT_SUCCESSFULLY,
+    code: NotiCode.BOOK_IMPORT_SUCCESSFULLY,
+    message: t('common.success.action', {action: t('import.importData')}),
+    color: 'teal',
+  },
 
   /**
    * Neutral notification

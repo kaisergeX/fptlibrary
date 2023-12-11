@@ -34,8 +34,11 @@ const getAuthConfig = (config?: AxiosRequestConfig) => {
 const apiGet = <T>(url: string, config?: AxiosRequestConfig) =>
   axiosInstance.get<T>(url, getAuthConfig(config)).then(({data}) => data);
 
-const apiPost = <T>(url: string, payload?: unknown, config?: AxiosRequestConfig) =>
-  axiosInstance.post<T>(url, payload, getAuthConfig(config)).then(({data}) => data);
+const apiPost = <T, TPayload = unknown>(
+  url: string,
+  payload?: TPayload,
+  config?: AxiosRequestConfig,
+) => axiosInstance.post<T>(url, payload, getAuthConfig(config)).then(({data}) => data);
 
 const apiPut = <T>(url: string, payload?: unknown, config?: AxiosRequestConfig) =>
   axiosInstance.put<T>(url, payload, getAuthConfig(config)).then(({data}) => data);

@@ -1,13 +1,16 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
-import type {PersistStore} from '~/types/store';
+import type {NormalStore, PersistStore} from '~/types/store';
 import {createAuthSlice} from './authStore';
 import {createSystemPersistSlice} from './systemStore';
+import {createUserSlice} from './userStore';
 import {signal} from '@preact/signals-react';
-import type {Book} from '~/types';
+import type {Book, UserManagament} from '~/types';
 import {SERVICE_NAME} from '~/config/system';
 
 export const confirmRemoveBook = signal<Book | undefined>(undefined);
+export const confirmBanUser = signal<UserManagament | undefined>(undefined);
+export const confirmPromoteUser = signal<UserManagament | undefined>(undefined);
 
 export const usePersistStore = create<PersistStore>()(
   persist(
@@ -29,6 +32,6 @@ export const usePersistStore = create<PersistStore>()(
   ),
 );
 
-// export const useStorage = create<NormalStore>()((...store) => ({
-//   ...createUserSlice(...store),
-// }));
+export const useStorage = create<NormalStore>()((...store) => ({
+  ...createUserSlice(...store),
+}));

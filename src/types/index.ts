@@ -145,3 +145,15 @@ export type BookImportDetailResData = ResponseData<{
   error: number;
   errorFile: null;
 }>;
+
+export type UserManagament = {
+  id: number;
+  name: string;
+  email: string;
+  avatar?: string | null;
+  role: Role;
+  expireDate?: string | null;
+  active: boolean;
+};
+
+export type UserManagementList = ResponseData<UserManagament[]>;

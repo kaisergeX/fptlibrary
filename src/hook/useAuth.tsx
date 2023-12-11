@@ -2,7 +2,7 @@ import {showNotification} from '@mantine/notifications';
 import {useGoogleOneTapLogin} from '@react-oauth/google';
 import {useQuery, useMutation} from '@tanstack/react-query';
 import {API, DEFAULT_STALE_TIME, QueryKey} from '~/constants/service';
-import {usePersistStore} from '~/store';
+import {usePersistStore, useStorage} from '~/store';
 import {defaultUserInfo} from '~/store/userStore';
 import type {ResponseData, UserInfo} from '~/types';
 import {ErrorCode} from '~/types/notification';
@@ -49,6 +49,7 @@ export default function useAuth(
   },
 ) {
   const {isAuthenticated, setToken} = usePersistStore();
+  const setUserInfo = useStorage((state) => state.setUserInfo);
 
   const {
     data: userInfo = defaultUserInfo,
@@ -57,7 +58,10 @@ export default function useAuth(
   } = useQuery({
     queryKey: [QueryKey.USER_INFO],
     queryFn: () => http.get<ResponseData<UserInfo>>(API.USER_INFO),
-    select: ({body}) => body,
+    select: ({body}) => {
+      setUserInfo(body);
+      return body;
+    },
     staleTime: DEFAULT_STALE_TIME,
     enabled: isAuthenticated && fetchUserInfoOnMount,
   });

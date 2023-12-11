@@ -64,6 +64,9 @@
     "contentUpdating": "Nội dung đang cập nhật",
     "status": "Trạng thái",
     "country": "Quốc gia",
+    "role": "Loại tài khoản",
+    "avatar": "Ảnh đại diện",
+
     "noData": "Không có dữ liệu",
     "datePicker": {
       "placeholder": "Chọn một ngày"
@@ -253,6 +256,11 @@
   },
   "dashboard": {
     "pageTitle": "Trang tổng quan"
+  },
+  "users": {
+    "pageTitle": "Quản lý người dùng",
+    "promote": "Thăng cấp",
+    "ban": "Cấm người dùng"
   },
   "setting": {
     "pageTitle": "Cài đặt",

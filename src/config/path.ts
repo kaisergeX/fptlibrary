@@ -14,6 +14,7 @@ export enum Path {
   CMS_BOOK = '/portal/book',
   CMS_BOOK_MUTATION = '/portal/book/:id?/modify',
   CMS_BOOK_DETAIL = '/portal/book/:id',
+  CMS_USERS = '/portal/users',
 
   SETTING = '/setting',
   HIDDEN_FEATURES = '/not-easter-egg',

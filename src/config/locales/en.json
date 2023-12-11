@@ -8,6 +8,7 @@
 
     "changeLang": "Change language",
     "loading": "Loading",
+    "processing": "Processing",
     "theme": {
       "color": "Theme color",
       "dark": "Dark mode",
@@ -33,10 +34,14 @@
     "close": "Close",
     "actions": "Actions",
     "viewMore": "View more",
-    "dragImage": "Drag images here or click to select files",
+    "dragImage": "Drag a image here or click to select it from your device",
+    "dragFile": "Drag a file here or click to select it from your device",
     "print": "Print",
     "confirm": "Confirm",
     "cancelAction": "Cancel",
+    "upload": "Upload",
+    "completed": "Completed",
+
     "createdAt": "Created at",
     "updatedAt": "Updated at",
     "lastUpdatedAt": "Last updated at",
@@ -106,8 +111,9 @@
     "validation": {
       "required": "This field is required",
       "invalidInput": "Invalid input data",
-      "imageFileType": "Only {{- mimeTypes}} files are accepted",
-      "maxFileSize": "Max file size is {{size}}"
+      "imageFileType": "Only {{- mimeTypes}} images are accepted",
+      "fileType": "Only {{- mimeTypes}} files are accepted",
+      "maxFileSize": "Maximum file size is {{size}}"
     }
   },
 
@@ -149,7 +155,11 @@
 
   "import": {
     "importData": "Import data",
-    "templateFile": "Template file"
+    "templateFile": "Template file",
+    "takeTime": "The data import process operates in the background, and it may take some time to complete.\nYou can close this modal and attend to some other task.",
+    "error": {
+      "process": "There seems to be an error while processing the data. Please check the file and try again."
+    }
   },
 
   "genre": {

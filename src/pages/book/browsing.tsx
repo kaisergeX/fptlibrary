@@ -5,6 +5,7 @@ import {
   useDisclosure,
   useHotkeys,
   useLocalStorage,
+  useOs,
   useWindowScroll,
 } from '@mantine/hooks';
 import {
@@ -33,6 +34,7 @@ import {DEFAULT_PAGE, DEFAULT_PAGESIZE} from '~/config/system';
 export default function BookBrowsing() {
   const {t} = useTranslation();
   const navigate = useNavigate();
+  const deviceOS = useOs();
   const [searchParams, setSearchParams] = useSearchParams();
   const [{y: windowScrollY}] = useWindowScroll();
   const [animateBookList] = useAutoAnimate();
@@ -69,7 +71,7 @@ export default function BookBrowsing() {
   });
 
   const {data: renderBooks} = useQuery({
-    queryKey: [QueryKey.BOOKS, ...Object.values(queryParams)],
+    queryKey: [QueryKey.BOOKS, queryParams],
     queryFn: () => http.get<ResponseData<Book[]>>(API.BOOKS, {params: queryParams}),
     select: ({body: bookData}) =>
       bookData.map((data) => (
@@ -83,7 +85,7 @@ export default function BookBrowsing() {
       )),
   });
 
-  useHotkeys([['ctrl+K', () => searchInputRef.current?.focus()]]);
+  useHotkeys([['mod+K', () => searchInputRef.current?.focus()]]);
 
   useEffect(() => {
     setSearchParams(
@@ -133,9 +135,11 @@ export default function BookBrowsing() {
               type="search"
               placeholder={t('common.search')}
               leftSection={<IconSearch size="1rem" />}
-              rightSectionWidth={70}
+              rightSectionProps={{className: 'mr-1 w-fit'}}
               rightSection={
-                isMobile() || !hotkeyHintShowed || searchKeyword ? undefined : <Code>Ctrl + K</Code>
+                isMobile() || !hotkeyHintShowed || searchKeyword ? undefined : (
+                  <Code>{deviceOS === 'macos' ? '⌘ K' : 'Ctrl + K'}</Code>
+                )
               }
               rightSectionPointerEvents="none"
               onFocus={hideHotkeyHint}

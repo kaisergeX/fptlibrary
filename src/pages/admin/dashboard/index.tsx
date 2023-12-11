@@ -1,6 +1,8 @@
-import {Progress, RingProgress} from '@mantine/core';
+import {LoadingOverlay, Progress, RingProgress} from '@mantine/core';
 import {useTranslation} from 'react-i18next';
 import {Head} from '~/layout/outlet/Head';
+import DashboardStatistic from './statistic';
+import {Suspense} from 'react';
 
 const CMSDashboard = () => {
   const {t} = useTranslation();
@@ -24,7 +26,7 @@ const CMSDashboard = () => {
       <h3 className="py-4">Thống kê theo thể loại</h3>
       <Progress.Root size="1.2rem">
         <Progress.Section value={35} color="cyan">
-          <Progress.Label>{t('genre.cookBooks')} - 35%</Progress.Label>
+          <Progress.Label>{t('genre.horror')} - 35%</Progress.Label>
         </Progress.Section>
         <Progress.Section value={28} color="pink">
           <Progress.Label>{t('genre.fantasy')} - 28%</Progress.Label>
@@ -33,6 +35,10 @@ const CMSDashboard = () => {
           <Progress.Label>{t('genre.mystery')} - 15%</Progress.Label>
         </Progress.Section>
       </Progress.Root>
+
+      <Suspense fallback={<LoadingOverlay />}>
+        <DashboardStatistic />
+      </Suspense>
     </div>
   );
 };

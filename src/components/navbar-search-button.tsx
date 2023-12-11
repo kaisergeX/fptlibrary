@@ -28,7 +28,7 @@ export default memo(function NavbarSearchButton() {
     clearAutoCloseHint();
   });
 
-  useHotkeys([['ctrl+K', () => navigate(Path.BOOK_BROWSING)]]);
+  useHotkeys([['mod+K', () => navigate(Path.BOOK_BROWSING)]]);
 
   return (
     <Tooltip

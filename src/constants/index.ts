@@ -7,6 +7,12 @@ export enum BookStatus {
   AVAILABLE,
   BOOKED,
   IN_HAND,
+
+  /**
+   * RETURNED status now exists only for the purpose of related data statistic such as on for the Orders history, dashboard overview, etc...
+   *
+   * This status must be hidden and can NOT be selected on the Book create/update screens, etc...
+   */
   RETURNED,
   OFF,
 }
@@ -19,11 +25,11 @@ export enum ImportStatus {
 }
 
 export const BOOK_ACTIONS = {
+  AVAILABLE: 'available',
   BOOKED: 'booked',
   IN_HAND: 'in_hand',
-  RETURENED: 'returned',
+  // RETURENED: 'returned', // deprecated action
   OFF: 'off',
-  AVAILABLE: 'available',
 } as const;
 
 export const DOCUMENTS_URL = {

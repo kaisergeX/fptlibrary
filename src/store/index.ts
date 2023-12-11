@@ -7,7 +7,6 @@ import {signal} from '@preact/signals-react';
 import type {Book} from '~/types';
 import {SERVICE_NAME} from '~/config/system';
 
-export const confirmReturnBook = signal<Book | undefined>(undefined);
 export const confirmRemoveBook = signal<Book | undefined>(undefined);
 
 export const usePersistStore = create<PersistStore>()(

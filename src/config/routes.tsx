@@ -24,6 +24,7 @@ const CMSDashboard = lazy(() => import('~/pages/admin/dashboard'));
 const CMSBookManagement = lazy(() => import('~/pages/admin/books'));
 const CMSBookMutation = lazy(() => import('~/pages/admin/books/mutation'));
 const CMSBookDetail = lazy(() => import('~/pages/admin/books/detail'));
+const CMSUsersManagement = lazy(() => import('~/pages/admin/users'));
 
 // Common pages
 const HiddenFeatures = lazy(() => import('~/pages/setting'));
@@ -53,6 +54,10 @@ const routesConfig: RouteObject[] = [
           {path: Path.CMS_BOOK_MUTATION, element: <CMSBookMutation />},
           {path: Path.CMS_BOOK_DETAIL, element: <CMSBookDetail />},
         ],
+      },
+      {
+        path: Path.CMS_USERS,
+        element: <CMSUsersManagement />,
       },
     ],
   },

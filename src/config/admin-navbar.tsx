@@ -5,6 +5,7 @@ import {
   IconComponents,
   IconGauge,
   IconLock,
+  IconUsers,
 } from '@tabler/icons-react';
 import {t} from 'i18next';
 import GoogleLogo from '~/assets/GoogleLogo';
@@ -18,6 +19,11 @@ export const adminNavbarConfig: NavbarLink[] = [
     label: t('bookBrowsing.pageTitle'),
     icon: IconBooks,
     link: Path.CMS_BOOK,
+  },
+  {
+    label: t('users.pageTitle'),
+    icon: IconUsers,
+    link: Path.CMS_USERS,
   },
 ];
 

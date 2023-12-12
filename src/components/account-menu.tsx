@@ -59,7 +59,7 @@ export default function AccountMenu() {
           <>
             <div className="px-3 py-2">
               <div className="flex items-center gap-1">
-                <h3 className="truncate text-base font-bold">{userInfo.name}</h3>
+                <h3 className="line-clamp-2 text-base font-bold">{userInfo.name}</h3>
                 {isAdmin && (
                   <Tooltip label={t('role.admin')}>
                     <div>

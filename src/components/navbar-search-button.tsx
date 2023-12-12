@@ -4,7 +4,8 @@ import {IconSearch} from '@tabler/icons-react';
 import {memo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
-import {Path} from '~/config/path';
+import {Path, SEARCH_PARAMS} from '~/config/path';
+import {BookStatus} from '~/constants';
 import {isMobile} from '~/util';
 
 const shouldShowHotKeyHint = Math.floor(Math.random() * 10) === 5;
@@ -43,7 +44,12 @@ export default memo(function NavbarSearchButton() {
         radius="xl"
         aria-label="Search book"
         className="dark:text-inherit"
-        onClick={() => navigate(Path.BOOK_BROWSING)}
+        onClick={() =>
+          navigate({
+            pathname: Path.BOOK_BROWSING,
+            search: `${SEARCH_PARAMS.STATUS}=${BookStatus.AVAILABLE}`,
+          })
+        }
       >
         <IconSearch />
       </ActionIcon>

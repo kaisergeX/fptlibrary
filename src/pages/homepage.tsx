@@ -75,15 +75,15 @@ const heroParallaxGroup = [
   </>,
 ];
 
-const images = [
-  'https://source.unsplash.com/random/?tree',
-  'https://source.unsplash.com/user/erondu',
-  'https://source.unsplash.com/user/thedanrogers',
-  'https://source.unsplash.com/user/tianshu',
-  'https://source.unsplash.com/user/petervanosdall',
-  'https://source.unsplash.com/user/francesco_ungaro',
-  'https://source.unsplash.com/random/?natural',
-];
+// const images = [
+//   'https://source.unsplash.com/random/?tree',
+//   'https://source.unsplash.com/user/erondu',
+//   'https://source.unsplash.com/user/thedanrogers',
+//   'https://source.unsplash.com/user/tianshu',
+//   'https://source.unsplash.com/user/petervanosdall',
+//   'https://source.unsplash.com/user/francesco_ungaro',
+//   'https://source.unsplash.com/random/?natural',
+// ];
 
 const Homepage = () => {
   const {t} = useTranslation();
@@ -186,14 +186,14 @@ const Homepage = () => {
           bookByGenres.length === 0 ? 'min-h-[80vh]' : 'min-h-[50vh]',
         )}
       >
-        <CarouselCustom
+        {/* <CarouselCustom
           images={images}
           imageProps={{h: '40vh', alt: 'Carousel images'}}
           slideSize="auto"
           autoPlay={5000}
           withIndicators
           loop
-        />
+        /> */}
 
         {bookByGenres.length === 0 ? (
           <NoData

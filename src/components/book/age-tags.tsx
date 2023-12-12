@@ -1,5 +1,6 @@
 import {Badge, Tooltip} from '@mantine/core';
 import {
+  IconMoodKid,
   IconRating12Plus,
   IconRating18Plus,
   IconRating21Plus,
@@ -27,6 +28,15 @@ type AgeTagsComponentProps =
     };
 
 const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNode}[] => [
+  {
+    name: 'children',
+    icon: (
+      <IconMoodKid
+        {...iconProps}
+        className={classNames('text-violet-400', iconProps?.className || '')}
+      />
+    ),
+  },
   {
     name: 'teen',
     icon: (

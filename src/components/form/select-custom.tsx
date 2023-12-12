@@ -5,14 +5,15 @@ import {
   Input,
   type InputBaseProps,
   type ComboboxProps,
+  CloseButton,
 } from '@mantine/core';
 import type {HTMLAttributes, ReactNode} from 'react';
 
 export type SelectCustomProps = {
   data: {value: string; render: ReactNode}[];
-  value: string;
+  value: string | null;
   classNames?: ComboboxProps['classNames'];
-  onChange: (value: string) => void;
+  onChange: (value: string | null) => void;
 };
 
 export type SelectCustomPropsExtended = SelectCustomProps &
@@ -54,15 +55,26 @@ export default function SelectCustom({
           component="button"
           type="button"
           pointer
-          rightSection={<Combobox.Chevron />}
+          rightSection={
+            value ? (
+              <CloseButton
+                size="sm"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => onChange('')}
+                aria-label="Clear value"
+              />
+            ) : (
+              <Combobox.Chevron />
+            )
+          }
           onClick={() => combobox.toggleDropdown()}
-          rightSectionPointerEvents="none"
+          rightSectionPointerEvents={value ? 'all' : 'none'}
           multiline
         >
           {selectedOption ? (
             selectedOption.render
           ) : (
-            <Input.Placeholder>Pick value</Input.Placeholder>
+            <Input.Placeholder>{inputButtonProps.placeholder}</Input.Placeholder>
           )}
         </InputBase>
       </Combobox.Target>

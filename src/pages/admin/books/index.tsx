@@ -107,7 +107,10 @@ export default function BookManagement() {
       />
 
       <Drawer
-        classNames={{content: 'flex flex-col gap-4', body: 'flex-1 flex flex-col gap-4'}}
+        classNames={{
+          content: 'flex flex-col gap-4 max-w-[calc(100%-1rem)]',
+          body: 'flex-1 flex flex-col gap-4',
+        }}
         opened={filterOpened}
         offset={8}
         radius="md"
@@ -116,7 +119,7 @@ export default function BookManagement() {
         position="right"
         overlayProps={{backgroundOpacity: 0.5, blur: 2}}
       >
-        <BookFilter className="flex-1 space-y-4" />
+        <BookFilter className="flex-1 space-y-4" adminView />
         <div className="flex justify-end gap-4">
           <Button variant="outline" type="reset" form={BOOK_FILTER_FORM_ID} onClick={closeFilter}>
             {t('filter.reset')}

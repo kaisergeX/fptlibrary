@@ -51,7 +51,7 @@ const BookCarouselCard = ({
         to={{pathname: generatePath(Path.BOOK_DETAIL, {id})}}
       >
         <Image
-          className="max-h-full rounded-lg"
+          className="aspect-[1/1.5] w-full rounded-lg object-cover object-center"
           src={cover}
           fallbackSrc={`https://placehold.co/300x450?text=${strReplaceSpace(title, {
             everyNthSpace: 2,

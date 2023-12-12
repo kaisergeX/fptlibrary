@@ -8,6 +8,7 @@ import {API_BASE_URL} from './system';
 import {findNotiConfig} from '~/util';
 import {ErrorCode} from '~/types/notification';
 import {usePersistStore} from '~/store';
+import type {ResponseData} from '~/types';
 
 const httpConfig: AxiosRequestConfig = {
   withCredentials: true,
@@ -47,12 +48,13 @@ const handleResponseError = (error: Error | AxiosError | null) => {
 
   const errRes = error.response;
   const errStatus = errRes?.status;
+  const errData = errRes?.data as ResponseData<null> | undefined;
 
   switch (errStatus) {
     case 401: {
       showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED));
       usePersistStore.getState().resetAuthStore();
-      // Outlet will handle redirecting
+      // Outlet will handle redirecting if needed
 
       return Promise.reject(error);
     }
@@ -61,13 +63,22 @@ const handleResponseError = (error: Error | AxiosError | null) => {
       notiConfig = findNotiConfig(ErrorCode.ERR_BADREQUEST);
       break;
 
+    case 403: {
+      if (errData?.error?.code === ErrorCode.BANNED) {
+        showNotification(findNotiConfig(ErrorCode.BANNED));
+        usePersistStore.getState().resetAuthStore();
+        // Outlet will handle redirecting if needed
+        return Promise.reject(error);
+      }
+      break;
+    }
+
     default:
       break;
   }
 
   // Show a noti with server error msg
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-  const serverErrMessage = errRes?.data?.error?.message;
+  const serverErrMessage = errData?.error?.message;
   if (serverErrMessage && typeof serverErrMessage === 'string') {
     notiConfig.message = serverErrMessage;
   }

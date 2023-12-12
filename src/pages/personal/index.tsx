@@ -1,6 +1,7 @@
 import {ActionIcon, Avatar, Divider, Image, Modal, Tooltip} from '@mantine/core';
 import {IconInfoCircle, IconInfoCircleFilled} from '@tabler/icons-react';
 import {IconDiscountCheckFilled, IconMail} from '@tabler/icons-react';
+import dayjs from 'dayjs';
 import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
 import {useState} from 'react';
@@ -93,7 +94,7 @@ export default function PersonalPage() {
             <div className="flex items-center gap-1 text-sm text-gray-400">
               <IconMail size="1rem" /> {userInfo.email}
             </div>
-            <div className="mt-4 flex items-center gap-2">
+            <div className="mt-2 flex items-center gap-2">
               <h4>{t('users.expireDate')}:</h4>
               {isAdmin ? (
                 <div className="font-bold">
@@ -102,26 +103,29 @@ export default function PersonalPage() {
                   </span>
                 </div>
               ) : (
-                userInfo.expireDate ||
-                isLoadingUserInfo || (
-                  <div className="flex items-center">
-                    <span className="font-bold text-rose-500">{t('users.status.expired')}</span>
-                    <Tooltip
-                      label={t('users.extendExpireDate')}
-                      opened={!openRenewMembershipGuide}
-                      withArrow
-                      position="bottom"
-                    >
-                      <ActionIcon
-                        variant="subtle"
-                        color="red"
-                        onClick={() => setOpenRenewMembershipGuide(true)}
+                <>
+                  {userInfo.expireDate ? dayjs(userInfo.expireDate).format('DD/MM/YYYY') : ''}{' '}
+                  {isLoadingUserInfo || dayjs(userInfo.expireDate).isAfter(dayjs()) || (
+                    <div className="flex items-center">
+                      <span className="font-bold text-rose-500">{t('users.status.expired')}</span>
+
+                      <Tooltip
+                        label={t('users.extendExpireDate')}
+                        opened={!openRenewMembershipGuide}
+                        withArrow
+                        position="bottom"
                       >
-                        <IconInfoCircleFilled size="1.2rem" />
-                      </ActionIcon>
-                    </Tooltip>
-                  </div>
-                )
+                        <ActionIcon
+                          variant="subtle"
+                          color="red"
+                          onClick={() => setOpenRenewMembershipGuide(true)}
+                        >
+                          <IconInfoCircleFilled size="1.2rem" />
+                        </ActionIcon>
+                      </Tooltip>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

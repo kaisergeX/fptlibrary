@@ -1,7 +1,7 @@
 import {useForm, zodResolver} from '@mantine/form';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {useTranslation} from 'react-i18next';
-import {useParams, generatePath, useNavigate} from 'react-router-dom';
+import {useParams, generatePath, useNavigate, useSearchParams} from 'react-router-dom';
 import {Path} from '~/config/path';
 import {BookStatus} from '~/constants';
 import {API, QueryKey} from '~/constants/service';
@@ -82,6 +82,7 @@ export default function BookMutationPage() {
   const {t} = useTranslation();
   const {id: bookId} = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
   const {selectCountryList, selectAgeTagList, selectGenreList} = useMasterData();
 
@@ -126,7 +127,7 @@ export default function BookMutationPage() {
         await queryClient.invalidateQueries({queryKey: [QueryKey.BOOK_DETAIL, bookId]});
       }
       await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
-      navigate(Path.CMS_BOOK);
+      navigate({pathname: Path.CMS_BOOK, search: searchParams.toString()});
     },
   });
 

@@ -188,6 +188,8 @@ const HiddenFeatures = () => {
               >
                 Show update notification
               </Button>
+
+              <Button>Primary Button</Button>
             </div>
 
             <Divider my="xl" variant="dashed" />

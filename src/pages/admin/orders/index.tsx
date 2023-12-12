@@ -18,29 +18,26 @@ const ordersColumnConfig: DataTableColumn<Orders>[] = [
     title: 'Id',
   },
   {
-    accessor: 'avatar',
-    title: i18next.t('common.avatar'),
-    render: ({user}) =>
-      user.avatar ? (
-        <ZoomImage>
-          <div className="flex-center">
-            <Image
-              className="aspect-square h-8 rounded-full object-cover object-center"
-              src={user.avatar}
-              fallbackSrc={`https://placehold.co/100x150?text=${user.name}`}
-              alt={`Book cover - ${user.name}`}
-              loading="lazy"
-            />
-          </div>
-        </ZoomImage>
-      ) : (
-        <></>
-      ),
-    textAlign: 'center',
-  },
-  {
     accessor: 'user.name',
-    title: i18next.t('common.name'),
+    title: i18next.t('common.account'),
+    render: ({user}) => (
+      <div className="flex items-center gap-2">
+        {!user.avatar || (
+          <ZoomImage>
+            <div className="flex-center">
+              <Image
+                className="aspect-square h-8 rounded-full object-cover object-center"
+                src={user.avatar}
+                fallbackSrc={`https://placehold.co/100x150?text=${user.name}`}
+                alt={`Book cover - ${user.name}`}
+                loading="lazy"
+              />
+            </div>
+          </ZoomImage>
+        )}
+        {user.name}
+      </div>
+    ),
   },
   {
     accessor: 'user.email',

@@ -79,6 +79,7 @@ export default function UserManagement() {
     onSuccess: async () => {
       confirmExtendExpiredDate.value = undefined;
       await queryClient.invalidateQueries({queryKey: [QueryKey.USERS]});
+      await queryClient.invalidateQueries({queryKey: [QueryKey.USERS_BANNED_LIST]});
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
         message: t('common.success.action', {action: t('users.extendExpireDate')}),

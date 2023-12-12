@@ -5,6 +5,7 @@ export enum ErrorCode {
   ERR_UNAUTHORIZED = 'ERR_UNAUTHORIZED',
   ERR_BADREQUEST = 'ERR_BADREQUEST',
   ERR_NETWORK = 'ERR_NETWORK',
+  BANNED = 'banned',
 }
 
 export enum NotiCode {

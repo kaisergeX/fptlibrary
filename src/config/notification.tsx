@@ -1,4 +1,5 @@
 import {
+  IconBan,
   IconCheck,
   IconExclamationMark,
   IconInfoCircle,
@@ -42,6 +43,15 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     message: t('common.error.network.message'),
     color: 'red',
     icon: <IconWifiOff />,
+  },
+  {
+    id: ErrorCode.BANNED,
+    code: ErrorCode.BANNED,
+    title: t('common.error.banned.title'),
+    message: t('common.error.banned.message'),
+    color: 'red',
+    icon: <IconBan />,
+    autoClose: false,
   },
 
   /**

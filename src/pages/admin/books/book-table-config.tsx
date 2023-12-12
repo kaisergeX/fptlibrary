@@ -36,9 +36,12 @@ export const bookColumnConfig: DataTableColumn<Book>[] = [
     ),
     textAlign: 'center',
   },
-  {accessor: 'title', title: t('common.title')},
+  {
+    accessor: 'title',
+    title: t('common.title'),
+    render: ({title}) => <span className="line-clamp-2">{title}</span>,
+  },
   {accessor: 'author', title: t('book.author')},
-  {accessor: 'publishYear', title: t('book.publishYear'), textAlign: 'center'},
   {
     accessor: 'genre',
     title: t('genre.def'),

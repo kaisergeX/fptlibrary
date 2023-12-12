@@ -12,7 +12,7 @@ import {API, QueryKey} from '~/constants/service';
 import {http} from '~/util/http';
 import {Head} from '~/layout/outlet/Head';
 import NoData from '~/components/no-data';
-import type {ReactNode} from 'react';
+import {useMemo, type ReactNode} from 'react';
 import {HOME_GENRE_COUNT} from '~/config/system';
 import Footer from '~/layout/footer';
 import {Path, SEARCH_PARAMS} from '~/config/path';
@@ -87,11 +87,12 @@ const heroParallaxGroup = [
 
 const Homepage = () => {
   const {t} = useTranslation();
-  const {data: sampledGenres} = useSuspenseQuery({
+  const {data: genres} = useSuspenseQuery({
     queryKey: [QueryKey.GENRES],
     queryFn: () => http.get<GenresResData>(API.GENRES),
-    select: ({body}) => arrSamples(body, HOME_GENRE_COUNT),
+    select: ({body}) => body,
   });
+  const sampledGenres = useMemo(() => arrSamples(genres, HOME_GENRE_COUNT), [genres]);
 
   useAuth({enableOneTapLogin: true});
 
@@ -136,7 +137,7 @@ const Homepage = () => {
             )}
 
             <CarouselCustom
-              className="lg:[&_.book-card]:h-[40vh]"
+              className="lg:[&_.book-card]:min-h-[40vh]"
               items={booksCarouselData}
               slideSize={{base: '70%', sm: '55%', lg: '45%'}}
               slideGap={{base: 'sm', lg: 'xl'}}

@@ -20,7 +20,7 @@ export const createAuthSlice: StateCreator<
   setRole: (role) => set(() => ({role})),
   setToken: ({accessToken, refreshToken}) =>
     set(() => {
-      // @todo add logic check isAuthenticated if needed
+      // add logic check isAuthenticated if needed
       return {accessToken, refreshToken, isAuthenticated: !!accessToken};
     }),
   setUID: (uid) => set(() => ({uid})),

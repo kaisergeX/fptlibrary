@@ -100,6 +100,10 @@
         "title": "Network Issue",
         "message": "Please check your internet connection!"
       },
+      "banned": {
+        "title": "Your account has been banned",
+        "message": "To proceed, kindly get in touch with the librarian for assistance"
+      },
       "sthWrong": {
         "normal": "An error occurred",
         "action": "Something went wrong. Please try again later!"
@@ -197,6 +201,7 @@
   },
 
   "book": {
+    "id": "Book Id",
     "cover": "Book cover",
     "author": "Author",
     "authorUnknown": "Author unknown",
@@ -276,6 +281,15 @@
     "extendExpireDate": "Membership renewal",
     "newExpireDate": "Extended to",
     "expireDate": "Membership expiration date",
+    "renewMembership": {
+      "bankAccount": "Bank account",
+      "bankTransfer": "Bank transfer information",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "perMonth": "per month",
+      "perYear": "per year",
+      "guide": "Please contact the librarian to check if your account has not been renewed within one business day."
+    },
 
     "status": {
       "normal": "Normal",
@@ -288,6 +302,9 @@
       "promote": "Confirm administrator privileges for this account?",
       "extendExpireDate": "Renew membership for this account"
     }
+  },
+  "orders": {
+    "pageTitle": "Lịch sử mượn sách"
   },
   "setting": {
     "pageTitle": "Settings",

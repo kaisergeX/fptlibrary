@@ -47,11 +47,11 @@ const BookCarouselCard = ({
       )}
     >
       <Link
-        className="flex basis-2/5 items-center self-center sm:h-full sm:basis-1/2"
+        className="flex-center basis-2/5 self-center sm:h-full sm:basis-1/2"
         to={{pathname: generatePath(Path.BOOK_DETAIL, {id})}}
       >
         <Image
-          className="aspect-[1/1.5] w-full rounded-lg object-cover object-center"
+          className="aspect-[1/1.5] max-h-full w-full rounded-lg object-cover object-center"
           src={cover}
           fallbackSrc={`https://placehold.co/300x450?text=${strReplaceSpace(title, {
             everyNthSpace: 2,
@@ -63,9 +63,9 @@ const BookCarouselCard = ({
       </Link>
       <article
         className={classNames(
-          'flex w-80 flex-col justify-between gap-4 rounded-lg p-2 transition-colors duration-300 sm:p-4',
+          'flex min-h-[calc(40vh-4rem)] w-80 flex-col justify-between gap-4 rounded-lg p-2 transition-colors duration-300 sm:p-4',
           'bg-zinc-50/10 text-black hover:bg-slate-100 dark:bg-zinc-900/10 dark:text-zinc-200 dark:hover:bg-[#1a1a1a] lg:bg-transparent',
-          'basis-3/5 sm:basis-1/2 lg:h-[calc(100%-4rem)]',
+          'basis-3/5 sm:basis-1/2',
         )}
       >
         <div>
@@ -88,7 +88,7 @@ const BookCarouselCard = ({
             ))}
           </div>
 
-          <p className="mt-4 line-clamp-2 cursor-default text-gray-500 lg:line-clamp-6">
+          <p className="mt-4 line-clamp-2 cursor-default text-gray-500 2xl:line-clamp-6">
             {summary}
           </p>
         </div>

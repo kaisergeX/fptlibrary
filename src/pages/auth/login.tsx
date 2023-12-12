@@ -26,8 +26,6 @@ const LoginPage = () => {
                 return;
               }
 
-              // @todo remove timeout when server setting clock_skew_in_seconds to fix the "Token used too early" error.
-              // might related to this: https://github.com/googleapis/google-auth-library-python/issues/889
               loginMutate({credential});
             }}
             onError={() => showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED))}

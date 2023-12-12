@@ -54,49 +54,51 @@ export default function BookDetailPage() {
         <Divider className="my-8" variant="dashed" />
         <h3 className="mb-4">{t('common.otherInfo')}</h3>
         {!bookData || (
-          <Table>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th className="text-center">{t('book.qrCode')}</Table.Th>
-                <Table.Th>{t('common.country')}</Table.Th>
-                <Table.Th>{t('book.price')} (&#8363;)</Table.Th>
-                <Table.Th>{t('book.publishYear')}</Table.Th>
-                <Table.Th>{t('common.status')}</Table.Th>
-                <Table.Th>{t('common.createdAt')}</Table.Th>
-                <Table.Th>{t('common.lastUpdatedAt')}</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              <Table.Tr>
-                <Table.Td align="center">
-                  <div
-                    className="flex-center w-14 cursor-pointer"
-                    role="button"
-                    onClick={openQRModal}
-                  >
-                    <Image
-                      className="aspect-square w-full object-cover object-center"
-                      src={bookData.qrCode}
-                      fallbackSrc={`https://placehold.co/200x200?text=${bookData.title}`}
-                      alt={`Book QR code - ${bookData.title}`}
-                      loading="lazy"
-                    />
-                  </div>
-                </Table.Td>
-                <Table.Td>{bookData.country.name}</Table.Td>
-                <Table.Td>{bookData.price}</Table.Td>
-                <Table.Td>{bookData.publishYear}</Table.Td>
-                <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
-                <Table.Td>{dayjs(bookData.createAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
-                <Table.Td>{dayjs(bookData.updateAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
-              </Table.Tr>
-            </Table.Tbody>
-          </Table>
+          <Table.ScrollContainer minWidth={320}>
+            <Table>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th className="text-center">{t('book.qrCode')}</Table.Th>
+                  <Table.Th>{t('common.country')}</Table.Th>
+                  <Table.Th>{t('book.price')} (&#8363;)</Table.Th>
+                  <Table.Th>{t('book.publishYear')}</Table.Th>
+                  <Table.Th>{t('common.status')}</Table.Th>
+                  <Table.Th>{t('common.createdAt')}</Table.Th>
+                  <Table.Th>{t('common.lastUpdatedAt')}</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                <Table.Tr>
+                  <Table.Td align="center">
+                    <div
+                      className="flex-center w-14 cursor-pointer"
+                      role="button"
+                      onClick={openQRModal}
+                    >
+                      <Image
+                        className="aspect-square w-full object-cover object-center"
+                        src={bookData.qrCode}
+                        fallbackSrc={`https://placehold.co/200x200?text=${bookData.title}`}
+                        alt={`Book QR code - ${bookData.title}`}
+                        loading="lazy"
+                      />
+                    </div>
+                  </Table.Td>
+                  <Table.Td>{bookData.country.name}</Table.Td>
+                  <Table.Td>{bookData.price}</Table.Td>
+                  <Table.Td>{bookData.publishYear}</Table.Td>
+                  <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
+                  <Table.Td>{dayjs(bookData.createAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
+                  <Table.Td>{dayjs(bookData.updateAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
+                </Table.Tr>
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
         )}
       </div>
 
       <ModalPrint
-        className="flex flex-col items-center gap-4"
+        className="flex flex-col items-center"
         title={t('book.qrCode')}
         documentTitle={`${bookData.title}_${bookData.author || t('book.authorUnknown')}`}
         opened={qrCodeModalOpened}
@@ -110,6 +112,7 @@ export default function BookDetailPage() {
           loading="lazy"
         />
         <div className="text-center">
+          <h2 className="text-4xl font-bold">{bookData.id}</h2>
           <h2 className="font-bold">{bookData.title}</h2>
           <p>
             {t('book.author')}: <strong>{bookData.author || t('book.authorUnknown')}</strong>

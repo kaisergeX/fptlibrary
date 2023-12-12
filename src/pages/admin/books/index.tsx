@@ -68,7 +68,7 @@ export default function BookManagement() {
           <Button
             component={Link}
             className="text-base"
-            to={generatePath(Path.CMS_BOOK_MUTATION)}
+            to={{pathname: generatePath(Path.CMS_BOOK_MUTATION), search: searchParams.toString()}}
             leftSection={<IconPlus />}
           >
             {t('book.add')}

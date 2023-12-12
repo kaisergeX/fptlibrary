@@ -14,6 +14,7 @@ export type SelectCustomProps = {
   value: string | null;
   classNames?: ComboboxProps['classNames'];
   onChange: (value: string | null) => void;
+  clearable?: boolean;
 };
 
 export type SelectCustomPropsExtended = SelectCustomProps &
@@ -25,6 +26,7 @@ export default function SelectCustom({
   value,
   onChange,
   data,
+  clearable = false,
   ...inputButtonProps
 }: SelectCustomPropsExtended) {
   const combobox = useCombobox({
@@ -56,7 +58,7 @@ export default function SelectCustom({
           type="button"
           pointer
           rightSection={
-            value ? (
+            clearable && value ? (
               <CloseButton
                 size="sm"
                 onMouseDown={(event) => event.preventDefault()}
@@ -68,7 +70,7 @@ export default function SelectCustom({
             )
           }
           onClick={() => combobox.toggleDropdown()}
-          rightSectionPointerEvents={value ? 'all' : 'none'}
+          rightSectionPointerEvents={clearable && value ? 'all' : 'none'}
           multiline
         >
           {selectedOption ? (

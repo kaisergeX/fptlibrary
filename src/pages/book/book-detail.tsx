@@ -57,7 +57,7 @@ export default function BookDetail() {
     enabled: !!bookId,
   });
 
-  const bookFirstGenre = bookData.genre[0].id;
+  const bookFirstGenre = bookData.genre[0]?.id;
 
   const {data: sameGenre} = useQuery({
     queryKey: [QueryKey.BOOKS, bookFirstGenre],

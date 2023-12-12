@@ -100,6 +100,10 @@
         "title": "Lỗi mạng",
         "message": "Xin vui lòng kiểm tra kết nối Internet của bạn!"
       },
+      "banned": {
+        "title": "Tài khoản của bạn đã bị cấm",
+        "message": "Xin vui lòng liên hệ với Thủ thư để xử lý"
+      },
       "sthWrong": {
         "normal": "Có lỗi xảy ra",
         "action": "Đã xảy ra lỗi. Vui lòng thử lại sau!"
@@ -284,7 +288,7 @@
       "yearly": "Gói năm",
       "perMonth": "mỗi tháng",
       "perYear": "mỗi năm",
-      "guide": "Xin hãy liên hệ với Thủ thư để kiểm tra nếu tài khoản của bạn chưa được gia hạn thành viên sau một ngày làm việc."
+      "guide": "Hãy liên hệ với Thủ thư để kiểm tra nếu tài khoản của bạn chưa được gia hạn thành viên sau một ngày làm việc."
     },
 
     "status": {

@@ -171,6 +171,7 @@ export default function BookFilter({
             ? BookStatusOptions
             : BookStatusOptions.filter(({value}) => value === BookStatus.AVAILABLE.toString())
         }
+        clearable
       />
     </form>
   );

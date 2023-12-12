@@ -4,6 +4,7 @@ import {
   IconCalendarStats,
   IconComponents,
   IconGauge,
+  IconHistory,
   IconLock,
   IconUsers,
 } from '@tabler/icons-react';
@@ -19,6 +20,11 @@ export const adminNavbarConfig: NavbarLink[] = [
     label: t('bookBrowsing.pageTitle'),
     icon: IconBooks,
     link: Path.CMS_BOOK,
+  },
+  {
+    label: t('orders.pageTitle'),
+    icon: IconHistory,
+    link: Path.CMS_ORDERS,
   },
   {
     label: t('users.pageGroupTitle'),

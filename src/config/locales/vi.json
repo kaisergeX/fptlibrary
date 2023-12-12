@@ -197,6 +197,7 @@
   },
 
   "book": {
+    "id": "Mã sách",
     "cover": "Ảnh bìa",
     "author": "Tác giả",
     "authorUnknown": "Không rõ tác giả",
@@ -276,6 +277,15 @@
     "extendExpireDate": "Gia hạn thành viên",
     "newExpireDate": "Gia hạn đến",
     "expireDate": "Hạn thành viên",
+    "renewMembership": {
+      "bankTransfer": "Thông tin chuyển khoản",
+      "bankAccount": "Số tài khoản",
+      "monthly": "Gói tháng",
+      "yearly": "Gói năm",
+      "perMonth": "mỗi tháng",
+      "perYear": "mỗi năm",
+      "guide": "Xin hãy liên hệ với Thủ thư để kiểm tra nếu tài khoản của bạn chưa được gia hạn thành viên sau một ngày làm việc."
+    },
 
     "status": {
       "normal": "Bình thường",
@@ -288,6 +298,9 @@
       "promote": "Chỉ định tài khoản này làm Quản trị viên",
       "extendExpireDate": "Gia hạn thành viên cho tài khoản"
     }
+  },
+  "orders": {
+    "pageTitle": "Lịch sử mượn sách"
   },
   "setting": {
     "pageTitle": "Cài đặt",

@@ -33,7 +33,7 @@ const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNo
     icon: (
       <IconMoodKid
         {...iconProps}
-        className={classNames('text-violet-400', iconProps?.className || '')}
+        className={classNames('text-green-600', iconProps?.className || '')}
       />
     ),
   },
@@ -42,7 +42,7 @@ const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNo
     icon: (
       <IconRating12Plus
         {...iconProps}
-        className={classNames('text-green-600', iconProps?.className || '')}
+        className={classNames('text-cyan-600', iconProps?.className || '')}
       />
     ),
   },
@@ -51,7 +51,7 @@ const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNo
     icon: (
       <IconRating18Plus
         {...iconProps}
-        className={classNames('text-cyan-600', iconProps?.className || '')}
+        className={classNames('text-violet-400', iconProps?.className || '')}
       />
     ),
   },

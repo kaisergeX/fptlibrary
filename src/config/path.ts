@@ -16,6 +16,7 @@ export enum Path {
   CMS_BOOK_DETAIL = '/portal/book/:id',
   CMS_USERS = '/portal/users',
   CMS_USERS_BANNED = '/portal/users/banned',
+  CMS_ORDERS = '/portal/orders',
 
   SETTING = '/setting',
   HIDDEN_FEATURES = '/not-easter-egg',

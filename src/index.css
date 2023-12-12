@@ -115,6 +115,50 @@
   .section-skew::after {
     @apply absolute inset-x-0 -top-10 bottom-0 -z-[1] -skew-y-3 content-[''];
   }
+
+  .border-animate {
+    --border-size: 0.3rem;
+    border: var(--border-size) dotted transparent;
+    background-image: linear-gradient(
+        to right,
+        rgb(255 255 255 / var(--opacity)),
+        rgb(255 255 255 / var(--opacity))
+      ),
+      conic-gradient(
+        from var(--angle),
+        #d53e33 0deg 90deg,
+        #fbb300 90deg 180deg,
+        #377af5 180deg 270deg,
+        #399953 270deg 360deg
+      );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  /* Animate when Houdini is available */
+  @supports (background: paint(houdini)) {
+    @property --opacity {
+      syntax: '<number>';
+      initial-value: 1;
+      inherits: false;
+    }
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes rotate {
+      to {
+        --angle: 360deg;
+      }
+    }
+
+    .border-animate {
+      animation: rotate 4s linear infinite;
+    }
+  }
 }
 
 @layer utilities {

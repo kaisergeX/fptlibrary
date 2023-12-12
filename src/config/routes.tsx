@@ -25,6 +25,7 @@ const CMSBookManagement = lazy(() => import('~/pages/admin/books'));
 const CMSBookMutation = lazy(() => import('~/pages/admin/books/mutation'));
 const CMSBookDetail = lazy(() => import('~/pages/admin/books/detail'));
 const CMSUsersManagement = lazy(() => import('~/pages/admin/users'));
+const CMSBannedUsers = lazy(() => import('~/pages/admin/users/banned-list'));
 
 // Common pages
 const HiddenFeatures = lazy(() => import('~/pages/setting'));
@@ -57,7 +58,10 @@ const routesConfig: RouteObject[] = [
       },
       {
         path: Path.CMS_USERS,
-        element: <CMSUsersManagement />,
+        children: [
+          {index: true, element: <CMSUsersManagement />},
+          {path: Path.CMS_USERS_BANNED, element: <CMSBannedUsers />},
+        ],
       },
     ],
   },

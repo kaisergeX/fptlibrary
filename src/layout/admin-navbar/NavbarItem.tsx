@@ -1,5 +1,5 @@
 import {NavLink} from '@mantine/core';
-import {useResolvedPath, Link, useLocation} from 'react-router-dom';
+import {useResolvedPath, Link, useMatch} from 'react-router-dom';
 import type {NavbarLinkChild} from '~/types/layout';
 
 export const renderNavbarItem = (
@@ -8,15 +8,8 @@ export const renderNavbarItem = (
 ) =>
   childrenConfig?.map(({label, link = '', children, content, isFullPath, ...propsChild}) => {
     const childPath = isFullPath ? link : `${parentPath}${link}`;
-
-    const {pathname} = useLocation();
     const {pathname: pathnameResolved} = useResolvedPath(childPath);
-    const isActive =
-      pathname === pathnameResolved ||
-      (pathname.startsWith(pathnameResolved) && pathname.charAt(pathnameResolved.length) === '/');
-    // const isMatch = !!useMatch({path: pathnameResolved}); // this has bugs
-    // console.log('compare', isActive, isMatch);
-    // console.log('pathname', pathname, 'pathnameResolved', pathnameResolved);
+    const isActive = !!useMatch({path: pathnameResolved});
 
     if (content) {
       return (

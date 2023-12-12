@@ -21,9 +21,13 @@ export const adminNavbarConfig: NavbarLink[] = [
     link: Path.CMS_BOOK,
   },
   {
-    label: t('users.pageTitle'),
+    label: t('users.pageGroupTitle'),
     icon: IconUsers,
     link: Path.CMS_USERS,
+    children: [
+      {label: t('users.pageTitle')},
+      {label: t('users.bannedList.pageTitle'), link: Path.CMS_USERS_BANNED, isFullPath: true},
+    ],
   },
 ];
 

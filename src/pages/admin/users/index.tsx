@@ -5,11 +5,11 @@ import {API, QueryKey} from '~/constants/service';
 import CommonHeader from '~/layout/common-header';
 import {Head} from '~/layout/outlet/Head';
 import type {ExtendExpiredDate, UserManagament} from '~/types';
-import {usersColumnConfig} from './users-table-config';
+import {usersColumnConfig} from './table-config/users-table';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {http} from '~/util/http';
 import {generatePath} from 'react-router-dom';
-import {confirmBanUnbanUser, confirmExtendExpiredDate, confirmPromoteUser} from '~/store';
+import {confirmBanUser, confirmExtendExpiredDate, confirmPromoteUser} from '~/store';
 import {showNotification} from '@mantine/notifications';
 import {NotiCode} from '~/types/notification';
 import {findNotiConfig} from '~/util';
@@ -26,30 +26,27 @@ export default function UserManagement() {
 
   const [extendDate, setExtendDate] = useState<Date | null>(null);
 
-  const processedExpireDate = useComputed(() => {
+  const minExtendDate = useComputed(() => {
     const userExpireDate = confirmExtendExpiredDate.value?.expireDate;
     const expiredToday = dayjs().add(1, 'day').toDate();
     if (!userExpireDate) {
-      return {minExtendDate: expiredToday};
+      return expiredToday;
     }
 
-    return {
-      currentExpiredDate: dayjs(userExpireDate).toDate(),
-      minExtendDate: dayjs().isBefore(dayjs(userExpireDate))
-        ? dayjs(userExpireDate).add(1, 'day').toDate()
-        : expiredToday,
-    };
+    return dayjs().isBefore(dayjs(userExpireDate))
+      ? dayjs(userExpireDate).add(1, 'day').toDate()
+      : expiredToday;
   });
 
-  const {isPending: isPendingBanUnbanUser, mutate: banUnbanUserMutate} = useMutation({
-    mutationFn: ({userId, isBanned}: {userId: UserManagament['id']; isBanned: boolean}) =>
-      http.post(generatePath(isBanned ? API.USER_UNBAN : API.USER_BAN, {id: userId.toString()})),
-    onSuccess: async (_, {isBanned}) => {
-      confirmBanUnbanUser.value = undefined;
+  const {isPending: isPendingBanUser, mutate: banUserMutate} = useMutation({
+    mutationFn: (userId: UserManagament['id']) =>
+      http.post(generatePath(API.USER_BAN, {id: userId.toString()})),
+    onSuccess: async () => {
+      confirmBanUser.value = undefined;
       await queryClient.invalidateQueries({queryKey: [QueryKey.USERS]});
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
-        message: t('common.success.action', {action: t(isBanned ? 'users.unban' : 'users.ban')}),
+        message: t('common.success.action', {action: t('users.ban')}),
       });
     },
   });
@@ -58,7 +55,7 @@ export default function UserManagement() {
     mutationFn: (userId: UserManagament['id']) =>
       http.post(generatePath(API.USER_PROMOTE, {id: userId.toString()})),
     onSuccess: async () => {
-      confirmBanUnbanUser.value = undefined;
+      confirmPromoteUser.value = undefined;
       await queryClient.invalidateQueries({queryKey: [QueryKey.USERS]});
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
@@ -89,14 +86,13 @@ export default function UserManagement() {
     },
   });
 
-  const isTableLoading =
-    isPendingBanUnbanUser || isPendingPromoteUser || isPendingExtendExpiredDate;
+  const isTableLoading = isPendingBanUser || isPendingPromoteUser || isPendingExtendExpiredDate;
 
   useEffect(() => {
     return () => {
-      confirmBanUnbanUser.value = undefined;
+      confirmBanUser.value = undefined;
       confirmPromoteUser.value = undefined;
-      // confirmExtendExpiredDate.value = undefined;
+      confirmExtendExpiredDate.value = undefined;
     };
   }, []);
 
@@ -138,8 +134,8 @@ export default function UserManagement() {
               <DatePicker
                 value={extendDate}
                 onChange={setExtendDate}
-                defaultDate={processedExpireDate.value.currentExpiredDate}
-                minDate={processedExpireDate.value.minExtendDate}
+                defaultDate={minExtendDate.value}
+                minDate={minExtendDate.value}
               />
             </div>
 
@@ -148,16 +144,17 @@ export default function UserManagement() {
                 <>
                   {t('users.expireDate')}:{' '}
                   {dayjs(confirmExtendExpiredDate.value.expireDate).format('DD/MM/YYYY')}
-                  <br />
+                  <br /> - <br />
                 </>
               )}
               {t('users.newExpireDate')}:{' '}
               {extendDate ? (
                 <strong>
-                  {dayjs(extendDate).format('DD/MM/YYYY')} -{' '}
+                  {dayjs(extendDate).format('DD/MM/YYYY')} (
                   {t('common.countDay', {
                     day: dayjs(extendDate).diff(dayjs(), 'day') + 1,
                   })}
+                  )
                 </strong>
               ) : (
                 t('book.notSelected')
@@ -229,39 +226,33 @@ export default function UserManagement() {
       </Modal>
 
       <Modal
-        opened={!!confirmBanUnbanUser.value}
-        onClose={() => (confirmBanUnbanUser.value = undefined)}
+        opened={!!confirmBanUser.value}
+        onClose={() => (confirmBanUser.value = undefined)}
         title={t('common.confirm')}
         overlayProps={{backgroundOpacity: 0.5, blur: 2}}
-        withCloseButton={!isPendingBanUnbanUser}
+        withCloseButton={!isPendingBanUser}
         centered
       >
-        <LoadingOverlay visible={isPendingBanUnbanUser} />
-        {!confirmBanUnbanUser.value || (
+        <LoadingOverlay visible={isPendingBanUser} />
+        {!confirmBanUser.value || (
           <>
             <p className="mb-8">
-              {t(confirmBanUnbanUser.value.isBanned ? 'users.confirm.unban' : 'users.confirm.ban')}:
+              {t('users.confirm.ban')}:
               <br />
-              <strong>{confirmBanUnbanUser.value.email}</strong> ({confirmBanUnbanUser.value.name})
+              <strong>{confirmBanUser.value.email}</strong> ({confirmBanUser.value.name})
             </p>
             <div className="flex items-center justify-end gap-4">
-              <Button variant="outline" onClick={() => (confirmBanUnbanUser.value = undefined)}>
+              <Button variant="outline" onClick={() => (confirmBanUser.value = undefined)}>
                 {t('common.cancelAction')}
               </Button>
               <Button
                 variant="filled"
                 color="red"
                 leftSection={<IconBan size="1.2rem" />}
-                onClick={() =>
-                  confirmBanUnbanUser.value &&
-                  banUnbanUserMutate({
-                    userId: confirmBanUnbanUser.value.id,
-                    isBanned: confirmBanUnbanUser.value.isBanned,
-                  })
-                }
-                disabled={isPendingBanUnbanUser}
+                onClick={() => confirmBanUser.value && banUserMutate(confirmBanUser.value.id)}
+                disabled={isPendingBanUser}
               >
-                {t(confirmBanUnbanUser.value.isBanned ? 'users.unban' : 'users.ban')}
+                {t('users.ban')}
               </Button>
             </div>
           </>

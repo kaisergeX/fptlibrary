@@ -1,3 +1,5 @@
+import {Role} from '~/types/store';
+
 export enum SupportedLanguage {
   EN = 'en',
   VI = 'vi',
@@ -34,4 +36,14 @@ export const BOOK_ACTIONS = {
 
 export const DOCUMENTS_URL = {
   BOOKS_IMPORT_TEMPLATE: 'https://cudek.vn/media/common_media/file/import/Template.xlsx',
-};
+} as const;
+
+/**
+ * Labels need to be a valid key path of the `i18n` translation object.
+ *
+ * ref: `src/config/locales/vi.json`
+ */
+export const RenderRole = [
+  {value: Role.ADMIN.toString(), label: 'role.admin'},
+  {value: Role.READER.toString(), label: 'role.reader'},
+] as const;

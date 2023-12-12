@@ -265,13 +265,22 @@
     "pageTitle": "Trang tổng quan"
   },
   "users": {
-    "pageTitle": "Quản lý người dùng",
+    "pageGroupTitle": "Quản lý người dùng",
+    "pageTitle": "Danh sách tài khoản",
+    "bannedList": {
+      "pageTitle": "Danh sách cấm"
+    },
     "promote": "Thăng cấp",
     "ban": "Cấm người dùng",
     "unban": "Kích hoạt tài khoản",
     "extendExpireDate": "Gia hạn thành viên",
     "newExpireDate": "Gia hạn đến",
     "expireDate": "Hạn thành viên",
+
+    "status": {
+      "normal": "Bình thường",
+      "expired": "Hết hạn"
+    },
 
     "confirm": {
       "ban": "Bạn muốn cấm người dùng",

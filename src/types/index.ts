@@ -162,3 +162,14 @@ export type UserManagementList = ResponseData<UserManagament[]>;
 export type ExtendExpiredDate = {
   expireDate: string;
 };
+
+export type Orders = {
+  id: string;
+  user: Omit<UserManagament, 'role' | 'expireDate' | 'active'>;
+  book: Book;
+  lastStatus: BookStatus;
+  borrowedAt: string;
+  returnedAt: string;
+};
+
+export type OrdersListResData = ResponseData<Orders[]>;

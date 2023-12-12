@@ -5,6 +5,7 @@ export const QueryKey = {
 
   USER_INFO: 'USER_INFO',
   TOP_PAGE: 'TOP_PAGE',
+  ORDER_HISTORY: 'ORDER_HISTORY', // personal order history
   ORDER_BORROW: 'ORDER_BORROW',
 
   BOOKS: 'BOOKS',
@@ -13,6 +14,8 @@ export const QueryKey = {
 
   USERS: 'USERS',
   USERS_BANNED_LIST: 'USERS_BANNED_LIST',
+
+  ORDERS_MANAGEMENT: 'ORDERS_MANAGEMENT',
 } as const;
 
 export const API = {
@@ -27,6 +30,7 @@ export const API = {
   TOP_PAGE: '/top-page',
 
   ORDER_BORROW: '/order/borrow',
+  ORDER_HISTORY: '/order/history', // personal order history
 
   BOOKS: '/books',
   BOOK_ACTIONS: '/action/:actionType/:id',
@@ -42,6 +46,8 @@ export const API = {
   USER_PROMOTE: '/manage/update-role/:id',
   USER_BAN: '/manage/ban-account/:id',
   USER_UNBAN: '/manage/unban-account/:id',
+
+  ORDERS_MANAGEMENT: '/manage/history',
 } as const;
 
 export const DEFAULT_STALE_TIME = 300000; // 3m (= 3 * 60 * 1000 ms)

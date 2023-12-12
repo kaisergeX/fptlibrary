@@ -13,14 +13,10 @@ import type {Book} from '~/types';
 
 export const bookColumnConfig: DataTableColumn<Book>[] = [
   {
-    accessor: 'index',
-    title: '#',
+    accessor: 'id',
+    title: t('book.id'),
     textAlign: 'center',
-    render: ({id}) => (
-      <Link className="link-secondary" to={generatePath(Path.CMS_BOOK_DETAIL, {id})}>
-        {id}
-      </Link>
-    ),
+    render: ({id}) => <Link to={generatePath(Path.CMS_BOOK_DETAIL, {id})}>{id}</Link>,
   },
   {
     accessor: 'cover',

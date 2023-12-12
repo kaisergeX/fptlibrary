@@ -9,7 +9,8 @@ import type {Book, UserManagament} from '~/types';
 import {SERVICE_NAME} from '~/config/system';
 
 export const confirmRemoveBook = signal<Book | undefined>(undefined);
-export const confirmBanUnbanUser = signal<UserManagament | undefined>(undefined);
+export const confirmBanUser = signal<UserManagament | undefined>(undefined);
+export const confirmUnbanUser = signal<UserManagament | undefined>(undefined);
 export const confirmPromoteUser = signal<UserManagament | undefined>(undefined);
 export const confirmExtendExpiredDate = signal<UserManagament | undefined>(undefined);
 

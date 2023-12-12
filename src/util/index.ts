@@ -2,7 +2,7 @@ import type {OS} from '@mantine/hooks';
 import type {NotificationData} from '@mantine/notifications';
 import {memo} from 'react';
 import dayjs from 'dayjs';
-import {t} from 'i18next';
+import i18next from 'i18next';
 import notiConfigs from '~/config/notification';
 import type {PromiseAllSettledReturnType} from '~/types';
 import type {ErrorCode, NotiCode} from '~/types/notification';
@@ -77,7 +77,8 @@ export const strReplaceSpace = (
   return str.replace(regex, `$1${replaceStr}`);
 };
 
-export const i18nNormalizeKey = (key: string): string => t(key as unknown as TemplateStringsArray);
+export const i18nNormalizeKey = (key: string): string =>
+  i18next.t(key as unknown as TemplateStringsArray);
 
 export const processFileUrl = (url: string) => {
   const fileName = url.split('/').pop();

@@ -12,6 +12,7 @@ export const QueryKey = {
   BOOK_IMPORT_DETAIL: 'BOOK_IMPORT_DETAIL',
 
   USERS: 'USERS',
+  USERS_BANNED_LIST: 'USERS_BANNED_LIST',
 } as const;
 
 export const API = {
@@ -36,6 +37,7 @@ export const API = {
   BOOK_IMPORT_DETAIL: '/import-book/:id',
 
   USERS: '/manage/user',
+  USERS_BANNED_LIST: '/manage/user-ban',
   USER_EXTEND_EXPIRED_DATE: '/manage/active-account/:id',
   USER_PROMOTE: '/manage/update-role/:id',
   USER_BAN: '/manage/ban-account/:id',

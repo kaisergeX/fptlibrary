@@ -1,29 +1,15 @@
 import {ActionIcon, Image, Tooltip} from '@mantine/core';
+import {IconPointFilled} from '@tabler/icons-react';
 import {IconCalendarEvent, IconDiscountCheckFilled} from '@tabler/icons-react';
-import {IconUserCheck} from '@tabler/icons-react';
 import {IconBan} from '@tabler/icons-react';
 import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
 import ZoomImage from '~/components/zoom-image';
-import {
-  confirmBanUnbanUser,
-  confirmExtendExpiredDate,
-  confirmPromoteUser,
-  useStorage,
-} from '~/store';
+import {RenderRole} from '~/constants';
+import {confirmBanUser, confirmExtendExpiredDate, confirmPromoteUser, useStorage} from '~/store';
 import type {UserManagament} from '~/types';
 import {Role} from '~/types/store';
-
-export const RenderRole = [
-  {
-    value: Role.ADMIN.toString(),
-    label: t('role.admin'),
-  },
-  {
-    value: Role.READER.toString(),
-    label: t('role.reader'),
-  },
-];
+import {classNames} from '~/util';
 
 export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
   {accessor: 'id', title: 'Id', textAlign: 'center'},
@@ -53,10 +39,44 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
   {
     accessor: 'role',
     title: t('role.title'),
-    render: ({role}) => RenderRole[role].label,
+    textAlign: 'center',
+    render: ({role}) => t(RenderRole[role].label),
   },
-  {accessor: 'active', title: t('common.status')},
-  {accessor: 'expireDate', title: t('users.expireDate')},
+  {
+    accessor: 'expireDate',
+    title: t('users.expireDate'),
+    textAlign: 'center',
+    render: ({role, expireDate}) =>
+      role === Role.ADMIN ? (
+        <div className="font-bold">
+          <span className="text-gradient inline-block transition-colors dark:hidden">
+            Unlimited
+          </span>
+        </div>
+      ) : (
+        expireDate
+      ),
+  },
+  {
+    accessor: 'active',
+    title: t('common.status'),
+    textAlign: 'center',
+    render: ({active, role}) => {
+      const accountStatus = role === Role.ADMIN || active;
+
+      return (
+        <Tooltip label={t(accountStatus ? 'users.status.normal' : 'users.status.expired')}>
+          <IconPointFilled
+            className={classNames(
+              'inline-block',
+              accountStatus ? 'text-[--mantine-color-green-6]' : 'text-gray-300',
+            )}
+            size="1.8rem"
+          />
+        </Tooltip>
+      );
+    },
+  },
   {
     accessor: 'actions',
     title: t('common.actions'),
@@ -95,28 +115,17 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
             </>
           )}
 
-          {currentUser.email === rowData.email ||
-            (rowData.isBanned ? (
-              <Tooltip label={t('users.unban')}>
-                <ActionIcon
-                  variant="subtle"
-                  color="teal"
-                  onClick={() => (confirmBanUnbanUser.value = rowData)}
-                >
-                  <IconUserCheck size="1.2rem" />
-                </ActionIcon>
-              </Tooltip>
-            ) : (
-              <Tooltip label={t('users.ban')}>
-                <ActionIcon
-                  variant="subtle"
-                  color="red"
-                  onClick={() => (confirmBanUnbanUser.value = rowData)}
-                >
-                  <IconBan size="1.2rem" />
-                </ActionIcon>
-              </Tooltip>
-            ))}
+          {currentUser.email === rowData.email || rowData.isBanned || (
+            <Tooltip label={t('users.ban')}>
+              <ActionIcon
+                variant="subtle"
+                color="red"
+                onClick={() => (confirmBanUser.value = rowData)}
+              >
+                <IconBan size="1.2rem" />
+              </ActionIcon>
+            </Tooltip>
+          )}
         </div>
       );
     },

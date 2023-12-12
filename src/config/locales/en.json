@@ -265,13 +265,22 @@
     "pageTitle": "Dashboard"
   },
   "users": {
-    "pageTitle": "User Manangement",
+    "pageGroupTitle": "User Manangement",
+    "pageTitle": "Account List",
+    "bannedList": {
+      "pageTitle": "Banned Accounts"
+    },
     "promote": "Promote",
     "ban": "Ban",
     "unban": "Unban",
     "extendExpireDate": "Membership renewal",
     "newExpireDate": "Extended to",
     "expireDate": "Membership expiration date",
+
+    "status": {
+      "normal": "Normal",
+      "expired": "Expired"
+    },
 
     "confirm": {
       "ban": "Are you sure you want to ban this user?",

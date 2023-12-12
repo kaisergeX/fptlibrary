@@ -186,7 +186,10 @@ export default function BookBrowsing() {
         </div>
 
         <Drawer
-          classNames={{content: 'flex flex-col gap-4', body: 'flex-1 flex flex-col gap-4'}}
+          classNames={{
+            content: 'flex flex-col gap-4 max-w-[calc(100%-1rem)]',
+            body: 'flex-1 flex flex-col gap-4',
+          }}
           opened={filterOpened}
           offset={8}
           radius="md"

@@ -36,7 +36,7 @@ export const objectRemoveProperties = <T extends ObjectAny>(
  * @example
  * const testObj = {
  *    foo: "bar", baz: 42, falsyNum: 0, falsyStr: "", a: null, s: undefined,
- *    arr: [], arr1: [0], arr2: [0, 2, 4], arr2: [0, 2, 4]
+ *    arr: [], arr1: [0], arr2: [0, 2, 4]
  * }
  * objectJoinArrayValues(testObj, ',', true)
  * => { foo: "bar", baz: 42, arr1: "0", arr2: "0,2,4" }
@@ -46,13 +46,13 @@ export function objectJoinArrayValues<T extends ObjectAny>(
   joinStr: string,
   options: {
     removeFalsyProperties?: boolean;
-    preProcessValues?: (value: T[keyof T]) => unknown;
+    preProcessValues?: (key: keyof T, value: T[keyof T]) => unknown;
   } = {removeFalsyProperties: false},
 ): T {
   return Object.fromEntries(
     Object.entries(obj).flatMap(([key, value]) => {
       let processedValue = options.preProcessValues
-        ? options.preProcessValues(value as T[keyof T])
+        ? options.preProcessValues(key as keyof T, value as T[keyof T])
         : value;
 
       if (typeof processedValue === 'object') {

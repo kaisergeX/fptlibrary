@@ -37,7 +37,8 @@ export const HOME_GENRE_COUNT: number = 3;
  */
 export const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 export const ACCEPTED_IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.avif'];
-export const ACCEPTED_IMPORT_FILE_EXTENSIONS = ['.xlsx', '.xls'];
+export const ACCEPTED_IMPORT_MIME_TYPES = ['application/vnd.ms-excel.sheet.macroEnabled.12'];
+export const ACCEPTED_IMPORT_FILE_EXTENSIONS = ['.xlsm'];
 
 export const MAX_FILE_SIZE_MB = 5; // 5MB
 export const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024; // 5.242.880 Bytes

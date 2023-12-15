@@ -82,7 +82,7 @@ export type Book = {
 
   episode?: number;
   totalEpisode?: number;
-  price?: number;
+  price?: string;
   status: BookStatus;
   publishYear?: string;
   qrCode: string;
@@ -114,7 +114,7 @@ export type BookFormValues = {
   publishYear?: Date | null;
   episode?: number;
   totalEpisode?: number;
-  price?: number;
+  price: number;
 
   status: BookStatus;
 };

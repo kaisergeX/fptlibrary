@@ -44,6 +44,7 @@ export const API = {
   USERS_BANNED_LIST: '/manage/user-ban',
   USER_EXTEND_EXPIRED_DATE: '/manage/active-account/:id',
   USER_PROMOTE: '/manage/update-role/:id',
+  USER_DEMOTE: '/manage/downgrade-role/:id',
   USER_BAN: '/manage/ban-account/:id',
   USER_UNBAN: '/manage/unban-account/:id',
 

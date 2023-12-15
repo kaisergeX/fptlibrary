@@ -67,7 +67,7 @@ const validationSchema: z.ZodSchema<BookFormValues> = z.object({
   ),
   episode: z.number({errorMap: zodCustomErrorMap}).optional(),
   totalEpisode: z.number({errorMap: zodCustomErrorMap}).optional(),
-  price: z.number({errorMap: zodCustomErrorMap}).optional(),
+  price: z.number({errorMap: zodCustomErrorMap}).min(1, t('common.validation.minPrice')),
   publishYear: z.date().nullish(),
   genre: z
     .array(z.string({errorMap: zodCustomErrorMap}))
@@ -145,6 +145,7 @@ export default function BookMutationPage() {
       summary: '',
       author: '',
       cover: '',
+      price: NaN,
 
       genre: [],
       country: '',
@@ -216,7 +217,7 @@ export default function BookMutationPage() {
 
     setInitialValues({
       ...bookData,
-      price: safeAnyToNumber(bookData.price) || undefined,
+      price: safeAnyToNumber(bookData.price) || NaN,
       genre: bookData.genre.map(({id: genreId}) => genreId.toString()),
       country: bookData.country.id,
       ageTag: bookData.ageTag.id.toString(),
@@ -230,6 +231,10 @@ export default function BookMutationPage() {
     <div>
       <Head title={pageTitle} />
       <CommonHeader className="bg-default" title={pageTitle} breadcrumbData={breadcrumbData} />
+
+      <p className="text-sm">
+        (<span className="text-red-500">*</span>): {t('common.validation.required')}
+      </p>
       <form
         id="book-mutation-form"
         className="relative grid grid-cols-2 gap-4 py-4 xl:grid-cols-3"
@@ -253,15 +258,24 @@ export default function BookMutationPage() {
             withAsterisk
             {...getInputProps('author')}
           />
-          <Select
-            label={t('common.country')}
-            data={selectCountryList}
-            searchable
-            withAsterisk
-            allowDeselect={false}
-            checkIconPosition="right"
-            {...getInputProps('country')}
-          />
+          <div className="flex items-center gap-4">
+            <Select
+              className="basis-2/3"
+              label={t('common.country')}
+              data={selectCountryList}
+              searchable
+              withAsterisk
+              allowDeselect={false}
+              checkIconPosition="right"
+              {...getInputProps('country')}
+            />
+            <TextInput
+              className="basis-1/3"
+              label={t('common.countryCode')}
+              value={formValues.country}
+              disabled
+            />
+          </div>
           <Select
             label={t('ageTag.def')}
             description={t('ageTag.select')}
@@ -381,9 +395,10 @@ export default function BookMutationPage() {
             label={t('book.price')}
             leftSection={<IconCurrencyDong />}
             min={0}
+            step={1000}
             allowDecimal={false}
-            thousandSeparator="."
-            decimalSeparator=","
+            thousandSeparator=","
+            withAsterisk
             {...getInputProps('price')}
           />
 
@@ -399,7 +414,7 @@ export default function BookMutationPage() {
       </form>
       <Divider my="md" variant="dashed" />
 
-      <StickyFooter>
+      <StickyFooter className="z-10">
         <Button type="submit" form="book-mutation-form" loading={isPending} disabled={!isDirty()}>
           {bookId ? t('common.update') : t('common.create')}
         </Button>

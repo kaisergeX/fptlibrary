@@ -14,6 +14,7 @@ import type {Book, BreadcrumbsOptions, ResponseData} from '~/types';
 import {http} from '~/util/http';
 import {useDisclosure} from '@mantine/hooks';
 import ModalPrint from '~/components/modals/modal-print';
+import {safeAnyToNumber} from '~/util';
 
 export default function BookDetailPage() {
   const {t} = useTranslation();
@@ -59,6 +60,7 @@ export default function BookDetailPage() {
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th className="text-center">{t('book.qrCode')}</Table.Th>
+                  <Table.Th>{t('common.countryCode')}</Table.Th>
                   <Table.Th>{t('common.country')}</Table.Th>
                   <Table.Th>{t('book.price')} (&#8363;)</Table.Th>
                   <Table.Th>{t('book.publishYear')}</Table.Th>
@@ -84,8 +86,9 @@ export default function BookDetailPage() {
                       />
                     </div>
                   </Table.Td>
+                  <Table.Td>{bookData.country.id}</Table.Td>
                   <Table.Td>{bookData.country.name}</Table.Td>
-                  <Table.Td>{bookData.price}</Table.Td>
+                  <Table.Td>{safeAnyToNumber(bookData.price).toLocaleString()}</Table.Td>
                   <Table.Td>{bookData.publishYear}</Table.Td>
                   <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
                   <Table.Td>{dayjs(bookData.createAt).format('DD/MM/YYYY HH:mm')}</Table.Td>

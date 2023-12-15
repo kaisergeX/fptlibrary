@@ -15,8 +15,6 @@ export default function SearchInput() {
     (keyWord: string) =>
       setSearchParams(
         (prevSearchParams) => {
-          console.log(keyWord);
-
           if (!keyWord) {
             prevSearchParams.delete(SEARCH_PARAMS.SEARCH);
             return prevSearchParams;

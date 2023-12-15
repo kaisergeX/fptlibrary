@@ -1,6 +1,10 @@
 import {ActionIcon, Image, Tooltip} from '@mantine/core';
-import {IconPointFilled} from '@tabler/icons-react';
-import {IconCalendarEvent, IconDiscountCheckFilled} from '@tabler/icons-react';
+import {
+  IconCalendarEvent,
+  IconSquareRoundedChevronsDownFilled,
+  IconDiscountCheckFilled,
+  IconPointFilled,
+} from '@tabler/icons-react';
 import {IconBan} from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import {t} from 'i18next';
@@ -94,6 +98,17 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
 
       return (
         <div className="flex-center gap-1">
+          {rowData.role === Role.ADMIN && currentUser.email !== rowData.email && (
+            <Tooltip label={t('users.demote')}>
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                onClick={() => (confirmPromoteUser.value = rowData)}
+              >
+                <IconSquareRoundedChevronsDownFilled size="1.2rem" />
+              </ActionIcon>
+            </Tooltip>
+          )}
           {rowData.role === Role.READER && (
             <>
               <Tooltip label={t('users.promote')}>
@@ -102,7 +117,7 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
                   color="blue"
                   onClick={() => (confirmPromoteUser.value = rowData)}
                 >
-                  <IconDiscountCheckFilled className="text-[--ai-color]" size="1.2rem" />
+                  <IconDiscountCheckFilled size="1.2rem" />
                 </ActionIcon>
               </Tooltip>
 

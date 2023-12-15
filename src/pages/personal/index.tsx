@@ -39,9 +39,9 @@ const columnConfig: DataTableColumn<Orders>[] = [
   },
   {accessor: 'book.title', title: t('common.title')},
   {accessor: 'book.author', title: t('book.author')},
-  {accessor: 'publishYear', title: t('book.publishYear'), textAlign: 'center'},
+  {accessor: 'book.publishYear', title: t('book.publishYear'), textAlign: 'center'},
   {
-    accessor: 'genre',
+    accessor: 'book.genre',
     title: t('genre.def'),
     render: ({book}) =>
       book.genre?.map(({genreName, id}, index) => (
@@ -52,11 +52,11 @@ const columnConfig: DataTableColumn<Orders>[] = [
       )),
   },
   {
-    accessor: 'ageTag.ageTagName',
+    accessor: 'book.ageTag.ageTagName',
     title: t('ageTag.def'),
     render: ({book}) => !book.ageTag || <Trans t={t}>ageTag.{book.ageTag.ageTagName}</Trans>,
   },
-  {accessor: 'country.name', title: t('common.country')},
+  {accessor: 'book.country.name', title: t('common.country')},
   {
     accessor: 'lastStatus',
     title: t('common.status'),

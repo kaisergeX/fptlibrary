@@ -68,7 +68,7 @@ export default function BannedUsers() {
         <LoadingOverlay visible={isPendingUnbanUser} />
         {!confirmUnbanUser.value || (
           <>
-            <p className="mb-8">
+            <p className="mb-8 text-center">
               {t('users.confirm.unban')}:
               <br />
               <strong>{confirmUnbanUser.value.email}</strong> ({confirmUnbanUser.value.name})

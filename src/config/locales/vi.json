@@ -65,6 +65,7 @@
     "contentUpdating": "Nội dung đang cập nhật",
     "status": "Trạng thái",
     "country": "Quốc gia",
+    "countryCode": "Mã quốc gia",
     "avatar": "Ảnh đại diện",
 
     "noData": "Không có dữ liệu",
@@ -118,6 +119,7 @@
     "validation": {
       "required": "Trường bắt buộc",
       "invalidInput": "Dữ liệu không hợp lệ",
+      "minPrice": "Giá tiền phải lớn hơn 0",
       "imageFileType": "Chỉ ảnh {{- mimeTypes}} được chấp nhận",
       "fileType": "Chỉ tệp {{- mimeTypes}} được chấp nhận",
       "maxFileSize": "Kích thước tệp tối đa {{size}}"
@@ -276,6 +278,7 @@
       "pageTitle": "Danh sách cấm"
     },
     "promote": "Thăng cấp",
+    "demote": "Giáng cấp",
     "ban": "Cấm người dùng",
     "unban": "Kích hoạt tài khoản",
     "extendExpireDate": "Gia hạn thành viên",
@@ -300,6 +303,7 @@
       "ban": "Bạn muốn cấm người dùng",
       "unban": "Bạn muốn kích hoạt tài khoản",
       "promote": "Chỉ định tài khoản này làm Quản trị viên",
+      "demote": "Gỡ bỏ quyền Quản tri viên của tài khoản",
       "extendExpireDate": "Gia hạn thành viên cho tài khoản"
     }
   },

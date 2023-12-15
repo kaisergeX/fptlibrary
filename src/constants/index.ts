@@ -35,7 +35,7 @@ export const BOOK_ACTIONS = {
 } as const;
 
 export const DOCUMENTS_URL = {
-  BOOKS_IMPORT_TEMPLATE: 'https://cudek.vn/media/common_media/file/import/Template.xlsx',
+  BOOKS_IMPORT_TEMPLATE: 'https://cudek.vn/media/common_media/file/import/Template.xlsm',
 } as const;
 
 /**

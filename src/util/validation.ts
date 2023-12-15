@@ -1,10 +1,10 @@
-import {MS_EXCEL_MIME_TYPE} from '@mantine/dropzone';
 import {t} from 'i18next';
 import {z, ZodIssueCode, type ZodErrorMap} from 'zod';
 import {
   ACCEPTED_IMAGE_EXTENSIONS,
   ACCEPTED_IMAGE_MIME_TYPES,
   ACCEPTED_IMPORT_FILE_EXTENSIONS,
+  ACCEPTED_IMPORT_MIME_TYPES,
   MAX_FILE_SIZE,
   MAX_FILE_SIZE_MB,
 } from '~/config/system';
@@ -28,7 +28,7 @@ export const zodExcel = z
   .custom<File>((v) => v instanceof File, {
     message: t('common.validation.required'),
   })
-  .refine((file) => (MS_EXCEL_MIME_TYPE as string[]).includes(file.type), {
+  .refine((file) => ACCEPTED_IMPORT_MIME_TYPES.includes(file.type), {
     message: t('common.validation.fileType', {
       mimeTypes: ACCEPTED_IMPORT_FILE_EXTENSIONS.join(', '),
     }),
@@ -41,7 +41,7 @@ export const zodExcel = z
 
 export const zodCustomErrorMap: ZodErrorMap = (issue, ctx) => {
   if (issue.code === ZodIssueCode.invalid_type) {
-    if (issue.expected === 'string') {
+    if (issue.expected === 'string' || issue.expected === 'number') {
       return {message: t('common.validation.required')};
     }
 

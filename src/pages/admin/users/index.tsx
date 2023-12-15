@@ -14,11 +14,17 @@ import {showNotification} from '@mantine/notifications';
 import {NotiCode} from '~/types/notification';
 import {findNotiConfig} from '~/util';
 import {Button, LoadingOverlay, Modal} from '@mantine/core';
-import {IconBan, IconCalendarEvent, IconDiscountCheck} from '@tabler/icons-react';
+import {
+  IconBan,
+  IconCalendarEvent,
+  IconDiscountCheck,
+  IconSquareRoundedChevronsDownFilled,
+} from '@tabler/icons-react';
 import {useEffect, useState} from 'react';
 import {DatePicker} from '@mantine/dates';
 import dayjs from 'dayjs';
 import {useComputed} from '@preact/signals-react';
+import {Role} from '~/types/store';
 
 export default function UserManagement() {
   const {t} = useTranslation();
@@ -48,18 +54,25 @@ export default function UserManagement() {
         ...findNotiConfig(NotiCode.SUCCESS),
         message: t('common.success.action', {action: t('users.ban')}),
       });
+      await queryClient.invalidateQueries({queryKey: [QueryKey.USERS_BANNED_LIST]});
     },
   });
 
   const {isPending: isPendingPromoteUser, mutate: promoteUserMutate} = useMutation({
-    mutationFn: (userId: UserManagament['id']) =>
-      http.post(generatePath(API.USER_PROMOTE, {id: userId.toString()})),
-    onSuccess: async () => {
+    mutationFn: ({id: userId, role}: UserManagament) =>
+      http.post(
+        generatePath(role === Role.ADMIN ? API.USER_DEMOTE : API.USER_PROMOTE, {
+          id: userId.toString(),
+        }),
+      ),
+    onSuccess: async (_, {role}) => {
       confirmPromoteUser.value = undefined;
       await queryClient.invalidateQueries({queryKey: [QueryKey.USERS]});
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
-        message: t('common.success.action', {action: t('users.promote')}),
+        message: t('common.success.action', {
+          action: t(role === Role.ADMIN ? 'users.promote' : 'users.demote'),
+        }),
       });
     },
   });
@@ -79,7 +92,6 @@ export default function UserManagement() {
     onSuccess: async () => {
       confirmExtendExpiredDate.value = undefined;
       await queryClient.invalidateQueries({queryKey: [QueryKey.USERS]});
-      await queryClient.invalidateQueries({queryKey: [QueryKey.USERS_BANNED_LIST]});
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
         message: t('common.success.action', {action: t('users.extendExpireDate')}),
@@ -201,8 +213,13 @@ export default function UserManagement() {
         <LoadingOverlay visible={isPendingPromoteUser} />
         {!confirmPromoteUser.value || (
           <>
-            <p className="mb-8">
-              {t('users.confirm.promote')}:
+            <p className="mb-8 text-center">
+              {t(
+                confirmPromoteUser.value.role === Role.ADMIN
+                  ? 'users.confirm.demote'
+                  : 'users.confirm.promote',
+              )}
+              :
               <br />
               <strong>{confirmPromoteUser.value.email}</strong> ({confirmPromoteUser.value.name})
             </p>
@@ -210,17 +227,32 @@ export default function UserManagement() {
               <Button variant="outline" onClick={() => (confirmPromoteUser.value = undefined)}>
                 {t('common.cancelAction')}
               </Button>
-              <Button
-                variant="filled"
-                color="blue"
-                leftSection={<IconDiscountCheck size="1.2rem" />}
-                onClick={() =>
-                  confirmPromoteUser.value && promoteUserMutate(confirmPromoteUser.value.id)
-                }
-                disabled={isPendingPromoteUser}
-              >
-                {t('users.promote')}
-              </Button>
+
+              {confirmPromoteUser.value.role === Role.ADMIN ? (
+                <Button
+                  variant="filled"
+                  color="gray"
+                  leftSection={<IconSquareRoundedChevronsDownFilled size="1.2rem" />}
+                  onClick={() =>
+                    confirmPromoteUser.value && promoteUserMutate(confirmPromoteUser.value)
+                  }
+                  disabled={isPendingPromoteUser}
+                >
+                  {t('users.demote')}
+                </Button>
+              ) : (
+                <Button
+                  variant="filled"
+                  color="blue"
+                  leftSection={<IconDiscountCheck size="1.2rem" />}
+                  onClick={() =>
+                    confirmPromoteUser.value && promoteUserMutate(confirmPromoteUser.value)
+                  }
+                  disabled={isPendingPromoteUser}
+                >
+                  {t('users.promote')}
+                </Button>
+              )}
             </div>
           </>
         )}
@@ -237,7 +269,7 @@ export default function UserManagement() {
         <LoadingOverlay visible={isPendingBanUser} />
         {!confirmBanUser.value || (
           <>
-            <p className="mb-8">
+            <p className="mb-8 text-center">
               {t('users.confirm.ban')}:
               <br />
               <strong>{confirmBanUser.value.email}</strong> ({confirmBanUser.value.name})

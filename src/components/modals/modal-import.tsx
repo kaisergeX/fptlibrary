@@ -1,11 +1,16 @@
 import {ActionIcon, Button, Input, Modal} from '@mantine/core';
-import {Dropzone, MS_EXCEL_MIME_TYPE} from '@mantine/dropzone';
+import {Dropzone} from '@mantine/dropzone';
 import {IconCircleCheckFilled, IconFileCheck, IconInfoCircle} from '@tabler/icons-react';
 import {IconDragDrop, IconFileSpreadsheet} from '@tabler/icons-react';
 import {IconBan, IconCloudUpload, IconFileDownload, IconX} from '@tabler/icons-react';
 import {useState, type ReactNode, useCallback, memo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {MAX_FILE_SIZE, MAX_FILE_SIZE_MB, ACCEPTED_IMPORT_FILE_EXTENSIONS} from '~/config/system';
+import {
+  MAX_FILE_SIZE,
+  MAX_FILE_SIZE_MB,
+  ACCEPTED_IMPORT_FILE_EXTENSIONS,
+  ACCEPTED_IMPORT_MIME_TYPES,
+} from '~/config/system';
 import {DOCUMENTS_URL, ImportStatus} from '~/constants';
 import {classNames, findNotiConfig} from '~/util';
 import {zodExcel} from '~/util/validation';
@@ -143,7 +148,7 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
           onDrop={(files) => handleFileSelection(files[0])}
           onReject={(fileRejections) => handleFileSelection(fileRejections[0].file)}
           maxSize={MAX_FILE_SIZE}
-          accept={MS_EXCEL_MIME_TYPE}
+          accept={ACCEPTED_IMPORT_MIME_TYPES}
           disabled={!!selectedFile || isProcessing}
         >
           <Dropzone.Accept>

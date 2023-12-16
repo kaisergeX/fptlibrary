@@ -1,5 +1,5 @@
 import {Divider} from '@mantine/core';
-import {IconArrowLeft} from '@tabler/icons-react';
+import {IconChevronLeft} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {Link, useNavigate} from 'react-router-dom';
 import {Path} from '~/config/path';
@@ -25,7 +25,7 @@ const PermissionDenied = () => {
 
         <div className="flex gap-4">
           <button type="button" className="button" onClick={() => navigate(-1)}>
-            <IconArrowLeft size="1.2rem" /> {t('common.back')}
+            <IconChevronLeft size="1.2rem" /> {t('common.back')}
           </button>
           <Link to={Path.HOMEPAGE} className="button-secondary" replace>
             🏡 {t('home.pageTitle')}

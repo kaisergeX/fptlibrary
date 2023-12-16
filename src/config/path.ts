@@ -11,6 +11,8 @@ export enum Path {
 
   CMS = '/portal',
   CMS_DASHBOARD = '/portal/dashboard',
+  CMS_QR = '/portal/qr-action',
+  CMS_QR_ACTIONS = '/portal/qr-action/:bookId?',
   CMS_BOOK = '/portal/book',
   CMS_BOOK_MUTATION = '/portal/book/:id?/modify',
   CMS_BOOK_DETAIL = '/portal/book/:id',

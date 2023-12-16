@@ -10,7 +10,7 @@ import ZoomImage from '~/components/zoom-image';
 import {Image} from '@mantine/core';
 import {Link, generatePath} from 'react-router-dom';
 import {Path} from '~/config/path';
-import {BookStatusOptions} from '~/components/book/book-status';
+import {BookStatusWithReturned} from '~/components/book/book-status';
 
 const ordersColumnConfig: DataTableColumn<Orders>[] = [
   {
@@ -61,7 +61,7 @@ const ordersColumnConfig: DataTableColumn<Orders>[] = [
   {
     accessor: 'lastStatus',
     title: i18next.t('common.status'),
-    render: ({lastStatus}) => BookStatusOptions[lastStatus].render,
+    render: ({lastStatus}) => BookStatusWithReturned[lastStatus]?.render,
   },
 ];
 

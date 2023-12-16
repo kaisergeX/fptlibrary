@@ -12,12 +12,14 @@ type BookShowcaseProps = {
   bookData: Book;
   className?: string;
   adminView?: boolean;
+  QRview?: boolean;
 };
 
 export default function BookShowcase({
   bookData,
   className = '',
   adminView = false,
+  QRview = false,
 }: BookShowcaseProps) {
   const {t} = useTranslation();
   const {
@@ -84,17 +86,22 @@ export default function BookShowcase({
           </div>
         </div>
 
-        <Divider className="my-4 sm:my-8" variant="dashed" />
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <IconTags />
-          {genre.map(({id, genreName}) => (
-            <Badge key={id} className="cursor-default" variant="outline" size="lg">
-              <Trans t={t}>genre.{genreName}</Trans>
-            </Badge>
-          ))}
-        </div>
-        <h3 className="mb-2 font-bold">{t('common.description')}</h3>
-        <p>{summary || t('common.updating')}</p>
+        {QRview || (
+          <>
+            <Divider className="my-4 sm:my-8" variant="dashed" />
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <IconTags />
+              {genre.map(({id, genreName}) => (
+                <Badge key={id} className="cursor-default" variant="outline" size="lg">
+                  <Trans t={t}>genre.{genreName}</Trans>
+                </Badge>
+              ))}
+            </div>
+
+            <h3 className="mb-2 font-bold">{t('common.description')}</h3>
+            <p>{summary || t('common.updating')}</p>
+          </>
+        )}
 
         {adminView || (
           <>

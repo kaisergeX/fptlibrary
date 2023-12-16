@@ -6,7 +6,7 @@ import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
 import {useState} from 'react';
 import {Trans, useTranslation} from 'react-i18next';
-import {BookStatusOptions} from '~/components/book/book-status';
+import {BookStatusWithReturned} from '~/components/book/book-status';
 import DataGrid from '~/components/data-grid';
 import ZoomImage from '~/components/zoom-image';
 import {API, QueryKey} from '~/constants/service';
@@ -60,7 +60,7 @@ const columnConfig: DataTableColumn<Orders>[] = [
   {
     accessor: 'lastStatus',
     title: t('common.status'),
-    render: ({lastStatus}) => BookStatusOptions[lastStatus].render,
+    render: ({lastStatus}) => BookStatusWithReturned[lastStatus]?.render,
   },
 ];
 

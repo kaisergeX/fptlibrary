@@ -65,9 +65,11 @@
     "contentUpdating": "Content updating",
     "status": "Status",
     "country": "Country",
+    "countryCode": "Country code",
     "avatar": "Avatar",
 
     "noData": "No Data",
+    "unknown": "Unknown",
     "datePicker": {
       "placeholder": "Pick a date"
     },
@@ -104,6 +106,10 @@
         "title": "Your account has been banned",
         "message": "To proceed, kindly get in touch with the librarian for assistance"
       },
+      "invalidQR": {
+        "title": "QR code invalid",
+        "message": "Data for this QR code may no longer be available"
+      },
       "sthWrong": {
         "normal": "An error occurred",
         "action": "Something went wrong. Please try again later!"
@@ -118,6 +124,7 @@
     "validation": {
       "required": "This field is required",
       "invalidInput": "Invalid input data",
+      "minPrice": "Price must be greater than 0",
       "imageFileType": "Only {{- mimeTypes}} images are accepted",
       "fileType": "Only {{- mimeTypes}} files are accepted",
       "maxFileSize": "Maximum file size is {{size}}"
@@ -276,6 +283,7 @@
       "pageTitle": "Banned Accounts"
     },
     "promote": "Promote",
+    "demote": "Demote",
     "ban": "Ban",
     "unban": "Unban",
     "extendExpireDate": "Membership renewal",
@@ -300,11 +308,21 @@
       "ban": "Are you sure you want to ban this user?",
       "unban": "Are you sure you want to active this account?",
       "promote": "Confirm administrator privileges for this account?",
+      "demote": "Are you certain you want to revoke the administrator privileges from this account?",
       "extendExpireDate": "Renew membership for this account"
     }
   },
   "orders": {
-    "pageTitle": "Lịch sử mượn sách"
+    "pageTitle": "History of borrowing books"
+  },
+  "qrActions": {
+    "pageTitle": "Scanned QR Code",
+    "bookStatus": {
+      "confirm": "Please confirm the change in the book's status.",
+      "actionUnavailable": "There are no actions available for the current book status.",
+      "cancelAction": "Cancel and go back",
+      "newStatus": "New status"
+    }
   },
   "setting": {
     "pageTitle": "Settings",

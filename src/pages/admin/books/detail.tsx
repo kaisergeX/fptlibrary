@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import {useTranslation} from 'react-i18next';
 import {useParams, generatePath, Link} from 'react-router-dom';
 import BookShowcase from '~/components/book/book-showcase';
-import {BookStatusOptions} from '~/components/book/book-status';
+import {BookStatusWithReturned} from '~/components/book/book-status';
 import {Path} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import CommonHeader from '~/layout/common-header';
@@ -90,7 +90,7 @@ export default function BookDetailPage() {
                   <Table.Td>{bookData.country.name}</Table.Td>
                   <Table.Td>{safeAnyToNumber(bookData.price).toLocaleString()}</Table.Td>
                   <Table.Td>{bookData.publishYear}</Table.Td>
-                  <Table.Td>{BookStatusOptions[bookData.status].render}</Table.Td>
+                  <Table.Td>{BookStatusWithReturned[bookData.status]?.render}</Table.Td>
                   <Table.Td>{dayjs(bookData.createAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
                   <Table.Td>{dayjs(bookData.updateAt).format('DD/MM/YYYY HH:mm')}</Table.Td>
                 </Table.Tr>

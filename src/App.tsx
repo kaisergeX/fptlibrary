@@ -2,6 +2,7 @@ import {Suspense} from 'react';
 import {LoadingOverlay, MantineProvider, createTheme} from '@mantine/core';
 import {DatesProvider} from '@mantine/dates';
 import {Notifications} from '@mantine/notifications';
+import {ModalsProvider} from '@mantine/modals';
 import {useTranslation} from 'react-i18next';
 import {Head} from './layout/outlet/Head';
 import {useRoutes} from 'react-router-dom';
@@ -31,7 +32,17 @@ function App() {
               />
             }
           >
-            {routers}
+            <ModalsProvider
+              modalProps={{
+                overlayProps: {backgroundOpacity: 0.5, blur: 2},
+                centered: true,
+                xOffset: '1rem',
+                yOffset: '1rem',
+                radius: 'md',
+              }}
+            >
+              {routers}
+            </ModalsProvider>
           </Suspense>
         </FetchErrorBoundary>
       </DatesProvider>

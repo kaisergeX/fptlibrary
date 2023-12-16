@@ -6,6 +6,10 @@ import {showNotification} from '@mantine/notifications';
 import {findNotiConfig} from '~/util';
 import {ErrorCode} from '~/types/notification';
 import useAuth from '~/hook/useAuth';
+import {Button} from '@mantine/core';
+import {modals} from '@mantine/modals';
+import TermsAndConditions from '~/components/terms-and-conditions';
+import {IconCheck} from '@tabler/icons-react';
 
 const LoginPage = () => {
   const {t} = useTranslation();
@@ -16,7 +20,7 @@ const LoginPage = () => {
       <Head title={t('auth.login')} />
 
       <main className="bg-theme flex-center h-full">
-        <div className="flex flex-col items-center gap-8 p-4 sm:w-full sm:max-w-lg">
+        <div className="flex flex-col items-center gap-8 p-4">
           <AppLogo className="h-24" />
 
           <GoogleLogin
@@ -31,6 +35,28 @@ const LoginPage = () => {
             onError={() => showNotification(findNotiConfig(ErrorCode.ERR_UNAUTHORIZED))}
             shape="circle"
           />
+
+          <div className="text-sm">
+            {t('terms.signUp')}{' '}
+            <Button
+              variant="outline"
+              size="compact-sm"
+              onClick={() =>
+                modals.openConfirmModal({
+                  classNames: {body: 'relative'},
+                  children: <TermsAndConditions />,
+                  labels: {confirm: t('common.confirm'), cancel: ''},
+                  confirmProps: {leftSection: <IconCheck size="1.2rem" />},
+                  cancelProps: {className: 'hidden'},
+                  size: 'xl',
+                  closeOnClickOutside: false,
+                  withCloseButton: false,
+                })
+              }
+            >
+              {t('terms.title')}
+            </Button>
+          </div>
         </div>
       </main>
     </>

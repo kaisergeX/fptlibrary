@@ -1,8 +1,10 @@
 {
   "common": {
     "appName": "Cudek",
+    "appFullname": "CUDEK literary library",
     "introduce": "Library built by FSofter, for FSofter",
     "greeting": "Welcome to $t(common.appName)!",
+    "fullGreeting": "Welcome to \n$t(common.appFullname)!",
     "libraryAddress": "F-Ville 3, FPT Software Hoa Lac, Hoa Lac Hi-Tech Park, Thach That District, Hanoi, Vietnam",
     "contact": "Contact",
 
@@ -39,6 +41,7 @@
     "dragFile": "Drag a file here or click to select it from your device",
     "print": "Print",
     "confirm": "Confirm",
+    "reject": "Reject",
     "cancelAction": "Cancel",
     "upload": "Upload",
     "completed": "Completed",
@@ -289,7 +292,10 @@
     "extendExpireDate": "Membership renewal",
     "newExpireDate": "Extended to",
     "expireDate": "Membership expiration date",
+    "membership": "Membership",
+    "membershipGuide": "Membership guide",
     "renewMembership": {
+      "noMembership": "You can still access the Cudek library information and browse the list of books without an active membership.",
       "bankAccount": "Bank account",
       "bankTransfer": "Bank transfer information",
       "monthly": "Monthly",
@@ -314,6 +320,15 @@
   },
   "orders": {
     "pageTitle": "History of borrowing books"
+  },
+  "terms": {
+    "title": "Terms and Conditions",
+    "signUp": "By Signing in with Google, you are setting up a Cudek account and agree to our $t(terms.title)",
+    "agree": "I agree!",
+    "beforeContinue": "Please confirm that you agree to the terms below before proceeding with account creation",
+    "membership": "To borrow books, you need to activate and pay for library membership after registration",
+    "googleAccount": "$t(terms.signUp). You also consent to share your email address, name, and profile picture with us.",
+    "readMoreGoogleInfoShare": "Learn what data is shared when you use Sign in with Google"
   },
   "qrActions": {
     "pageTitle": "Scanned QR Code",

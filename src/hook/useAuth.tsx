@@ -1,19 +1,27 @@
 import {showNotification} from '@mantine/notifications';
+import {modals} from '@mantine/modals';
 import {useGoogleOneTapLogin} from '@react-oauth/google';
 import {useQuery, useMutation} from '@tanstack/react-query';
 import {API, DEFAULT_STALE_TIME, QueryKey} from '~/constants/service';
 import {usePersistStore, useStorage} from '~/store';
 import {defaultUserInfo} from '~/store/userStore';
 import type {ResponseData, UserInfo} from '~/types';
-import {ErrorCode} from '~/types/notification';
+import {ErrorCode, NotiCode} from '~/types/notification';
 import {findNotiConfig} from '~/util';
 import {http} from '~/util/http';
+import TermsAndConditions from '~/components/terms-and-conditions';
+import {useTranslation} from 'react-i18next';
+import {IconCheck} from '@tabler/icons-react';
+import {useNavigate} from 'react-router-dom';
+import {Path} from '~/config/path';
 
 type LoginPayload = {
   credential: string;
+  confirmed?: boolean;
 };
 
 type LoginResData = ResponseData<{
+  needConfirm?: boolean; // true if user signup (first time login)
   refresh: string;
   access: string;
   user: {
@@ -48,8 +56,10 @@ export default function useAuth(
     fetchUserInfoOnMount: true,
   },
 ) {
-  const {isAuthenticated, setToken} = usePersistStore();
+  const {isAuthenticated, setToken, resetAuthStore} = usePersistStore();
   const setUserInfo = useStorage((state) => state.setUserInfo);
+  const {t} = useTranslation();
+  const navigate = useNavigate();
 
   const {
     data: userInfo = defaultUserInfo,
@@ -68,8 +78,28 @@ export default function useAuth(
 
   const {mutate: loginMutate} = useMutation({
     mutationFn: (payload: LoginPayload) => http.post<LoginResData>(API.LOGIN, payload),
-    onSuccess: async ({body}) => {
+    onSuccess: async ({body}, {credential}) => {
+      if (body.needConfirm) {
+        modals.openConfirmModal({
+          classNames: {body: 'relative'},
+          children: <TermsAndConditions confirmSignup />,
+          labels: {confirm: t('terms.agree'), cancel: t('common.reject')},
+          confirmProps: {variant: 'outline', leftSection: <IconCheck size="1.2rem" />},
+          cancelProps: {color: 'red', variant: 'filled'},
+          onCancel: () => {
+            resetAuthStore(); // this will remove user info, selected books from storage and call googleLogout function too.
+            navigate(Path.HOMEPAGE);
+          },
+          onConfirm: () => loginMutate({credential, confirmed: true}),
+          size: 'xl',
+          closeOnClickOutside: false,
+          withCloseButton: false,
+        });
+        return;
+      }
+
       setToken({accessToken: body.access, refreshToken: body.refresh});
+      showNotification(findNotiConfig(NotiCode.GREETING));
       await refetch();
     },
   });

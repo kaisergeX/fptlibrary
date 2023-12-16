@@ -12,6 +12,7 @@ export enum ErrorCode {
 
 export enum NotiCode {
   SUCCESS = 'SUCCESS',
+  GREETING = 'GREETING',
   BOOK_BOOKED = 'BOOK_BOOKED',
   BOOK_RETURNED = 'BOOK_RETURNED',
 

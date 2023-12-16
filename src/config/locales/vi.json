@@ -1,8 +1,10 @@
 {
   "common": {
     "appName": "Cudek",
+    "appFullname": "Thư viện văn học CUDEK",
     "introduce": "Thư viện sách xây dựng bởi FSofter, dành riêng cho FSofter",
     "greeting": "Chào mừng đến với $t(common.appName)!",
+    "fullGreeting": "Chào mừng đến với \n$t(common.appFullname)!",
     "libraryAddress": "F-Ville 3, FPT Software Hòa Lạc, Khu công nghệ cao Hòa Lạc, xã Thạch Hoà, huyện Thạch Thất, Hà Nội",
     "contact": "Liên hệ",
 
@@ -40,6 +42,7 @@
     "dragFile": "Kéo thả hoặc nhấn để chọn tệp",
     "print": "In",
     "confirm": "Xác nhận",
+    "reject": "Từ chối",
     "cancelAction": "Huỷ hành động",
     "upload": "Tải lên",
     "completed": "Hoàn thành",
@@ -141,7 +144,7 @@
   "auth": {
     "login": "Đăng nhập",
     "signIn": {
-      "withGoogle": "Đăng nhập bằng Google"
+      "withGoogle": "Đăng nhập với Google"
     },
     "toSignUp": "Chưa phải là thành viên? Đăng kí",
     "signUp": "Đăng kí tài khoản",
@@ -289,7 +292,10 @@
     "extendExpireDate": "Gia hạn thành viên",
     "newExpireDate": "Gia hạn đến",
     "expireDate": "Hạn thành viên",
+    "membership": "Tư cách thành viên",
+    "membershipGuide": "Hướng dẫn thành viên",
     "renewMembership": {
+      "noMembership": "Bạn vẫn có thể xem thông tin và tìm kiếm danh sách những đầu sách thuộc thư viện Cudek kể cả khi hết hạn hoặc không phải là thành viên.",
       "bankTransfer": "Thông tin chuyển khoản",
       "bankAccount": "Số tài khoản",
       "monthly": "Gói tháng",
@@ -314,6 +320,15 @@
   },
   "orders": {
     "pageTitle": "Lịch sử mượn sách"
+  },
+  "terms": {
+    "title": "Điều khoản",
+    "signUp": "Bằng việc Đăng nhập với Google bạn đồng ý với các điều khoản của chúng tôi",
+    "agree": "Tôi đồng ý và đăng nhập",
+    "beforeContinue": "Trước khi bạn hoàn thành việc tạo tài khoản, xin hãy xác nhận bạn đồng ý với điều khoản dưới đây",
+    "membership": "Để có thể mượn sách, sau khi đăng nhặp bạn cần đăng ký trở thành thành viên của thư viện và đóng phí theo hướng dẫn",
+    "googleAccount": "$t(terms.signUp), cũng như đồng ý chia sẻ thông tin email, tên và ảnh đại diện tài khoản Google của bạn với chúng tôi.",
+    "readMoreGoogleInfoShare": "Tìm hiểu về thông tin mà Google chia sẻ"
   },
   "qrActions": {
     "pageTitle": "Quét mã QR",

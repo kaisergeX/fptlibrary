@@ -1,6 +1,7 @@
 import {
   IconBan,
   IconCheck,
+  IconConfetti,
   IconExclamationMark,
   IconInfoCircle,
   IconQuestionMark,
@@ -100,6 +101,13 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
   /**
    * Neutral notification
    */
+  {
+    id: NotiCode.GREETING,
+    code: NotiCode.GREETING,
+    message: t('common.greeting'),
+    color: 'green',
+    icon: <IconConfetti />,
+  },
   {
     id: NotiCode.BOOK_IMPORT_PROCESSING,
     code: NotiCode.BOOK_IMPORT_PROCESSING,

@@ -4,7 +4,7 @@ import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
 import {Trans} from 'react-i18next';
 import {Link, generatePath} from 'react-router-dom';
-import {BookStatusOptions} from '~/components/book/book-status';
+import {BookStatusWithReturned} from '~/components/book/book-status';
 import ZoomImage from '~/components/zoom-image';
 import {Path} from '~/config/path';
 import {BookStatus} from '~/constants';
@@ -62,7 +62,7 @@ export const bookColumnConfig: DataTableColumn<Book>[] = [
   {
     accessor: 'status',
     title: t('common.status'),
-    render: ({status}) => BookStatusOptions[status].render,
+    render: ({status}) => BookStatusWithReturned[status]?.render,
   },
   {
     accessor: 'actions',

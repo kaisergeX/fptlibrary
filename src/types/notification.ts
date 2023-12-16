@@ -4,8 +4,10 @@ export enum ErrorCode {
   ERR = 'ERR',
   ERR_UNAUTHORIZED = 'ERR_UNAUTHORIZED',
   ERR_BADREQUEST = 'ERR_BADREQUEST',
+  ERR_BAD_REQUEST = 'ERR_BAD_REQUEST',
   ERR_NETWORK = 'ERR_NETWORK',
   BANNED = 'banned',
+  QR_INVALID = 'QR_INVALID',
 }
 
 export enum NotiCode {

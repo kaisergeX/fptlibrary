@@ -28,6 +28,9 @@ const CMSUsersManagement = lazy(() => import('~/pages/admin/users'));
 const CMSBannedUsers = lazy(() => import('~/pages/admin/users/banned-list'));
 const CMSOrdersManagement = lazy(() => import('~/pages/admin/orders'));
 
+const QRErrorBoundary = lazy(() => import('~/pages/admin/qr/qr-error-boundary'));
+const CMSQRActions = lazy(() => import('~/pages/admin/qr/actions'));
+
 // Common pages
 const HiddenFeatures = lazy(() => import('~/pages/setting'));
 const PermissionDenied = lazy(() => import('~/pages/error-page/permission-denied'));
@@ -65,6 +68,14 @@ const routesConfig: RouteObject[] = [
         ],
       },
       {path: Path.CMS_ORDERS, element: <CMSOrdersManagement />},
+      {
+        path: Path.CMS_QR,
+        element: <QRErrorBoundary />,
+        children: [
+          {index: true, element: <Navigate to={Path.CMS_BOOK} replace />},
+          {path: Path.CMS_QR_ACTIONS, element: <CMSQRActions />},
+        ],
+      },
     ],
   },
 

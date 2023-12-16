@@ -69,6 +69,7 @@
     "avatar": "Ảnh đại diện",
 
     "noData": "Không có dữ liệu",
+    "unknown": "Không xác định",
     "datePicker": {
       "placeholder": "Chọn một ngày"
     },
@@ -104,6 +105,10 @@
       "banned": {
         "title": "Tài khoản của bạn đã bị cấm",
         "message": "Xin vui lòng liên hệ với Thủ thư để xử lý"
+      },
+      "invalidQR": {
+        "title": "Mã QR không hợp lệ",
+        "message": "Có thể dữ liệu liên quan đến QR này đã không còn khả dụng"
       },
       "sthWrong": {
         "normal": "Có lỗi xảy ra",
@@ -303,12 +308,21 @@
       "ban": "Bạn muốn cấm người dùng",
       "unban": "Bạn muốn kích hoạt tài khoản",
       "promote": "Chỉ định tài khoản này làm Quản trị viên",
-      "demote": "Gỡ bỏ quyền Quản tri viên của tài khoản",
+      "demote": "Gỡ bỏ quyền Quản trị viên của tài khoản",
       "extendExpireDate": "Gia hạn thành viên cho tài khoản"
     }
   },
   "orders": {
     "pageTitle": "Lịch sử mượn sách"
+  },
+  "qrActions": {
+    "pageTitle": "Quét mã QR",
+    "bookStatus": {
+      "confirm": "Xác nhận chuyển trạng thái sách",
+      "actionUnavailable": "Không có hành động nào khả dụng với trạng thái sách hiện tại.",
+      "cancelAction": "Huỷ và quay lại",
+      "newStatus": "Trang thái mới"
+    }
   },
   "setting": {
     "pageTitle": "Cài đặt",

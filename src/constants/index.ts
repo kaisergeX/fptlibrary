@@ -30,7 +30,7 @@ export const BOOK_ACTIONS = {
   AVAILABLE: 'available',
   BOOKED: 'booked',
   IN_HAND: 'in_hand',
-  // RETURENED: 'returned', // deprecated action
+  RETURENED: 'returned', // Only use for QR actions
   OFF: 'off',
 } as const;
 

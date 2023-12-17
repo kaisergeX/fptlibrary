@@ -232,6 +232,7 @@
     "notSelected": "Chưa chọn",
     "addedList": "Sách đã chọn",
     "status": {
+      "title": "Trạng thái sách",
       "AVAILABLE": "Khả dụng",
       "BOOKED": "Đã được đặt",
       "IN_HAND": "Đang mượn đọc",
@@ -277,7 +278,13 @@
     "pageTitle": "Trang chủ"
   },
   "dashboard": {
-    "pageTitle": "Trang tổng quan"
+    "pageTitle": "Trang tổng quan",
+    "popularBooks": "Sách nổi bật",
+    "bookCreated": "Tổng số sách trong hệ thống",
+    "borrowCount": "Tổng lượt mượn sách",
+    "memberStatistic": "Thống kê thành viên",
+    "userActive": "Đang hoạt động",
+    "userBanned": "Bị cấm"
   },
   "users": {
     "pageGroupTitle": "Quản lý người dùng",

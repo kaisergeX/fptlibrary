@@ -232,6 +232,7 @@
     "notSelected": "Not selected yet",
     "addedList": "Books list",
     "status": {
+      "title": "Book status",
       "AVAILABLE": "Available",
       "BOOKED": "Booked",
       "IN_HAND": "In hand",
@@ -277,7 +278,13 @@
     "pageTitle": "Homepage"
   },
   "dashboard": {
-    "pageTitle": "Dashboard"
+    "pageTitle": "Dashboard",
+    "popularBooks": "Popular books",
+    "bookCreated": "Total books",
+    "borrowCount": "Total count of book borrowed",
+    "memberStatistic": "Membership Statistic",
+    "userActive": "Active",
+    "userBanned": "Banned"
   },
   "users": {
     "pageGroupTitle": "User Manangement",

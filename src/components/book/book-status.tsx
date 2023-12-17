@@ -1,8 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import {Badge} from '@mantine/core';
+import {Badge, type DefaultMantineColor} from '@mantine/core';
 import type {SelectCustomProps} from '../form/select-custom';
 import {BOOK_ACTIONS, BookStatus} from '~/constants';
 import {t} from 'i18next';
+
+export const BookStatusThemeColors: DefaultMantineColor[] = ['blue', 'green', 'grape', 'gray'];
 
 /**
  * `RETURNED` status now exists only for the purpose of data statistic such as on for the Orders history, dashboard overview, etc...
@@ -15,7 +17,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
   {
     value: BookStatus.AVAILABLE.toString(),
     render: (
-      <Badge variant="light" color="blue" size="lg" radius="md">
+      <Badge variant="light" color={BookStatusThemeColors[0]} size="lg" radius="md">
         {t('book.status.AVAILABLE')}
       </Badge>
     ),
@@ -23,7 +25,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
   {
     value: BookStatus.BOOKED.toString(),
     render: (
-      <Badge variant="light" color="green" size="lg" radius="md">
+      <Badge variant="light" color={BookStatusThemeColors[1]} size="lg" radius="md">
         {t('book.status.BOOKED')}
       </Badge>
     ),
@@ -31,7 +33,7 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
   {
     value: BookStatus.IN_HAND.toString(),
     render: (
-      <Badge variant="light" color="grape" size="lg" radius="md">
+      <Badge variant="light" color={BookStatusThemeColors[2]} size="lg" radius="md">
         {t('book.status.IN_HAND')}
       </Badge>
     ),
@@ -39,17 +41,20 @@ export const BookStatusOptions: SelectCustomProps['data'] = [
   {
     value: BookStatus.OFF.toString(),
     render: (
-      <Badge variant="light" color="gray" size="lg" radius="md">
+      <Badge variant="light" color={BookStatusThemeColors[4]} size="lg" radius="md">
         {t('book.status.OFF')}
       </Badge>
     ),
   },
 ];
 
+export const BookStatusWithReturnedThemeColors: DefaultMantineColor[] =
+  BookStatusThemeColors.toSpliced(3, 0, 'dark');
+
 export const BookStatusWithReturned: SelectCustomProps['data'] = BookStatusOptions.toSpliced(3, 0, {
   value: BookStatus.RETURNED.toString(),
   render: (
-    <Badge variant="light" color="dark" size="lg" radius="md">
+    <Badge variant="light" color={BookStatusWithReturnedThemeColors[3]} size="lg" radius="md">
       {t('book.status.RETURNED')}
     </Badge>
   ),

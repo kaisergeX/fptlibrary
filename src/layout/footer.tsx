@@ -1,6 +1,7 @@
 import {IconMail, IconPhone} from '@tabler/icons-react';
 import {useQuery} from '@tanstack/react-query';
 import {t} from 'i18next';
+import {useMemo} from 'react';
 import {Trans} from 'react-i18next';
 import {Link} from 'react-router-dom';
 import WorkplaceIcon from '~/assets/WorkplaceIcon';
@@ -12,11 +13,13 @@ import {arrSamples, classNames} from '~/util';
 import {http} from '~/util/http';
 
 export default function Footer({className = ''}: {className?: string}) {
-  const {data: genresFooter = []} = useQuery({
+  const {data: genres = []} = useQuery({
     queryKey: [QueryKey.GENRES],
     queryFn: () => http.get<GenresResData>(API.GENRES),
-    select: ({body}) => arrSamples(body, 5),
+    select: ({body}) => body,
   });
+
+  const genresFooter = useMemo(() => arrSamples(genres, 5), [genres]);
 
   return (
     <footer className={classNames('relative isolate bg-white dark:bg-black', className)}>

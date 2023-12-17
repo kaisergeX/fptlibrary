@@ -44,6 +44,7 @@ export type ListResponseData<T> = ResponseData<T> & {
   body: T[];
 
   count: number;
+  page: number;
   pageSize: number;
   numPages: number;
 };

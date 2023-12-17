@@ -14,6 +14,7 @@ import type {Book} from '~/types';
 import {bookColumnConfig} from '../books/book-table-config';
 import ScrollTopButton from '~/components/scroll-top-button';
 import type {DataTableColumn} from 'mantine-datatable';
+import CommonHeader from '~/layout/common-header';
 
 const mostPopularBooksColumn = (data: Book[]): DataTableColumn<Book>[] => {
   const columnConfig = bookColumnConfig.toSpliced(-1);
@@ -39,6 +40,7 @@ export default function DashboardStatistic() {
       bookStatistic,
       userStatistic,
       adminCount,
+      userCount,
       bookCreated,
       borrowCount,
       mostPopularBooks,
@@ -71,6 +73,7 @@ export default function DashboardStatistic() {
         bookCreated: overviewStatisticData.bookCreated,
         borrowCount: overviewStatisticData.borrowCount,
         adminCount: overviewStatisticData.adminCount,
+        userCount: overviewStatisticData.userCount,
         mostPopularBooks,
       };
     },
@@ -78,11 +81,14 @@ export default function DashboardStatistic() {
 
   return (
     <>
-      <div className="text-right">
-        {t('common.lastUpdatedAt')}:{' '}
-        <strong>{dayjs(overviewLastestDate).format('DD/MM/YYYY')}</strong>
-      </div>
-      <div className="glass mb-4 mt-2 flex divide-x-2 rounded-xl bg-[--mantine-color-body] py-8 [&>div]:px-4">
+      <CommonHeader title={t('dashboard.pageTitle')}>
+        <div className="text-right">
+          {t('common.lastUpdatedAt')}:{' '}
+          <strong>{dayjs(overviewLastestDate).format('DD/MM/YYYY')}</strong>
+        </div>
+      </CommonHeader>
+
+      <div className="glass mb-4 mt-2 grid grid-cols-2 gap-2 pb-8 sm:grid-cols-4 [&>div]:rounded-xl [&>div]:bg-[--mantine-color-body] [&>div]:p-4">
         <div>
           <div className="text-5xl font-bold">{bookCreated || '-'}</div>
           <h3>{t('dashboard.bookCreated')}</h3>
@@ -101,10 +107,14 @@ export default function DashboardStatistic() {
             />
           </div>
         </div>
+        <div>
+          <div className="text-5xl font-bold">{userCount || '-'}</div>
+          <h3>{t('role.reader')}</h3>
+        </div>
       </div>
       <div className="relative justify-around gap-4 overflow-x-clip sm:flex">
         <ActionIcon
-          className="absolute right-0 top-0 z-10 dark:text-inherit"
+          className="absolute right-0 top-0 z-[1] dark:text-inherit"
           variant="subtle"
           size="lg"
           radius="xl"

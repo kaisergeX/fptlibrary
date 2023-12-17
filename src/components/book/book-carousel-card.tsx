@@ -6,9 +6,10 @@ import {Link, generatePath} from 'react-router-dom';
 import {Path} from '~/config/path';
 import {usePersistStore} from '~/store';
 import type {Book} from '~/types';
-import {arrSamples, classNames, strReplaceSpace} from '~/util';
+import {classNames, strReplaceSpace} from '~/util';
 import AgeTags from './age-tags';
 import {BookStatus} from '~/constants';
+import {useMemo} from 'react';
 
 type BookCarouselCardProps = {
   className?: string;
@@ -29,6 +30,17 @@ const BookCarouselCard = ({
     state.books.includes(id),
     state.addBook,
   ]);
+
+  const renderGenres = useMemo(
+    () =>
+      genre.slice(0, 2).map(({id, genreName}) => (
+        <Badge key={id} className="max-w-[32vw] cursor-default" variant="outline">
+          <Trans t={t}>genre.{genreName}</Trans>
+        </Badge>
+      )),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [genre],
+  );
 
   const handleAction = () => {
     if (onActionClick) {
@@ -63,7 +75,7 @@ const BookCarouselCard = ({
       </Link>
       <article
         className={classNames(
-          'flex min-h-[calc(40vh-4rem)] w-80 flex-col justify-between gap-4 rounded-lg p-2 transition-colors duration-300 sm:p-4',
+          'flex w-80 flex-col justify-between gap-4 rounded-lg p-2 transition-colors duration-300 sm:min-h-[calc(40vh-4rem)] sm:p-4',
           'bg-zinc-50/10 text-black hover:bg-slate-100 dark:bg-zinc-900/10 dark:text-zinc-200 dark:hover:bg-[#1a1a1a] lg:bg-transparent',
           'basis-3/5 sm:basis-1/2',
         )}
@@ -81,14 +93,10 @@ const BookCarouselCard = ({
 
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <IconTags size="1.2rem" />
-            {arrSamples(genre, 2).map(({id, genreName}) => (
-              <Badge key={id} className="cursor-default" variant="outline">
-                <Trans t={t}>genre.{genreName}</Trans>
-              </Badge>
-            ))}
+            {renderGenres}
           </div>
 
-          <p className="mt-4 line-clamp-2 cursor-default text-gray-500 2xl:line-clamp-6">
+          <p className="mt-4 line-clamp-2 cursor-default text-gray-500 max-sm:text-sm 2xl:line-clamp-6">
             {summary}
           </p>
         </div>

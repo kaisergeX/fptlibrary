@@ -9,6 +9,7 @@ export type TopPage = {
     userActive: number;
     bookCreated: number;
     userBanned: number;
+    adminCount: number;
     borrowCount: number;
     availableBook: number;
     inHandBook: number;

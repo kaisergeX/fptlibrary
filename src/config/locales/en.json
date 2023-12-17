@@ -284,7 +284,8 @@
     "borrowCount": "Total count of book borrowed",
     "memberStatistic": "Membership Statistic",
     "userActive": "Active",
-    "userBanned": "Banned"
+    "userBanned": "Banned",
+    "totalAccount": "Total Accounts"
   },
   "users": {
     "pageGroupTitle": "User Manangement",

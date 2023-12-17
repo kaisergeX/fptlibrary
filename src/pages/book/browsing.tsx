@@ -25,11 +25,11 @@ import {Path, SEARCH_PARAMS} from '~/config/path';
 import {API, QueryKey} from '~/constants/service';
 import {Head} from '~/layout/outlet/Head';
 import type {Book, ResponseData} from '~/types';
-import {classNames, isMobile, safeAnyToNumber} from '~/util';
+import {classNames, isMobile} from '~/util';
 import {http} from '~/util/http';
 import BookFilter, {BOOK_FILTER_FORM_ID} from '~/components/book/book-filter';
 import NoData from '~/components/no-data';
-import {DEFAULT_PAGE, DEFAULT_PAGESIZE} from '~/config/system';
+import BooksPopover from '~/components/book/books-popover';
 
 export default function BookBrowsing() {
   const {t} = useTranslation();
@@ -47,21 +47,14 @@ export default function BookBrowsing() {
   );
 
   const {countFilterType = 0, queryParams} = useMemo(() => {
-    const getParamsObject = Object.fromEntries(searchParams);
-    const newQueryParams = {
-      ...getParamsObject,
-      numPages: safeAnyToNumber(getParamsObject.numPages, DEFAULT_PAGE) - 1,
-      pageSize: safeAnyToNumber(getParamsObject.pageSize, DEFAULT_PAGESIZE),
-    };
-
-    let countFilterType = Object.keys(newQueryParams).length;
+    let countFilterType = searchParams.size;
     if (searchParams.get(SEARCH_PARAMS.SEARCH)) {
       countFilterType--;
     }
 
     return {
-      countFilterType: countFilterType - 2,
-      queryParams: newQueryParams,
+      countFilterType: countFilterType,
+      queryParams: {...Object.fromEntries(searchParams), [SEARCH_PARAMS.PAGE_SIZE]: 100},
     };
   }, [searchParams]);
 
@@ -70,11 +63,15 @@ export default function BookBrowsing() {
     defaultValue: false,
   });
 
-  const {data: renderBooks} = useQuery({
+  const {data: bookData} = useQuery({
     queryKey: [QueryKey.BOOKS, queryParams],
     queryFn: () => http.get<ResponseData<Book[]>>(API.BOOKS, {params: queryParams}),
-    select: ({body: bookData}) =>
-      bookData.map((data) => (
+    select: ({body}) => body,
+  });
+
+  const renderBooks = useMemo(
+    () =>
+      bookData?.map((data) => (
         <BookCard
           key={data.id}
           className="cursor-pointer xl:max-w-xl"
@@ -83,7 +80,9 @@ export default function BookBrowsing() {
           horizontal={horizontalItem}
         />
       )),
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [bookData, horizontalItem],
+  );
 
   useHotkeys([['mod+K', () => searchInputRef.current?.focus()]]);
 
@@ -111,21 +110,25 @@ export default function BookBrowsing() {
       <div className="container mx-auto p-4">
         <div
           className={classNames(
-            'bg-default flex-center-between sticky top-0 z-10 -mx-4 mb-8 gap-2 p-4 sm:gap-4',
-            windowScrollY > 60 ? 'shadow-[0_8px_5px_-5px] shadow-slate-100 dark:shadow-none' : '',
+            'bg-default flex-center-between sticky top-0 z-10 -ml-4 mb-8 gap-2 p-4 transition-[margin] sm:gap-4',
+            windowScrollY > 60
+              ? 'shadow-[0_8px_5px_-5px] shadow-slate-100 dark:shadow-none max-xl:-mr-4 2xl:-mr-4'
+              : '-mr-4',
           )}
         >
           <div className="flex gap-2 max-sm:flex-1 max-sm:flex-col sm:items-center sm:gap-4">
             <div className="flex items-center transition-[height]">
               <AppLogo
                 className={classNames(
-                  'mb-2 transition-all duration-300 sm:hidden ',
+                  'mb-2 transition-all duration-300 xl:hidden',
                   windowScrollY < window.innerHeight * 0.2
                     ? 'h-0 w-0 opacity-0'
                     : 'mr-2 h-8 w-fit opacity-100',
                 )}
               />
-              <h2 className="font-bold sm:text-xl xl:text-3xl">{t('bookBrowsing.pageTitle')}</h2>
+              <h2 className="flex-1 font-bold sm:text-xl xl:text-3xl">
+                {t('bookBrowsing.pageTitle')}
+              </h2>
             </div>
             <Autocomplete
               ref={searchInputRef}
@@ -148,7 +151,18 @@ export default function BookBrowsing() {
             />
           </div>
 
-          <div className="flex items-center gap-4 max-sm:self-end">
+          <div className="flex items-center max-sm:flex-col sm:gap-2">
+            <div
+              className={classNames(
+                'transition-all duration-300 xl:hidden',
+                windowScrollY < window.innerHeight * 0.2
+                  ? 'pointer-events-none opacity-0'
+                  : 'opacity-100',
+              )}
+            >
+              <BooksPopover />
+            </div>
+
             <Indicator label={countFilterType} size={16} disabled={countFilterType === 0}>
               <Button
                 className="hidden sm:block"

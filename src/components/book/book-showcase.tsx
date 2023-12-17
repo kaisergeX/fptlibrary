@@ -44,7 +44,7 @@ export default function BookShowcase({
     <div className={classNames('relative flex items-start gap-4 sm-only:flex-col', className)}>
       <div
         className={classNames(
-          'sm:sticky sm:basis-1/3',
+          'mx-auto sm:sticky sm:basis-1/3',
           adminView ? 'top-[calc(var(--app-shell-header-height)+5rem)]' : 'top-8 xl:top-24',
         )}
       >

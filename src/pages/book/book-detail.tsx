@@ -107,7 +107,7 @@ export default function BookDetail() {
   return (
     <div className="container mx-auto p-4">
       <Head title={bookData.title || t('book.detail')} />
-      <BookShowcase className="pt-8 xl:pt-20" bookData={bookData} />
+      <BookShowcase className="pt-4 xl:pt-20" bookData={bookData} />
 
       <Divider className="my-4 sm:my-8" variant="dashed" />
 

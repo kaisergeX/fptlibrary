@@ -109,7 +109,7 @@ export default function DashboardStatistic() {
         </div>
         <div>
           <div className="text-5xl font-bold">{userCount || '-'}</div>
-          <h3>{t('role.reader')}</h3>
+          <h3>{t('dashboard.totalAccount')}</h3>
         </div>
       </div>
       <div className="relative justify-around gap-4 overflow-x-clip sm:flex">

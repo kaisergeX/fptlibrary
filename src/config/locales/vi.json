@@ -284,7 +284,8 @@
     "borrowCount": "Tổng lượt mượn sách",
     "memberStatistic": "Thống kê thành viên",
     "userActive": "Đang hoạt động",
-    "userBanned": "Bị cấm"
+    "userBanned": "Bị cấm",
+    "totalAccount": "Tổng số tài khoản"
   },
   "users": {
     "pageGroupTitle": "Quản lý người dùng",

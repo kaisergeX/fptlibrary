@@ -84,7 +84,7 @@ export default function DashboardStatistic() {
       <CommonHeader title={t('dashboard.pageTitle')}>
         <div className="text-right">
           {t('common.lastUpdatedAt')}:{' '}
-          <strong>{dayjs(overviewLastestDate).format('DD/MM/YYYY')}</strong>
+          <strong>00:05 - {dayjs(overviewLastestDate).format('DD/MM/YYYY')}</strong>
         </div>
       </CommonHeader>
 

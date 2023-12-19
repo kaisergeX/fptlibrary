@@ -82,7 +82,7 @@ export default function useAuth(
       if (body.needConfirm) {
         modals.openConfirmModal({
           classNames: {body: 'relative'},
-          children: <TermsAndConditions confirmSignup />,
+          children: <TermsAndConditions confirmSignup membershipGuideOnWorkplace />,
           labels: {confirm: t('terms.agree'), cancel: t('common.reject')},
           confirmProps: {variant: 'outline', leftSection: <IconCheck size="1.2rem" />},
           cancelProps: {color: 'red', variant: 'filled'},

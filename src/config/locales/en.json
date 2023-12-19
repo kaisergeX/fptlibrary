@@ -42,6 +42,7 @@
     "print": "Print",
     "confirm": "Confirm",
     "reject": "Reject",
+    "understand": "I understand",
     "cancelAction": "Cancel",
     "upload": "Upload",
     "completed": "Completed",
@@ -237,7 +238,7 @@
       "BOOKED": "Booked",
       "IN_HAND": "In hand",
       "RETURNED": "Returned",
-      "OFF": "Unavailable"
+      "OFF": "OFF"
     },
     "action": {
       "booked": "Order book",

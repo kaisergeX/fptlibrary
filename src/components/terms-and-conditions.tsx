@@ -2,15 +2,18 @@ import {useTranslation} from 'react-i18next';
 import ModalMembership from './modals/modal-membership';
 import {useState} from 'react';
 import {Button} from '@mantine/core';
+import WorkplaceIcon from '~/assets/WorkplaceIcon';
 
 type TermsAndConditionsProps = {
   hideGreeting?: boolean;
   confirmSignup?: boolean;
+  membershipGuideOnWorkplace?: boolean;
 };
 
 export default function TermsAndConditions({
   confirmSignup = false,
   hideGreeting = false,
+  membershipGuideOnWorkplace = false,
 }: TermsAndConditionsProps) {
   const {t} = useTranslation();
   const [openedMembershipGuide, setOpenedMembershipGuide] = useState(false);
@@ -29,14 +32,25 @@ export default function TermsAndConditions({
         {confirmSignup && <p>{t('terms.beforeContinue')}.</p>}
         <p>
           {t('terms.membership')}:{' '}
-          <Button
-            variant="light"
-            size="compact-md"
-            color="green"
-            onClick={() => setOpenedMembershipGuide(true)}
-          >
-            {t('users.membershipGuide')}
-          </Button>
+          {membershipGuideOnWorkplace ? (
+            <a
+              href="https://fpt.workplace.com/groups/1082042972793515"
+              className="inline-flex align-middle"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WorkplaceIcon /> {t('users.membershipGuide')}
+            </a>
+          ) : (
+            <Button
+              variant="light"
+              size="compact-md"
+              color="green"
+              onClick={() => setOpenedMembershipGuide(true)}
+            >
+              {t('users.membershipGuide')}
+            </Button>
+          )}
           <br />
           {t('users.renewMembership.noMembership')}
         </p>

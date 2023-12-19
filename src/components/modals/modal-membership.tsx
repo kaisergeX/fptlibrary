@@ -1,6 +1,7 @@
 import {Modal, Divider} from '@mantine/core';
 import {IconInfoCircle} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
+import WorkplaceIcon from '~/assets/WorkplaceIcon';
 
 type ModalMembershipProps = {
   title?: string;
@@ -45,12 +46,21 @@ export default function ModalMembership({title, opened, onClose}: ModalMembershi
       </div>
       <Divider my="lg" variant="dashed" />
       <h3>{t('users.renewMembership.bankTransfer')}</h3>
-      <p>
+
+      <a
+        href="https://fpt.workplace.com/groups/1082042972793515"
+        className="inline-flex align-middle"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <WorkplaceIcon /> {t('users.membershipGuide')}
+      </a>
+      {/* <p>
         {t('users.renewMembership.bankAccount')}:{' '}
         <span className="text-lg font-semibold">xxxxxx</span>
         <br />
         Ngân hàng A
-      </p>
+      </p> */}
 
       <Divider my="lg" variant="dashed" />
       <p>{t('users.renewMembership.noMembership')}</p>

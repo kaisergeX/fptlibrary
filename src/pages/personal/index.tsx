@@ -106,7 +106,7 @@ export default function PersonalPage() {
               ) : (
                 <>
                   {userInfo.expireDate ? dayjs(userInfo.expireDate).format('DD/MM/YYYY') : ''}{' '}
-                  {isLoadingUserInfo || dayjs(userInfo.expireDate).isAfter(dayjs()) || (
+                  {isLoadingUserInfo || userInfo.active || (
                     <div className="flex items-center">
                       <span className="font-bold text-rose-500">{t('users.status.expired')}</span>
 

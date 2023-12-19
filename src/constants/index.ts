@@ -29,6 +29,7 @@ export enum ImportStatus {
 export const BOOK_ACTIONS = {
   AVAILABLE: 'available',
   BOOKED: 'booked',
+  CANCEL: 'cancel', // users cancel their rent a book request (BOOKED status)
   IN_HAND: 'in_hand',
   RETURENED: 'returned', // Only use for QR actions
   OFF: 'off',

@@ -8,6 +8,7 @@ import {signal} from '@preact/signals-react';
 import type {Book, UserManagament} from '~/types';
 import {SERVICE_NAME} from '~/config/system';
 
+export const confirmCancelBooking = signal<Book | undefined>(undefined); // users cancel their rent a book request (BOOKED status)
 export const confirmRemoveBook = signal<Book | undefined>(undefined);
 export const confirmBanUser = signal<UserManagament | undefined>(undefined);
 export const confirmUnbanUser = signal<UserManagament | undefined>(undefined);

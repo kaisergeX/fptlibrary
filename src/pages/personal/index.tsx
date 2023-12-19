@@ -1,20 +1,38 @@
-import {ActionIcon, Avatar, Divider, Image, Tooltip} from '@mantine/core';
+import {
+  ActionIcon,
+  Avatar,
+  Button,
+  Divider,
+  Image,
+  LoadingOverlay,
+  Modal,
+  Tooltip,
+} from '@mantine/core';
+import {showNotification} from '@mantine/notifications';
+import {IconArrowBackUp} from '@tabler/icons-react';
 import {IconInfoCircleFilled} from '@tabler/icons-react';
 import {IconDiscountCheckFilled, IconMail} from '@tabler/icons-react';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import {t} from 'i18next';
 import type {DataTableColumn} from 'mantine-datatable';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Trans, useTranslation} from 'react-i18next';
+import {generatePath} from 'react-router-dom';
 import {BookStatusWithReturned} from '~/components/book/book-status';
 import DataGrid from '~/components/data-grid';
 import ModalMembership from '~/components/modals/modal-membership';
 import ZoomImage from '~/components/zoom-image';
+import {BOOK_ACTIONS, BookStatus} from '~/constants';
 import {API, QueryKey} from '~/constants/service';
 import useAuth from '~/hook/useAuth';
 import {Head} from '~/layout/outlet/Head';
-import type {Orders} from '~/types';
+import {confirmCancelBooking} from '~/store';
+import type {Book, Orders} from '~/types';
+import {NotiCode} from '~/types/notification';
 import {Role} from '~/types/store';
+import {findNotiConfig} from '~/util';
+import {http} from '~/util/http';
 
 const columnConfig: DataTableColumn<Orders>[] = [
   {
@@ -63,13 +81,54 @@ const columnConfig: DataTableColumn<Orders>[] = [
     title: t('common.status'),
     render: ({lastStatus}) => BookStatusWithReturned[lastStatus]?.render,
   },
+  {
+    accessor: 'actions',
+    title: t('common.actions'),
+    textAlign: 'center',
+    render: (data) =>
+      data?.lastStatus === BookStatus.BOOKED &&
+      data.book?.id && (
+        <ActionIcon
+          variant="subtle"
+          color="red"
+          onClick={() => (confirmCancelBooking.value = data.book)}
+        >
+          <IconArrowBackUp size="1.2rem" />
+        </ActionIcon>
+      ),
+  },
 ];
 
 export default function PersonalPage() {
+  const queryClient = useQueryClient();
   const {userInfo, isLoadingUserInfo} = useAuth();
   const {t} = useTranslation();
   const [openRenewMembershipGuide, setOpenRenewMembershipGuide] = useState(false);
   const isAdmin = userInfo.role === Role.ADMIN;
+
+  const {isPending, mutate: cancelBookingMutate} = useMutation({
+    mutationFn: (cancelBookId: Book['id']) =>
+      http.post(
+        generatePath(API.BOOK_ACTIONS, {actionType: BOOK_ACTIONS.CANCEL, id: cancelBookId}),
+      ),
+    onSuccess: async () => {
+      confirmCancelBooking.value = undefined;
+      await queryClient.invalidateQueries({queryKey: [QueryKey.ORDER_HISTORY]});
+      await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
+      showNotification({
+        ...findNotiConfig(NotiCode.SUCCESS),
+        message: t('common.success.action', {action: t('book.action.cancel')}),
+      });
+    },
+  });
+
+  useEffect(() => {
+    return () => {
+      if (confirmCancelBooking.value) {
+        confirmCancelBooking.value = undefined;
+      }
+    };
+  }, []);
 
   return (
     <div className="flex h-full flex-col gap-4 p-4">
@@ -141,6 +200,36 @@ export default function PersonalPage() {
         api={API.ORDER_HISTORY}
         columns={columnConfig}
       />
+
+      <Modal
+        opened={!!confirmCancelBooking.value}
+        onClose={() => (confirmCancelBooking.value = undefined)}
+        title={t('common.confirm')}
+        overlayProps={{backgroundOpacity: 0.5, blur: 2}}
+        withCloseButton={!isPending}
+        centered
+      >
+        <LoadingOverlay visible={isPending} />
+        <p className="mb-8">
+          {t('book.confirm.cancel')}: <strong>{confirmCancelBooking.value?.title}</strong>
+        </p>
+        <div className="flex items-center justify-end gap-4">
+          <Button variant="outline" onClick={() => (confirmCancelBooking.value = undefined)}>
+            {t('common.cancelAction')}
+          </Button>
+          <Button
+            variant="filled"
+            color="red"
+            leftSection={<IconArrowBackUp size="1rem" />}
+            onClick={() =>
+              confirmCancelBooking.value && cancelBookingMutate(confirmCancelBooking.value.id)
+            }
+            disabled={!confirmCancelBooking.value}
+          >
+            {t('book.action.cancel')}
+          </Button>
+        </div>
+      </Modal>
 
       <ModalMembership
         title={t('users.extendExpireDate')}

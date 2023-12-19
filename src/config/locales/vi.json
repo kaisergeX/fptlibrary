@@ -242,10 +242,12 @@
     },
     "action": {
       "booked": "Đặt sách",
+      "cancel": "Huỷ mượn sách",
       "returned": "Trả sách",
       "remove": "Xóa sách"
     },
     "confirm": {
+      "cancel": "Bạn muốn huỷ mượn sách",
       "return": "Bạn muốn trả sách",
       "remove": "Xin hãy xác nhận xóa sách"
     },

@@ -242,10 +242,12 @@
     },
     "action": {
       "booked": "Order book",
+      "cancel": "Cancel book",
       "returned": "Return the book",
       "remove": "Remove book"
     },
     "confirm": {
+      "cancel": "Please confirm whether you want to cancel your order for this book",
       "return": "Are you sure you want to return this book?",
       "remove": "Are you sure you want to remove this book?"
     },

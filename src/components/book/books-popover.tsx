@@ -71,7 +71,7 @@ const BooksPopover = () => {
 
       showNotification(findNotiConfig(NotiCode.BOOK_BOOKED));
       setBooks([]);
-      await queryClient.invalidateQueries({queryKey: [QueryKey.ORDER_BORROW]});
+      await queryClient.invalidateQueries({queryKey: [QueryKey.ORDER_HISTORY]});
       await queryClient.invalidateQueries({queryKey: [QueryKey.BOOKS]});
     },
   });

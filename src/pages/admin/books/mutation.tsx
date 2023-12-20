@@ -56,7 +56,8 @@ import StickyFooter from '~/layout/sticky-footer';
 import {showNotification} from '@mantine/notifications';
 import {classNames, findNotiConfig, safeAnyToNumber, strReplaceSpace} from '~/util';
 import {NotiCode} from '~/types/notification';
-import {useEffect} from 'react';
+import {newTypedFormData, type TypedFormData} from '~/types/form-data';
+import dayjs from 'dayjs';
 
 const validationSchema: z.ZodSchema<BookFormValues> = z.object({
   title: z.string({errorMap: zodCustomErrorMap}).trim().min(1, t('common.validation.required')),
@@ -74,7 +75,7 @@ const validationSchema: z.ZodSchema<BookFormValues> = z.object({
     .min(1, t('common.validation.required'))
     .max(MAX_GENRES, t('common.maxOptions', {max: MAX_GENRES})),
   country: z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
-  ageTag: z.string({errorMap: zodCustomErrorMap}).min(1, t('common.validation.required')),
+  ageTag: z.string({errorMap: zodCustomErrorMap}).nullish(),
   status: z.nativeEnum(BookStatus, {required_error: t('common.validation.required')}),
 });
 
@@ -88,7 +89,27 @@ export default function BookMutationPage() {
 
   const {data: bookData, isLoading: isBookDataLoading} = useQuery({
     queryKey: [QueryKey.BOOK_DETAIL, bookId],
-    queryFn: () => http.get<ResponseData<Book>>(generatePath(API.BOOK_DETAIL, {id: bookId!})),
+    queryFn: async () => {
+      const resData = await http.get<ResponseData<Book>>(
+        generatePath(API.BOOK_DETAIL, {id: bookId!}),
+      );
+      const data = resData?.body;
+      if (data) {
+        setInitialValues({
+          ...data,
+          price: safeAnyToNumber(data.price) || NaN,
+          genre: data.genre.map(({id: genreId}) => genreId.toString()),
+          country: data.country.id,
+          ageTag: data.ageTag?.id.toString(),
+          publishYear:
+            data?.publishYear && dayjs(data.publishYear).isValid()
+              ? new Date(data.publishYear)
+              : null,
+        });
+        reset();
+      }
+      return resData;
+    },
     select: ({body: data}) => {
       if (!data) {
         navigate(Path.CMS_BOOK, {replace: true});
@@ -109,18 +130,10 @@ export default function BookMutationPage() {
   ];
 
   const {isPending, mutate} = useMutation({
-    mutationFn: (payload: BookRequestData) =>
+    mutationFn: (payload: TypedFormData<BookRequestData>) =>
       bookId
-        ? http.put(generatePath(API.BOOK_MUTATION, {id: bookId}), payload, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        : http.post(generatePath(API.BOOK_MUTATION), payload, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }),
+        ? http.put(generatePath(API.BOOK_MUTATION, {id: bookId}), payload)
+        : http.post(generatePath(API.BOOK_MUTATION), payload),
     onSuccess: async () => {
       showNotification(findNotiConfig(NotiCode.SUCCESS));
       if (bookId) {
@@ -156,35 +169,38 @@ export default function BookMutationPage() {
     validateInputOnChange: true,
   });
 
-  const handleBookMutation = (values: BookFormValues) => {
-    const {cover, ...rest} = values;
-    const title = rest.title.trim();
-    const author = rest.author.trim();
+  const handleBookMutation = ({
+    cover,
+    genre,
+    publishYear,
+    title,
+    ageTag,
+    author,
+    ...otherValues
+  }: BookFormValues) => {
+    const processFormData = newTypedFormData<BookRequestData>();
+    Object.keys(otherValues).forEach((key) => {
+      const currKey = key as keyof typeof otherValues;
+      processFormData.append(currKey, otherValues[currKey]);
+    });
+    processFormData.append('title', title.trim());
+    processFormData.append('author', author.trim());
+    processFormData.append('genre', genre.join(','));
+    processFormData.append('ageTag', ageTag || '');
+    processFormData.append('publishYear', publishYear?.getFullYear().toString() || '');
 
     if (!(cover instanceof File)) {
       if (bookId) {
         // update book: if cover is string, it means cover is not changed -> opt out from mutation data.
-        mutate({
-          ...rest,
-          title,
-          author,
-          genre: values.genre.join(','),
-          publishYear: values.publishYear?.getFullYear(),
-        });
+        mutate(processFormData);
       }
 
       // create book: do nothing here cuz cover must be a File object
       return;
     }
 
-    mutate({
-      ...values,
-      title,
-      author,
-      cover,
-      genre: values.genre.join(','),
-      publishYear: values.publishYear?.getFullYear(),
-    });
+    processFormData.append('cover', cover);
+    mutate(processFormData);
   };
 
   const renderCoverPreview = () => {
@@ -209,23 +225,6 @@ export default function BookMutationPage() {
       </div>
     );
   };
-
-  useEffect(() => {
-    if (!bookData) {
-      return;
-    }
-
-    setInitialValues({
-      ...bookData,
-      price: safeAnyToNumber(bookData.price) || NaN,
-      genre: bookData.genre.map(({id: genreId}) => genreId.toString()),
-      country: bookData.country.id,
-      ageTag: bookData.ageTag.id.toString(),
-      publishYear: bookData?.publishYear ? new Date(bookData.publishYear) : null,
-    });
-    reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookData]);
 
   return (
     <div>
@@ -280,9 +279,8 @@ export default function BookMutationPage() {
             label={t('ageTag.def')}
             description={t('ageTag.select')}
             data={selectAgeTagList}
-            withAsterisk
-            allowDeselect={false}
             checkIconPosition="right"
+            clearable
             {...getInputProps('ageTag')}
           />
           <MultiSelect

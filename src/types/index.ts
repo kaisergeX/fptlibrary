@@ -79,7 +79,7 @@ export type Book = {
 
   genre: Genre[];
   country: Country;
-  ageTag: AgeTag;
+  ageTag?: AgeTag | null;
 
   episode?: number;
   totalEpisode?: number;
@@ -110,7 +110,7 @@ export type BookFormValues = {
 
   genre: string[];
   country: Country['id'];
-  ageTag: string;
+  ageTag?: string | null;
 
   publishYear?: Date | null;
   episode?: number;
@@ -123,7 +123,7 @@ export type BookFormValues = {
 export type BookRequestData = Omit<BookFormValues, 'cover' | 'genre' | 'publishYear'> & {
   cover?: File;
   genre: string;
-  publishYear?: number;
+  publishYear?: string | null;
 };
 
 export type BookImportRequest = {

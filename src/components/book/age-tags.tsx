@@ -8,20 +8,20 @@ import {
 } from '@tabler/icons-react';
 import type {ReactNode} from 'react';
 import {Trans, useTranslation} from 'react-i18next';
-import type {AgeTag} from '~/types';
+import type {Book} from '~/types';
 import {classNames} from '~/util';
 
 type AgeTagsComponentProps =
   | {
       className?: string;
-      data: AgeTag;
+      data?: Book['ageTag'];
       type?: 'icon';
       iconProps?: TablerIconsProps;
       disabledTooltip?: boolean;
     }
   | {
       className?: string;
-      data: AgeTag;
+      data?: Book['ageTag'];
       type: 'badge';
       iconProps?: never;
       disabledTooltip?: never;
@@ -60,13 +60,17 @@ const ageTagIcons = (iconProps?: TablerIconsProps): {name: string; icon: ReactNo
 
 export default function AgeTags({
   className = '',
-  data: {ageTagName},
+  data,
   type = 'icon',
   iconProps,
   disabledTooltip = false,
 }: AgeTagsComponentProps) {
   const {t} = useTranslation();
+  if (!data?.id) {
+    return undefined;
+  }
 
+  const ageTagName = data.ageTagName;
   const renderAgeTags = () => {
     if (type === 'badge') {
       return (

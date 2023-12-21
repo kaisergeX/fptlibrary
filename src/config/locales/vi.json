@@ -271,7 +271,8 @@
   },
 
   "bookBrowsing": {
-    "pageTitle": "Thư viện"
+    "pageTitle": "Thư viện",
+    "guide": "Hãy thử tìm kiếm và lọc kết quả"
   },
   "account": {
     "pageTitle": "Trang cá nhân",

@@ -1,5 +1,13 @@
 import {useAutoAnimate} from '@formkit/auto-animate/react';
-import {ActionIcon, Autocomplete, Button, Code, Drawer, Indicator} from '@mantine/core';
+import {
+  ActionIcon,
+  Autocomplete,
+  Button,
+  Code,
+  Drawer,
+  Indicator,
+  LoadingOverlay,
+} from '@mantine/core';
 import {
   useDebouncedState,
   useDisclosure,
@@ -63,7 +71,7 @@ export default function BookBrowsing() {
     defaultValue: false,
   });
 
-  const {data: bookData} = useQuery({
+  const {data: bookData, isLoading} = useQuery({
     queryKey: [QueryKey.BOOKS, queryParams],
     queryFn: () => http.get<ResponseData<Book[]>>(API.BOOKS, {params: queryParams}),
     select: ({body}) => body,
@@ -103,6 +111,12 @@ export default function BookBrowsing() {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      window.scrollTo(0, 0);
+    }
+  }, [bookData, isLoading]);
 
   return (
     <>
@@ -151,7 +165,7 @@ export default function BookBrowsing() {
             />
           </div>
 
-          <div className="flex items-center max-sm:flex-col sm:gap-2">
+          <div className="flex items-center gap-2 max-sm:flex-col">
             <div
               className={classNames(
                 'transition-all duration-300 xl:hidden',
@@ -199,36 +213,9 @@ export default function BookBrowsing() {
           </div>
         </div>
 
-        <Drawer
-          classNames={{
-            content: 'flex flex-col gap-4 max-w-[calc(100%-1rem)]',
-            body: 'flex-1 flex flex-col gap-4',
-          }}
-          opened={filterOpened}
-          offset={8}
-          radius="md"
-          onClose={closeFilter}
-          title={t('filter.query')}
-          position="right"
-          overlayProps={{backgroundOpacity: 0.5, blur: 2}}
-        >
-          <BookFilter className="flex-1 space-y-4" />
-          <div className="flex justify-end gap-4">
-            <Button variant="outline" type="reset" form={BOOK_FILTER_FORM_ID} onClick={closeFilter}>
-              {t('filter.reset')}
-            </Button>
-            <Button
-              type="submit"
-              form={BOOK_FILTER_FORM_ID}
-              leftSection={<IconFilter />}
-              onClick={closeFilter}
-            >
-              {t('common.confirm')}
-            </Button>
-          </div>
-        </Drawer>
+        <div className="min-h-[60vh]">
+          <LoadingOverlay visible={isLoading} zIndex={9} overlayProps={{blur: 2}} />
 
-        {renderBooks?.length ? (
           <div
             ref={animateBookList}
             className={classNames(
@@ -238,17 +225,65 @@ export default function BookBrowsing() {
                 : 'sm:grid-cols-3 xl:grid-cols-[repeat(auto-fill,minmax(18rem,_1fr))]',
             )}
           >
-            {renderBooks}
+            {!renderBooks?.length || renderBooks}
           </div>
-        ) : (
-          <NoData
-            className="py-20 opacity-80"
-            image={<IconCloudSearch strokeWidth="1.5" size="4rem" />}
-          >
-            {t('filter.noResult')}
-          </NoData>
-        )}
+
+          {renderBooks?.length ? (
+            <h3 key="book-browsing-guide" className="flex-center gap-1 sm:my-4">
+              {t('bookBrowsing.guide')}{' '}
+              {isMobile() ? (
+                <ActionIcon
+                  variant="subtle"
+                  radius="xl"
+                  onClick={() => searchInputRef.current?.focus()}
+                >
+                  <IconSearch size="1rem" />
+                </ActionIcon>
+              ) : (
+                <Code>{deviceOS === 'macos' ? '⌘ K' : 'Ctrl + K'}</Code>
+              )}
+            </h3>
+          ) : (
+            isLoading || (
+              <NoData
+                className="py-20 opacity-80"
+                image={<IconCloudSearch strokeWidth="1.5" size="4rem" />}
+              >
+                {t('filter.noResult')}
+              </NoData>
+            )
+          )}
+        </div>
       </div>
+
+      <Drawer
+        classNames={{
+          content: 'flex flex-col gap-4 max-w-[calc(100%-1rem)]',
+          body: 'flex-1 flex flex-col gap-4',
+        }}
+        opened={filterOpened}
+        offset={8}
+        radius="md"
+        onClose={closeFilter}
+        title={t('filter.query')}
+        position="right"
+        overlayProps={{backgroundOpacity: 0.5, blur: 2}}
+      >
+        <BookFilter className="flex-1 space-y-4" />
+        <div className="flex justify-end gap-4">
+          <Button variant="outline" type="reset" form={BOOK_FILTER_FORM_ID} onClick={closeFilter}>
+            {t('filter.reset')}
+          </Button>
+          <Button
+            type="submit"
+            form={BOOK_FILTER_FORM_ID}
+            leftSection={<IconFilter />}
+            onClick={closeFilter}
+          >
+            {t('common.confirm')}
+          </Button>
+        </div>
+      </Drawer>
     </>
   );
 }

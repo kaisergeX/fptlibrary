@@ -271,7 +271,8 @@
   },
 
   "bookBrowsing": {
-    "pageTitle": "Library"
+    "pageTitle": "Library",
+    "guide": "Try searching and filtering books"
   },
   "account": {
     "pageTitle": "Personal page",

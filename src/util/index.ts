@@ -48,7 +48,8 @@ export const findNotiConfig = (target: ErrorCode | NotiCode): NotificationData =
  * {@link https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm Durstenfeld shuffle}
  */
 export const arrShuffle = <T extends unknown[] = unknown[]>(arr: T, mutateSrc = false): T => {
-  const sourceArr = mutateSrc ? arr : structuredClone(arr);
+  const sourceArr = mutateSrc ? arr : (arr.slice() as T);
+  // const sourceArr = mutateSrc ? arr : structuredClone(arr); // structuredClone is not widely supported yet
 
   for (let i = sourceArr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1)); // can replace Math.floor with bitwise or (eg: 11.6 | 0 => 11)

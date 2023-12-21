@@ -19,7 +19,8 @@ export const createSystemPersistSlice: StateCreator<
 > = (set, get) => ({
   ...defaultPersistState,
   addBook: (bookId, showNoti = true) => {
-    const currBookList = structuredClone(get().books);
+    const currBookList = get().books.slice();
+    // const currBookList = structuredClone(get().books); // structuredClone is not widely supported yet
     if (currBookList.length >= MAX_SELECTED_BOOKS) {
       if (showNoti) {
         showNotification(findNotiConfig(NotiCode.BOOK_EXCEEDED));
@@ -43,7 +44,7 @@ export const createSystemPersistSlice: StateCreator<
     }
   },
   removeBook: (bookId, showNoti = true) => {
-    const currBookList = structuredClone(get().books);
+    const currBookList = get().books.slice();
     const removeBookIdx = currBookList.findIndex((id) => id === bookId);
     if (removeBookIdx === -1) {
       return;

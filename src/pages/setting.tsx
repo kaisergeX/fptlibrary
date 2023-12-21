@@ -5,6 +5,7 @@ import ThemeColors from '~/components/theme-colors';
 import {SupportedLanguage} from '~/constants';
 import AppLogo from '~/components/app-logo';
 import AccountMenu from '~/components/account-menu';
+import {usePersistStore} from '~/store';
 
 const countryFlag = {
   [SupportedLanguage.VI]: 'https://flagsapi.com/VN/flat/32.png',
@@ -15,6 +16,18 @@ const HiddenFeatures = () => {
   const {t, i18n} = useTranslation();
   const {colorScheme, toggleColorScheme} = useMantineColorScheme();
   const isDarkMode = colorScheme === 'dark';
+  const {theme: currentThemeColor, setTheme} = usePersistStore();
+
+  const handleToggleColorScheme = () => {
+    if (!isDarkMode && currentThemeColor === 'dark') {
+      setTheme('gray');
+    }
+
+    if (isDarkMode && currentThemeColor === 'gray') {
+      setTheme('dark');
+    }
+    toggleColorScheme();
+  };
 
   const renderLanguage = Object.values(SupportedLanguage).map((language) => (
     <ActionIcon
@@ -47,7 +60,7 @@ const HiddenFeatures = () => {
               size="lg"
               radius="xl"
               color={isDarkMode ? 'yellow' : ''}
-              onClick={() => toggleColorScheme()}
+              onClick={handleToggleColorScheme}
             >
               {isDarkMode ? <IconMoonStars size={18} /> : <IconSun size={18} />}
             </ActionIcon>
@@ -73,7 +86,7 @@ const HiddenFeatures = () => {
             size="lg"
             radius="xl"
             color={isDarkMode ? 'yellow' : ''}
-            onClick={() => toggleColorScheme()}
+            onClick={handleToggleColorScheme}
           >
             {isDarkMode ? <IconMoonStars size={18} /> : <IconSun size={18} />}
           </ActionIcon>

@@ -118,7 +118,7 @@ export default memo(function ModalImport({opened, title, onClose}: ModalImportPr
     >
       <a
         className="link-secondary inline-flex gap-1 font-semibold text-green-700 hover:text-green-600"
-        href={DOCUMENTS_URL.BOOKS_IMPORT_TEMPLATE}
+        href={`${DOCUMENTS_URL.BOOKS_IMPORT_TEMPLATE}?v=${Date.now()}`}
         target="_blank"
         rel="noopener noreferrer"
       >

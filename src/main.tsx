@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {HelmetProvider} from 'react-helmet-async';
 import {BrowserRouter} from 'react-router-dom';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {QueryClientProvider} from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {GlobalHistory} from './util/global-history.ts';
-import {DEFAULT_STALE_TIME} from './constants/service.ts';
 import {GoogleOAuthProvider} from '@react-oauth/google';
-import {GOOGLE_CLIENT_ID} from './config/system.ts';
+import {GOOGLE_CLIENT_ID, queryClient} from './config/system.ts';
 
 import 'dayjs/locale/vi';
 import './config/i18n';
@@ -27,13 +26,6 @@ import 'react-medium-image-zoom/dist/styles.css';
 
 dayjs.extend(relativeTime);
 dayjs.extend(customParseFormat);
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {retry: false, staleTime: DEFAULT_STALE_TIME},
-    mutations: {retry: false},
-  },
-});
 
 // sync query state and data accross browser tabs
 // https://tanstack.com/query/latest/docs/react/plugins/broadcastQueryClient

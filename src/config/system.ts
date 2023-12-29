@@ -1,5 +1,7 @@
 import type {DefaultMantineColor} from '@mantine/core';
+import {QueryClient} from '@tanstack/react-query';
 import {SupportedLanguage} from '~/constants';
+import {DEFAULT_STALE_TIME} from '~/constants/service';
 import {safeAnyToNumber} from '~/util';
 
 /**
@@ -45,3 +47,10 @@ export const ACCEPTED_IMPORT_FILE_EXTENSIONS = ['.xlsm'];
 
 export const MAX_FILE_SIZE_MB = 5; // 5MB
 export const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024; // 5.242.880 Bytes
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {retry: false, staleTime: DEFAULT_STALE_TIME},
+    mutations: {retry: false},
+  },
+});

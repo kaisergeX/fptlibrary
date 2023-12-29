@@ -58,6 +58,7 @@ export default function BookManagement() {
       <CommonHeader title={t('bookBrowsing.pageTitle')}>
         <div className="flex items-center gap-4">
           <Button
+            className="max-sm:hidden"
             leftSection={<IconFileSpreadsheet />}
             variant="outline"
             color="teal"

@@ -1,6 +1,8 @@
 import {type StateCreator} from 'zustand';
 import {Role, type AuthState, type AuthStore, type PersistStore} from '~/types/store';
 import {googleLogout} from '@react-oauth/google';
+import {queryClient} from '~/config/system';
+import {QueryKey} from '~/constants/service';
 
 export const defaultAuthState: AuthState = {
   isAuthenticated: false,
@@ -27,6 +29,7 @@ export const createAuthSlice: StateCreator<
   resetAuthStore: () => {
     get().setBooks([]);
     googleLogout();
+    queryClient.removeQueries({queryKey: [QueryKey.USER_INFO]});
     set(defaultAuthState);
   },
 });

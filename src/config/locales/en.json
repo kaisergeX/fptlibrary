@@ -302,8 +302,9 @@
     "ban": "Ban",
     "unban": "Unban",
     "extendExpireDate": "Membership renewal",
-    "newExpireDate": "Extended to",
+    "extendExpireDateTo": "Extended to",
     "expireDate": "Membership expiration date",
+    "newExpireDate": "New expiration date",
     "membership": "Membership",
     "membershipGuide": "Membership guide",
     "renewMembership": {

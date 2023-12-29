@@ -302,8 +302,9 @@
     "ban": "Cấm người dùng",
     "unban": "Kích hoạt tài khoản",
     "extendExpireDate": "Gia hạn thành viên",
-    "newExpireDate": "Gia hạn đến",
+    "extendExpireDateTo": "Gia hạn đến",
     "expireDate": "Hạn thành viên",
+    "newExpireDate": "Hạn thành viên mới",
     "membership": "Tư cách thành viên",
     "membershipGuide": "Hướng dẫn thành viên",
     "renewMembership": {

@@ -99,7 +99,7 @@ const Homepage = () => {
   const bookByGenres = useQueries({
     queries: sampledGenres.map(({id: genreId, genreName}, index) => ({
       queryKey: [QueryKey.BOOKS, sampledGenres.length, index],
-      queryFn: () => http.get<BooksResData>(API.BOOKS, {params: {genre: genreId}}),
+      queryFn: () => http.get<BooksResData>(API.BOOKS, {params: {[SEARCH_PARAMS.GENRE]: genreId}}),
       select: ({body: books}: BooksResData): ReactNode => {
         if (!Array.isArray(books) || books.length === 0) {
           return [];
@@ -107,7 +107,7 @@ const Homepage = () => {
 
         const booksCarouselData = books.map((bookData) => ({
           id: bookData.id,
-          content: <BookCarouselCard data={bookData} />,
+          content: <BookCarouselCard data={bookData} priorityGenre={genreId} />,
         }));
 
         return (

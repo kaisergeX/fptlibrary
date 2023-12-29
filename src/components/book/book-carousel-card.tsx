@@ -5,7 +5,7 @@ import {Trans, useTranslation} from 'react-i18next';
 import {Link, generatePath} from 'react-router-dom';
 import {Path} from '~/config/path';
 import {usePersistStore} from '~/store';
-import type {Book} from '~/types';
+import type {Book, Genre} from '~/types';
 import {classNames, strReplaceSpace} from '~/util';
 import AgeTags from './age-tags';
 import {BookStatus} from '~/constants';
@@ -14,6 +14,7 @@ import {useMemo} from 'react';
 type BookCarouselCardProps = {
   className?: string;
   data: Book;
+  priorityGenre?: Genre['id'];
   coverProps?: Omit<ImageProps, 'src'> & {alt?: string};
   onActionClick?: () => void;
 };
@@ -21,6 +22,7 @@ type BookCarouselCardProps = {
 const BookCarouselCard = ({
   className = '',
   data,
+  priorityGenre,
   onActionClick,
   coverProps,
 }: BookCarouselCardProps) => {
@@ -31,16 +33,20 @@ const BookCarouselCard = ({
     state.addBook,
   ]);
 
-  const renderGenres = useMemo(
-    () =>
-      genre.slice(0, 2).map(({id, genreName}) => (
-        <Badge key={id} className="max-w-[32vw] cursor-default" variant="outline">
-          <Trans t={t}>genre.{genreName}</Trans>
-        </Badge>
-      )),
+  const renderGenres = useMemo(() => {
+    const processedGenres: Genre[] = genre.slice();
+    const priorityGenreIndex = genre.findIndex(({id}) => id === priorityGenre);
+    if (priorityGenreIndex > -1) {
+      processedGenres.unshift(processedGenres.splice(priorityGenreIndex, 1)[0]); // move `priorityGenre` to the first
+    }
+
+    return processedGenres.slice(0, 2).map(({id, genreName}) => (
+      <Badge key={id} className="max-w-[32vw] cursor-default" variant="outline">
+        <Trans t={t}>genre.{genreName}</Trans>
+      </Badge>
+    ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [genre],
-  );
+  }, [genre, priorityGenre]);
 
   const handleAction = () => {
     if (onActionClick) {
@@ -113,7 +119,7 @@ const BookCarouselCard = ({
             radius="md"
             disabled={status !== BookStatus.AVAILABLE}
           >
-            {status === BookStatus.AVAILABLE ? t('common.rent') : t('book.existed.rented')}
+            {status === BookStatus.AVAILABLE ? t('book.select') : t('book.existed.rented')}
           </Button>
         )}
       </article>

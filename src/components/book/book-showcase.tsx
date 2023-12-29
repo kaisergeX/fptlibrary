@@ -118,7 +118,7 @@ export default function BookShowcase({
                   radius="md"
                   disabled={status !== BookStatus.AVAILABLE}
                 >
-                  {t('common.rent')}
+                  {t('book.select')}
                 </Button>
               )}
 

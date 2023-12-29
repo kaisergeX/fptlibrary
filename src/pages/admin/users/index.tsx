@@ -20,7 +20,7 @@ import {
   IconDiscountCheck,
   IconSquareRoundedChevronsDownFilled,
 } from '@tabler/icons-react';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {DatePicker} from '@mantine/dates';
 import dayjs from 'dayjs';
 import {useComputed} from '@preact/signals-react';
@@ -71,7 +71,7 @@ export default function UserManagement() {
       showNotification({
         ...findNotiConfig(NotiCode.SUCCESS),
         message: t('common.success.action', {
-          action: t(role === Role.ADMIN ? 'users.promote' : 'users.demote'),
+          action: t(role === Role.ADMIN ? 'users.demote' : 'users.promote'),
         }),
       });
     },
@@ -101,6 +101,40 @@ export default function UserManagement() {
 
   const isTableLoading = isPendingBanUser || isPendingPromoteUser || isPendingExtendExpiredDate;
 
+  const renderExtendDate = useMemo(() => {
+    if (!extendDate) {
+      return (
+        <>
+          {t('users.extendExpireDateTo')}: {t('book.notSelected')}
+        </>
+      );
+    }
+
+    const countDays = dayjs(extendDate).diff(dayjs().startOf('day'), 'day');
+    const extendDateFormatted = dayjs(extendDate).format('DD/MM/YYYY');
+
+    if (countDays < 0) {
+      return (
+        <>
+          {t('users.newExpireDate')}:{' '}
+          <strong>
+            {extendDateFormatted} ({t('users.status.expired')})
+          </strong>
+        </>
+      );
+    }
+
+    return (
+      <>
+        {t('users.extendExpireDateTo')}:{' '}
+        <strong>
+          {extendDateFormatted} ({t('common.countDay', {day: countDays})})
+        </strong>
+      </>
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [extendDate]);
+
   useEffect(() => {
     return () => {
       confirmBanUser.value = undefined;
@@ -127,7 +161,10 @@ export default function UserManagement() {
 
       <Modal
         opened={!!confirmExtendExpiredDate.value}
-        onClose={() => (confirmExtendExpiredDate.value = undefined)}
+        onClose={() => {
+          confirmExtendExpiredDate.value = undefined;
+          setExtendDate(null);
+        }}
         title={t('common.confirm')}
         overlayProps={{backgroundOpacity: 0.5, blur: 2}}
         withCloseButton={!isPendingExtendExpiredDate}
@@ -148,7 +185,7 @@ export default function UserManagement() {
                 value={extendDate}
                 onChange={setExtendDate}
                 defaultDate={minExtendDate.value}
-                minDate={minExtendDate.value}
+                // minDate={minExtendDate.value} // clients requested to not disable any dates
               />
             </div>
 
@@ -160,24 +197,17 @@ export default function UserManagement() {
                   <br /> - <br />
                 </>
               )}
-              {t('users.newExpireDate')}:{' '}
-              {extendDate ? (
-                <strong>
-                  {dayjs(extendDate).format('DD/MM/YYYY')} (
-                  {t('common.countDay', {
-                    day: dayjs(extendDate).diff(dayjs(), 'day') + 1,
-                  })}
-                  )
-                </strong>
-              ) : (
-                t('book.notSelected')
-              )}
+
+              {renderExtendDate}
             </p>
 
             <div className="flex items-center justify-end gap-4">
               <Button
                 variant="outline"
-                onClick={() => (confirmExtendExpiredDate.value = undefined)}
+                onClick={() => {
+                  confirmExtendExpiredDate.value = undefined;
+                  setExtendDate(null);
+                }}
               >
                 {t('common.cancelAction')}
               </Button>

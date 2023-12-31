@@ -1,10 +1,14 @@
 import {
   IconBan,
+  IconBooks,
   IconCheck,
   IconConfetti,
+  IconDatabaseExclamation,
   IconExclamationMark,
   IconInfoCircle,
+  IconKeyOff,
   IconQuestionMark,
+  IconSearch,
   IconUserX,
   IconWifiOff,
 } from '@tabler/icons-react';
@@ -54,6 +58,40 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     icon: <IconWifiOff />,
   },
   {
+    id: ErrorCode.QR_INVALID,
+    code: ErrorCode.QR_INVALID,
+    title: t('common.error.invalidQR.title'),
+    message: t('common.error.invalidQR.message'),
+    color: 'red',
+    icon: <IconBan />,
+    autoClose: false,
+  },
+
+  /**
+   * Server Errors
+   */
+  {
+    id: ErrorCode.NOT_FOUND,
+    code: ErrorCode.NOT_FOUND,
+    message: t('common.serverError.not_found'),
+    color: 'red',
+    icon: <IconSearch />,
+  },
+  {
+    id: ErrorCode.NO_DATA,
+    code: ErrorCode.NO_DATA,
+    message: t('common.serverError.no_data'),
+    color: 'red',
+    icon: <IconDatabaseExclamation />,
+  },
+  {
+    id: ErrorCode.LIMIT_BORROW,
+    code: ErrorCode.LIMIT_BORROW,
+    message: t('common.serverError.limit_borrow', {count: MAX_SELECTED_BOOKS}),
+    color: 'red',
+    icon: <IconBooks />,
+  },
+  {
     id: ErrorCode.BANNED,
     code: ErrorCode.BANNED,
     title: t('common.error.banned.title'),
@@ -63,13 +101,11 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     autoClose: false,
   },
   {
-    id: ErrorCode.QR_INVALID,
-    code: ErrorCode.QR_INVALID,
-    title: t('common.error.invalidQR.title'),
-    message: t('common.error.invalidQR.message'),
+    id: ErrorCode.TOKEN_NOT_VALID,
+    code: ErrorCode.TOKEN_NOT_VALID,
+    message: t('common.serverError.token_not_valid'),
     color: 'red',
-    icon: <IconBan />,
-    autoClose: false,
+    icon: <IconKeyOff />,
   },
 
   /**

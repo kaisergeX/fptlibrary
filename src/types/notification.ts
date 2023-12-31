@@ -6,8 +6,14 @@ export enum ErrorCode {
   ERR_BADREQUEST = 'ERR_BADREQUEST',
   ERR_BAD_REQUEST = 'ERR_BAD_REQUEST',
   ERR_NETWORK = 'ERR_NETWORK',
-  BANNED = 'banned',
   QR_INVALID = 'QR_INVALID',
+
+  // Server errors
+  NOT_FOUND = 'not_found',
+  NO_DATA = 'no_data',
+  LIMIT_BORROW = 'limit_borrow',
+  BANNED = 'banned',
+  TOKEN_NOT_VALID = 'token_not_valid',
 }
 
 export enum NotiCode {

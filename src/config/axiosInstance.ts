@@ -59,9 +59,14 @@ const handleResponseError = (error: Error | AxiosError | null) => {
       return Promise.reject(error);
     }
 
-    case 400:
-      notiConfig = findNotiConfig(ErrorCode.ERR_BADREQUEST);
+    case 400: {
+      // Try to show translated server err msg (mapping by server's error code)
+      const serverErrCode = errData?.error?.code;
+      notiConfig = findNotiConfig(
+        typeof serverErrCode === 'string' ? (serverErrCode as ErrorCode) : ErrorCode.ERR_BADREQUEST,
+      );
       break;
+    }
 
     case 403: {
       if (errData?.error?.code === ErrorCode.BANNED) {
@@ -75,12 +80,6 @@ const handleResponseError = (error: Error | AxiosError | null) => {
 
     default:
       break;
-  }
-
-  // Show a noti with server error msg
-  const serverErrMessage = errData?.error?.message;
-  if (serverErrMessage && typeof serverErrMessage === 'string') {
-    notiConfig.message = serverErrMessage;
   }
 
   showNotification(notiConfig);

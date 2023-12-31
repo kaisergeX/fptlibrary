@@ -120,6 +120,17 @@
       },
       "previewImage": "Cannot preview image"
     },
+    "serverError": {
+      "internal_server_error": "$t(common.error.sthWrong.action)",
+      "param_format_invalid": "$t(common.error.sthWrong.action)",
+      "bad_request": "$t(common.error.sthWrong.action)",
+      "not_found": "Not found",
+      "no_data": "No data",
+      "limit_borrow": "You can only borrow a maximum of {{count}} books",
+      "forbidden_action": "$t(common.error.sthWrong.action)",
+      "token_not_valid": "Please try logging in again",
+      "invalid": "$t(common.error.sthWrong.action)"
+    },
     "notFound": {
       "title": "Page not found!",
       "description": "The page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error, please get in touch with us."

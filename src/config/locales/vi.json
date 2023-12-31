@@ -120,6 +120,17 @@
       },
       "previewImage": "Không thể xem trước ảnh"
     },
+    "serverError": {
+      "internal_server_error": "$t(common.error.sthWrong.action)",
+      "param_format_invalid": "$t(common.error.sthWrong.action)",
+      "bad_request": "$t(common.error.sthWrong.action)",
+      "not_found": "Không tìm thấy kết quả",
+      "no_data": "Không có dữ liệu",
+      "limit_borrow": "Bạn chỉ có thể mượn tối đa {{count}} quyển sách",
+      "forbidden_action": "$t(common.error.sthWrong.action)",
+      "token_not_valid": "Xin hãy thử đăng nhập lại",
+      "invalid": "$t(common.error.sthWrong.action)"
+    },
     "notFound": {
       "title": "Không tìm thấy trang!",
       "description": "Trang bạn yêu cầu không tồn tại. Có thể bạn đã nhầm địa chỉ hoặc trang đã được chuyển sang đường dẫn khác.\nNếu bạn tin rằng đây là một lỗi, xin vui lòng liên hệ với chúng tôi."

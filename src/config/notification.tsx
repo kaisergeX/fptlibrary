@@ -92,7 +92,6 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     icon: <IconBooks />,
   },
   {
-    id: ErrorCode.BOOK_ALREADY_BORROWED,
     code: ErrorCode.BOOK_ALREADY_BORROWED,
     message: t('common.serverError.been_pre_ordered', {name: ''}),
     color: 'red',

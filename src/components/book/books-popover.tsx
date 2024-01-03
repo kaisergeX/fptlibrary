@@ -1,10 +1,10 @@
 import {Indicator, ActionIcon, Tooltip, Popover, Button} from '@mantine/core';
 import {useMutation, useQueries, useQueryClient} from '@tanstack/react-query';
-import {IconBooks, IconLogin2} from '@tabler/icons-react';
+import {IconBooks, IconExclamationCircle, IconLogin2} from '@tabler/icons-react';
 import {useTranslation} from 'react-i18next';
 import {generatePath, useNavigate} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
-import {usePersistStore} from '~/store';
+import {openNavbarMembershipModal, usePersistStore} from '~/store';
 import BookRentItem from './book-rent-item';
 import NoData from '../no-data';
 import {API, QueryKey} from '~/constants/service';
@@ -16,7 +16,8 @@ import type {AxiosError} from 'axios';
 import {findNotiConfig, promiseAllSettled} from '~/util';
 import {BOOK_ACTIONS, BookStatus} from '~/constants';
 import {showNotification} from '@mantine/notifications';
-import {NotiCode} from '~/types/notification';
+import {ErrorCode, NotiCode} from '~/types/notification';
+import useAuth from '~/hook/useAuth';
 
 const BooksPopover = () => {
   const {books: selectedBookIds, isAuthenticated, removeBook, setBooks} = usePersistStore();
@@ -24,6 +25,7 @@ const BooksPopover = () => {
   const {t} = useTranslation();
   const [animateDropdown] = useAutoAnimate();
   const queryClient = useQueryClient();
+  const {userInfo} = useAuth();
 
   const {data: renderSelectedBooks, isLoading} = useQueries({
     queries: selectedBookIds.map((bookId) => ({
@@ -59,12 +61,26 @@ const BooksPopover = () => {
 
   const {isPending, mutate: bookingMutate} = useMutation({
     mutationFn: (bookIds: Book['id'][]) =>
-      promiseAllSettled(
+      promiseAllSettled<unknown, AxiosError>(
         bookIds.map((bookId) =>
           http.post(generatePath(API.BOOK_ACTIONS, {actionType: BOOK_ACTIONS.BOOKED, id: bookId})),
         ),
       ),
-    onSuccess: async ({fulfilled}) => {
+    onSuccess: async ({fulfilled, rejected}) => {
+      if (rejected?.length) {
+        rejected.forEach((reason) => {
+          const errData = (reason?.response?.data as ResponseData<null> | undefined)?.error;
+          if (errData?.code === ErrorCode.BOOK_ALREADY_BORROWED) {
+            showNotification({
+              ...findNotiConfig(ErrorCode.BOOK_ALREADY_BORROWED),
+              message: t('common.serverError.been_pre_ordered', {
+                name: errData.message ? `"${errData.message}"` : '',
+              }),
+            });
+          }
+        });
+      }
+
       if (!fulfilled.length) {
         return;
       }
@@ -78,6 +94,51 @@ const BooksPopover = () => {
 
   const handleRent = () => {
     bookingMutate(selectedBookIds);
+  };
+
+  const renderButtonRent = () => {
+    if (!isAuthenticated) {
+      return (
+        <>
+          <span className="flex items-center sm-only:hidden">{t('book.memberOnly')}</span>
+          <Button
+            className="ml-auto"
+            onClick={() =>
+              navigate({
+                pathname: Path.LOGIN,
+                search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
+              })
+            }
+          >
+            <IconLogin2 size="1.2rem" /> {t('auth.login')}
+          </Button>
+        </>
+      );
+    }
+
+    if (!userInfo.active) {
+      return (
+        <>
+          <span className="flex items-center gap-2">
+            <IconExclamationCircle className="text-[--mantine-color-red-filled]" size="1.2rem" />{' '}
+            {t('users.membershipExpired')}
+          </span>
+          <Button
+            variant="outline"
+            size="compact-md"
+            onClick={() => (openNavbarMembershipModal.value = true)}
+          >
+            {t('common.guide')}
+          </Button>
+        </>
+      );
+    }
+
+    return (
+      <Button className="ml-auto" onClick={handleRent} disabled={isPending}>
+        {t('common.rent')}
+      </Button>
+    );
   };
 
   const renderPopoverDropdown = () => {
@@ -103,26 +164,7 @@ const BooksPopover = () => {
         </div>
 
         <div className="shadow-t-theme flex-center-between sticky inset-x-0 bottom-0 gap-2 bg-inherit p-4">
-          {isAuthenticated ? (
-            <Button className="ml-auto" onClick={handleRent} disabled={isPending}>
-              {t('common.rent')}
-            </Button>
-          ) : (
-            <>
-              <span className="flex items-center sm-only:hidden">{t('book.memberOnly')}</span>
-              <Button
-                className="ml-auto"
-                onClick={() =>
-                  navigate({
-                    pathname: Path.LOGIN,
-                    search: `${SEARCH_PARAMS.REDIRECT_URL}=${location.pathname}`,
-                  })
-                }
-              >
-                <IconLogin2 size="1.2rem" /> {t('auth.login')}
-              </Button>
-            </>
-          )}
+          {renderButtonRent()}
         </div>
       </>
     );

@@ -32,6 +32,7 @@ export const usersColumnConfig: DataTableColumn<UserManagament>[] = [
                 fallbackSrc={`https://placehold.co/100x150?text=${name}`}
                 alt={`Book cover - ${name}`}
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
             </div>
           </ZoomImage>

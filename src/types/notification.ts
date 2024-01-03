@@ -13,6 +13,7 @@ export enum ErrorCode {
   NO_DATA = 'no_data',
   LIMIT_BORROW = 'limit_borrow',
   BANNED = 'banned',
+  BOOK_ALREADY_BORROWED = 'been_pre_ordered',
   TOKEN_NOT_VALID = 'token_not_valid',
 }
 

@@ -92,6 +92,14 @@ const notiGenConfigs = (t: (typeof i18next)['t']): NotiConfig[] => [
     icon: <IconBooks />,
   },
   {
+    id: ErrorCode.BOOK_ALREADY_BORROWED,
+    code: ErrorCode.BOOK_ALREADY_BORROWED,
+    message: t('common.serverError.been_pre_ordered', {name: ''}),
+    color: 'red',
+    icon: <IconBooks />,
+    autoClose: 8000,
+  },
+  {
     id: ErrorCode.BANNED,
     code: ErrorCode.BANNED,
     title: t('common.error.banned.title'),

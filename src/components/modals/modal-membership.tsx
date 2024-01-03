@@ -7,9 +7,15 @@ type ModalMembershipProps = {
   title?: string;
   opened: boolean;
   onClose: () => void;
+  zIndex?: number;
 };
 
-export default function ModalMembership({title, opened, onClose}: ModalMembershipProps) {
+export default function ModalMembership({
+  title,
+  opened,
+  onClose,
+  zIndex = 201,
+}: ModalMembershipProps) {
   const {t} = useTranslation();
   return (
     <Modal
@@ -21,7 +27,7 @@ export default function ModalMembership({title, opened, onClose}: ModalMembershi
       radius="md"
       size="lg"
       centered
-      zIndex={201}
+      zIndex={zIndex}
     >
       <div className="my-4 flex items-center gap-4 text-center max-sm:flex-col">
         <div className="w-full rounded-2xl bg-white p-4 shadow-lg dark:bg-gray-800 sm:basis-1/2">

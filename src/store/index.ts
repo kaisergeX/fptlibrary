@@ -14,6 +14,7 @@ export const confirmBanUser = signal<UserManagament | undefined>(undefined);
 export const confirmUnbanUser = signal<UserManagament | undefined>(undefined);
 export const confirmPromoteUser = signal<UserManagament | undefined>(undefined);
 export const confirmExtendExpiredDate = signal<UserManagament | undefined>(undefined);
+export const openNavbarMembershipModal = signal(false);
 
 export const usePersistStore = create<PersistStore>()(
   persist(

@@ -47,6 +47,7 @@
     "cancelAction": "Huỷ hành động",
     "upload": "Tải lên",
     "completed": "Hoàn thành",
+    "guide": "Hướng dẫn",
 
     "createdAt": "Ngày tạo",
     "updatedAt": "Ngày cập nhật",
@@ -129,6 +130,7 @@
       "limit_borrow": "Bạn chỉ có thể mượn tối đa {{count}} quyển sách",
       "forbidden_action": "$t(common.error.sthWrong.action)",
       "token_not_valid": "Xin hãy thử đăng nhập lại",
+      "been_pre_ordered": "Sách {{name}} đã được mượn, vui lòng chọn sách khác",
       "invalid": "$t(common.error.sthWrong.action)"
     },
     "notFound": {
@@ -317,6 +319,7 @@
     "expireDate": "Hạn thành viên",
     "newExpireDate": "Hạn thành viên mới",
     "membership": "Tư cách thành viên",
+    "membershipExpired": "Hết hạn thành viên",
     "membershipGuide": "Hướng dẫn thành viên",
     "renewMembership": {
       "noMembership": "Bạn vẫn có thể xem thông tin và tìm kiếm danh sách những đầu sách thuộc thư viện Cudek kể cả khi hết hạn hoặc không phải là thành viên.",

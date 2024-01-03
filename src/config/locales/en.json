@@ -46,6 +46,7 @@
     "cancelAction": "Cancel",
     "upload": "Upload",
     "completed": "Completed",
+    "guide": "Guide",
 
     "createdAt": "Created at",
     "updatedAt": "Updated at",
@@ -129,6 +130,7 @@
       "limit_borrow": "You can only borrow a maximum of {{count}} books",
       "forbidden_action": "$t(common.error.sthWrong.action)",
       "token_not_valid": "Please try logging in again",
+      "been_pre_ordered": "The book {{name}} has been borrowed by someone else",
       "invalid": "$t(common.error.sthWrong.action)"
     },
     "notFound": {
@@ -317,6 +319,7 @@
     "expireDate": "Membership expiration date",
     "newExpireDate": "New expiration date",
     "membership": "Membership",
+    "membershipExpired": "Membership expired",
     "membershipGuide": "Membership guide",
     "renewMembership": {
       "noMembership": "You can still access the Cudek library information and browse the list of books without an active membership.",

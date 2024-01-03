@@ -1,4 +1,5 @@
-import {ActionIcon, Avatar, Menu, Tooltip} from '@mantine/core';
+import {ActionIcon, Avatar, Indicator, Menu, Tooltip} from '@mantine/core';
+import {IconExclamationCircle} from '@tabler/icons-react';
 import {
   IconUser,
   IconUserQuestion,
@@ -13,7 +14,7 @@ import {t} from 'i18next';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {Path, SEARCH_PARAMS} from '~/config/path';
 import useAuth from '~/hook/useAuth';
-import {usePersistStore} from '~/store';
+import {openNavbarMembershipModal, usePersistStore} from '~/store';
 import {Role} from '~/types/store';
 
 export default function AccountMenu() {
@@ -22,6 +23,7 @@ export default function AccountMenu() {
   const {userInfo} = useAuth();
   const {pathname} = useLocation();
   const isAdmin = userInfo.role === Role.ADMIN;
+  const isExpired = !isAdmin && !userInfo.active;
 
   const handleLogout = () => {
     resetAuthStore(); // this will remove user info, selected books from storage and call googleLogout function too.
@@ -32,15 +34,17 @@ export default function AccountMenu() {
     <Menu shadow="md" width={200}>
       <Menu.Target>
         {isAuthenticated ? (
-          <Avatar
-            className="[&>.mantine-Avatar-placeholder]:text-theme cursor-pointer hover:bg-[--mantine-color-dark-light-hover]"
-            variant="transparent"
-            color="inherit"
-            size={34}
-            src={userInfo.avatar}
-          >
-            <IconUser />
-          </Avatar>
+          <Indicator color="red" size={16} withBorder disabled={!isExpired}>
+            <Avatar
+              className="[&>.mantine-Avatar-placeholder]:text-theme cursor-pointer hover:bg-[--mantine-color-dark-light-hover]"
+              variant="transparent"
+              color="inherit"
+              size={34}
+              src={userInfo.avatar}
+            >
+              <IconUser />
+            </Avatar>
+          </Indicator>
         ) : (
           <ActionIcon
             variant="subtle"
@@ -69,6 +73,18 @@ export default function AccountMenu() {
                       />
                     </div>
                   </Tooltip>
+                )}
+
+                {isExpired && (
+                  <ActionIcon
+                    variant="subtle"
+                    color="red"
+                    size="sm"
+                    radius="xl"
+                    onClick={() => (openNavbarMembershipModal.value = true)}
+                  >
+                    <IconExclamationCircle />
+                  </ActionIcon>
                 )}
               </div>
 

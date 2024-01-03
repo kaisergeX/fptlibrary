@@ -178,6 +178,7 @@ export default function PersonalPage() {
                         <ActionIcon
                           variant="subtle"
                           color="red"
+                          radius="xl"
                           onClick={() => setOpenRenewMembershipGuide(true)}
                         >
                           <IconInfoCircleFilled size="1.2rem" />

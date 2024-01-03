@@ -62,6 +62,12 @@ const handleResponseError = (error: Error | AxiosError | null) => {
     case 400: {
       // Try to show translated server err msg (mapping by server's error code)
       const serverErrCode = errData?.error?.code;
+
+      // BOOK_ALREADY_BORROWED error will be manually handled by the related mutation.
+      if (serverErrCode === ErrorCode.BOOK_ALREADY_BORROWED) {
+        return Promise.reject(error);
+      }
+
       notiConfig = findNotiConfig(
         typeof serverErrCode === 'string' ? (serverErrCode as ErrorCode) : ErrorCode.ERR_BADREQUEST,
       );

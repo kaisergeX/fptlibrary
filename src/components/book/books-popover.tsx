@@ -18,6 +18,7 @@ import {BOOK_ACTIONS, BookStatus} from '~/constants';
 import {showNotification} from '@mantine/notifications';
 import {ErrorCode, NotiCode} from '~/types/notification';
 import useAuth from '~/hook/useAuth';
+import {Role} from '~/types/store';
 
 const BooksPopover = () => {
   const {books: selectedBookIds, isAuthenticated, removeBook, setBooks} = usePersistStore();
@@ -116,7 +117,7 @@ const BooksPopover = () => {
       );
     }
 
-    if (!userInfo.active) {
+    if (userInfo.role === Role.READER && !userInfo.active) {
       return (
         <>
           <span className="flex items-center gap-2">
